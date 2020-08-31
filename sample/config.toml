@@ -1,0 +1,7 @@
+[s3]
+endpoint   = "s3.zwytest.com"
+accessKey  = "znO4FsoZop7L4GII"
+secretKey  = "LHuyeubvQvHu2aiDwXJQXfwxzjnm2P"
+bucketName = "gosdktest"
+objectKey = "gosdkkey"
+localFilePath = "sample/L.jpeg"

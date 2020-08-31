@@ -1,41 +1,48 @@
 package s3
 
 import (
-	"github.com/uos-sdk-go/s3/log"
 	"net/http"
 
-	"github.com/uos-sdk-go/s3/auxiliary"
 	. "github.com/uos-sdk-go/s3/client"
 	"github.com/uos-sdk-go/s3/credential"
-	"github.com/uos-sdk-go/s3/handler"
+	"github.com/uos-sdk-go/s3/helper"
+	"github.com/uos-sdk-go/s3/log"
 	"github.com/uos-sdk-go/s3/request"
+	v4 "github.com/uos-sdk-go/s3/signature/v4"
 )
 
 type Client struct {
 	Metadata    Metadata
-	Config      auxiliary.Config
+	Config      helper.Config
 	Credentials *credential.Credentials
-	Handlers    handler.Handlers
+	Handlers    request.Handlers
 	Logger      *log.Logger
-
-	HTTPClient *http.Client
+	HTTPClient  *http.Client
 }
 
 // NewClient creates a new client for request.
-func NewClient(config auxiliary.Config) *Client {
+func NewClient(config helper.Config) *Client {
 	client := &Client{
 		Metadata: Metadata{
-			ServiceName:   auxiliary.ServiceName,
-			ServiceID:     auxiliary.ServiceID,
-			APIVersion:    auxiliary.APIVersion,
-			SigningName:   auxiliary.ServiceNameForSign,
-			SigningRegion: auxiliary.SDKSigningRegion,
+			ServiceName:   helper.ServiceName,
+			ServiceID:     helper.ServiceID,
+			APIVersion:    helper.APIVersion,
+			SigningName:   helper.ServiceNameForSign,
+			SigningRegion: helper.SDKSigningRegion,
 		},
 		Config:      config,
 		Credentials: config.Credentials,
-		Handlers: handler.
-			Logger:      config.Logger,
+		Handlers:    request.NewHandlers(),
+		Logger:      config.Logger,
+		HTTPClient:  NewHttpClient(),
 	}
+
+	client.Handlers.Sign.PushBackHandlerItem(v4.SignV4Handler)
+	client.Handlers.Sign.ForStopHandlers = request.StopHandlerListOnErr
+	client.Handlers.Marshal.PushBackHandlerItem(request.MarshalRequestHandler)
+	client.Handlers.Marshal.ForStopHandlers = request.StopHandlerListOnErr
+	client.Handlers.Unmarshal.PushBackHandlerItem(request.UnmarshalRequestHandler)
+	client.Handlers.Unmarshal.ForStopHandlers = request.StopHandlerListOnErr
 
 	return client
 }
@@ -43,7 +50,7 @@ func NewClient(config auxiliary.Config) *Client {
 // newRequest creates a new request for a client operation and runs any
 // custom request initialization.
 func (c *Client) newRequest(op *request.Operation, params, data interface{}) *request.Request {
-	req := request.NewRequest(c.Config, c.Metadata, op, params, data)
+	req := request.NewRequest(c.Config, c.Metadata, c.Handlers, c.HTTPClient, op, params, data)
 
 	return req
 }

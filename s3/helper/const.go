@@ -1,4 +1,4 @@
-package auxiliary
+package helper
 
 const (
 	SDKName    = "uos-sdk-go"
@@ -36,7 +36,7 @@ const (
 	UOSSignShortTimeFormat = "20060102"             // Shorten time format used in the credential scope
 )
 
-// request
+// header
 const (
-	UOSRequestID = "uos-sdk-request-id"
+	UOSRequestID = "X-Uos-Request-Id"
 )

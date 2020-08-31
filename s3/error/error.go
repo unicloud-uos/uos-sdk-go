@@ -1,6 +1,9 @@
 package error
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+)
 
 type Error interface {
 	error
@@ -19,14 +22,14 @@ func SprintError(code, description, extra string, error error) string {
 	return msg
 }
 
-type baseError struct {
+type BaseError struct {
 	errCode     string
 	description string
 	error       error
 }
 
-func NewBaseError(code, message string, err error) *baseError {
-	b := &baseError{
+func NewBaseError(code, message string, err error) *BaseError {
+	b := &BaseError{
 		errCode:     code,
 		description: message,
 		error:       err,
@@ -34,19 +37,19 @@ func NewBaseError(code, message string, err error) *baseError {
 	return b
 }
 
-func (b baseError) Error() string {
+func (b BaseError) Error() string {
 	return SprintError(b.errCode, b.description, "", b.error)
 }
 
-func (b baseError) String() string {
+func (b BaseError) String() string {
 	return b.Error()
 }
 
-func (b baseError) ErrorCode() string {
+func (b BaseError) ErrorCode() string {
 	return b.errCode
 }
 
-func (b baseError) Description() string {
+func (b BaseError) Description() string {
 	return b.description
 }
 
@@ -71,7 +74,6 @@ var ErrorCodeStruct = map[ErrCode]SDKError{
 		ErrorCode:   "MissingRegion",
 		Description: "could not find region configuration",
 	},
-
 }
 
 func (e ErrCode) Error() string {
@@ -80,4 +82,30 @@ func (e ErrCode) Error() string {
 		return "InternalError"
 	}
 	return fmt.Sprintf(err.ErrorCode, err.Description)
+}
+
+type ResponseError struct {
+	Response *http.Response
+}
+
+func (e *ResponseError) Error() string {
+	return fmt.Sprintf("HTTP response error, %s, %d",
+		e.Response.Status, e.Response.StatusCode)
+}
+
+type apiError struct {
+	Err        Error
+	StatusCode int
+}
+
+func NewApiError(err Error, statusCode int) *apiError {
+	return &apiError{
+		Err:        err,
+		StatusCode: statusCode,
+	}
+}
+
+func (a apiError) Error() string {
+	extra := fmt.Sprintf("status code: %d", a.StatusCode)
+	return SprintError(a.Err.ErrorCode(), a.Err.Description(), extra, nil)
 }

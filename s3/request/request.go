@@ -7,24 +7,27 @@ import (
 	"net/url"
 	"reflect"
 	"strings"
+	"sync"
 	"time"
 
-	"github.com/uos-sdk-go/s3/auxiliary"
-	"github.com/uos-sdk-go/s3/client"
+	. "github.com/uos-sdk-go/s3/client"
 	. "github.com/uos-sdk-go/s3/error"
+	. "github.com/uos-sdk-go/s3/helper"
 )
 
 // Request is the service request to be made.
 type Request struct {
-	ID                 string
-	Config             auxiliary.Config
-	Metadata           client.Metadata
+	RequestID          string
+	Config             Config
+	Metadata           Metadata
+	Handlers           Handlers
 	Time               time.Time
 	AttemptTime        time.Time
 	ExpireTime         time.Duration
 	Operation          *Operation
 	HTTPRequest        *http.Request
 	HTTPResponse       *http.Response
+	HTTPClient         *http.Client
 	SignedHeaderValues http.Header
 	Body               io.ReadSeeker
 	BodyStart          int64 // offset of Body that the request body starts
@@ -32,6 +35,12 @@ type Request struct {
 	Error              error
 	Data               interface{}
 	build              bool
+	LastSignedTime     time.Time
+	// Need to persist an intermediate body between the input Body and HTTP
+	// request body because the HTTP Client's transport can maintain a reference
+	// to the HTTP request's body after the client has returned. This value is
+	// safe to use concurrently and wrap the input Body for each HTTP request.
+	safeBody *offsetReader
 }
 
 // An Operation is the service API operation to be made.
@@ -43,7 +52,7 @@ type Operation struct {
 
 // New returns a new Request pointer for the service API
 // operation and parameters.
-func NewRequest(cfg auxiliary.Config, metadata client.Metadata,
+func NewRequest(cfg Config, metadata Metadata, handlers Handlers, client *http.Client,
 	operation *Operation, params interface{}, data interface{}) *Request {
 
 	method := operation.HTTPMethod
@@ -61,15 +70,21 @@ func NewRequest(cfg auxiliary.Config, metadata client.Metadata,
 	}
 
 	ResetHostForHeader(request)
+	if !cfg.RedirectEnabled {
+		DisableHTTPRedirect(client)
+	}
 
 	r := &Request{
 		Config:      cfg,
 		Metadata:    metadata,
+		Handlers:    handlers,
 		Time:        time.Now(),
 		Operation:   operation,
 		HTTPRequest: request,
+		HTTPClient:  client,
 		Params:      params,
 		Data:        data,
+		Error:       err,
 	}
 
 	return r
@@ -80,6 +95,61 @@ func (r *Request) SetContext(ctx context.Context) {
 		panic("context cannot be nil")
 	}
 	r.HTTPRequest = r.HTTPRequest.WithContext(ctx)
+}
+
+func (r *Request) SetReaderBody(reader io.ReadSeeker) {
+	r.Body = reader
+	var err error
+	// Get the Bodies current offset so retries will start from the same
+	// initial position.
+	r.BodyStart, err = reader.Seek(0, io.SeekCurrent)
+	if err != nil {
+		r.Error = NewBaseError("SerializationError", "failed to determine start of request body", err)
+		return
+	}
+	r.ResetBody()
+}
+
+func (r *Request) ResetBody() {
+	body, err := r.getNextRequestBody()
+	if err != nil {
+		r.Error = NewBaseError("SerializationError", "failed to reset request body", err)
+		return
+	}
+
+	r.HTTPRequest.Body = body
+	r.HTTPRequest.GetBody = r.getNextRequestBody
+}
+
+func (r *Request) getNextRequestBody() (body io.ReadCloser, err error) {
+	if r.safeBody != nil {
+		r.safeBody.Close()
+	}
+
+	r.safeBody, err = newOffsetReader(r.Body, r.BodyStart)
+	if err != nil {
+		return nil, NewBaseError("SerializationError", "failed to get request body error", err)
+	}
+
+	l, err := seekerLen(r.Body)
+	if err != nil {
+		return nil, NewBaseError("SerializationError", "failed to compute request body size", err)
+	}
+
+	if l == 0 {
+		body = http.NoBody
+	} else if l > 0 {
+		body = r.safeBody
+	} else {
+		switch r.Operation.HTTPMethod {
+		case "GET", "HEAD", "DELETE":
+			body = http.NoBody
+		default:
+			body = r.safeBody
+		}
+	}
+
+	return body, nil
 }
 
 // ResetHostForHeader removes replace default port from host and updates request.Host
@@ -139,14 +209,8 @@ func isDefaultPort(scheme, port string) bool {
 }
 
 func (r *Request) Do() error {
-	defer func() {
-		// Regardless of success or failure of the request trigger the Complete
-		// request handlers.
-		r.Handlers.Complete.Run(r)
-	}()
-
-	if err := r.Error; err != nil {
-		return err
+	if r.Error != nil {
+		return r.Error
 	}
 
 	for {
@@ -158,20 +222,8 @@ func (r *Request) Do() error {
 			return err
 		}
 
-		if err := r.sendRequest(); err == nil {
+		if err := r.doRequest(); err == nil {
 			return nil
-		} else if !shouldRetryCancel(r.Error) {
-			return err
-		} else {
-			r.Handlers.Retry.Run(r)
-			r.Handlers.AfterRetry.Run(r)
-
-			if r.Error != nil || !aws.BoolValue(r.Retryable) {
-				return r.Error
-			}
-
-			r.prepareRetry()
-			continue
 		}
 	}
 }
@@ -196,7 +248,7 @@ func (r *Request) Build() error {
 			reqDebugLog(r, "Validate Request", r.Error)
 			return r.Error
 		}
-		r.Handlers.Build.Run(r)
+		r.Handlers.Set.Run(r)
 		if r.Error != nil {
 			reqDebugLog(r, "Build Request", r.Error)
 			return r.Error
@@ -208,22 +260,8 @@ func (r *Request) Build() error {
 }
 
 func (r *Request) doRequest() (sendErr error) {
-	defer r.Handlers.CompleteAttempt.Run(r)
-	defer func() {
-		if r.Error != nil {
-			r.Handlers.ShouldRetry.Run(r)
-		}
-	}()
-
 	r.Handlers.Send.Run(r)
 	if r.Error != nil {
-		return r.Error
-	}
-
-	r.Handlers.UnmarshalMeta.Run(r)
-	r.Handlers.ValidateResponse.Run(r)
-	if r.Error != nil {
-		r.Handlers.UnmarshalError.Run(r)
 		return r.Error
 	}
 
@@ -248,4 +286,79 @@ func (r *Request) IsParamsValid() bool {
 
 func (r *Request) AddAgentInfo(s string) {
 	r.HTTPRequest.Header.Set("AgentInfo", s)
+}
+
+// offsetReader is a thread-safe io.ReadCloser to prevent racing
+// with retrying requests
+type offsetReader struct {
+	buf    io.ReadSeeker
+	lock   sync.Mutex
+	closed bool
+}
+
+func newOffsetReader(buf io.ReadSeeker, offset int64) (*offsetReader, error) {
+	reader := &offsetReader{}
+	_, err := buf.Seek(offset, io.SeekStart)
+	if err != nil {
+		return nil, err
+	}
+	reader.buf = buf
+	return reader, nil
+}
+
+// Close will close the instance of the offset reader's access to
+// the underlying io.ReadSeeker.
+func (o *offsetReader) Close() error {
+	o.lock.Lock()
+	defer o.lock.Unlock()
+	o.closed = true
+	return nil
+}
+
+// Read is a thread-safe read of the underlying io.ReadSeeker
+func (o *offsetReader) Read(p []byte) (int, error) {
+	o.lock.Lock()
+	defer o.lock.Unlock()
+
+	if o.closed {
+		return 0, io.EOF
+	}
+
+	return o.buf.Read(p)
+}
+
+// Seek is a thread-safe seeking operation.
+func (o *offsetReader) Seek(offset int64, whence int) (int64, error) {
+	o.lock.Lock()
+	defer o.lock.Unlock()
+
+	return o.buf.Seek(offset, whence)
+}
+
+// CloseAndCopy will return a new offsetReader with a copy of the old buffer
+// and close the old buffer.
+func (o *offsetReader) CloseAndCopy(offset int64) (*offsetReader, error) {
+	if err := o.Close(); err != nil {
+		return nil, err
+	}
+	return newOffsetReader(o.buf, offset)
+}
+
+func seekerLen(s io.Seeker) (int64, error) {
+	curOffset, err := s.Seek(0, io.SeekCurrent)
+	if err != nil {
+		return 0, err
+	}
+
+	endOffset, err := s.Seek(0, io.SeekEnd)
+	if err != nil {
+		return 0, err
+	}
+
+	_, err = s.Seek(curOffset, io.SeekStart)
+	if err != nil {
+		return 0, err
+	}
+
+	return endOffset - curOffset, nil
 }

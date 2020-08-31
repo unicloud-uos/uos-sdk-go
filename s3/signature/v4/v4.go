@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	. "github.com/uos-sdk-go/s3/auxiliary"
 	"github.com/uos-sdk-go/s3/credential"
+	. "github.com/uos-sdk-go/s3/helper"
 	"github.com/uos-sdk-go/s3/log"
 	"github.com/uos-sdk-go/s3/request"
 )
@@ -25,6 +25,13 @@ type Signer struct {
 	IsPreSign   bool
 	PayloadHash string
 	Logger      *log.Logger
+}
+
+var SignV4Handler = request.HandlerItem{
+	Name: "v4.sign.Handler",
+	Fn: func(r *request.Request) {
+		SignForRequest(r)
+	},
 }
 
 func SignForRequest(req *request.Request, opts ...func(*Signer)) {

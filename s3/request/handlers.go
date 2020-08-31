@@ -1,23 +1,23 @@
-package handler
+package request
 
 import (
 	"fmt"
 	"io"
 	"runtime"
+	"time"
 
-	"github.com/uos-sdk-go/s3/auxiliary"
+	"github.com/uos-sdk-go/s3/credential"
 	. "github.com/uos-sdk-go/s3/error"
-	. "github.com/uos-sdk-go/s3/request"
+	"github.com/uos-sdk-go/s3/helper"
 )
 
 type Handlers struct {
-	Build            HandlerList
-	Validate         HandlerList
-	ValidateResponse HandlerList
-	Set              HandlerList
-	Send             HandlerList
-	Sign             HandlerList
-	Unmarshal        HandlerList
+	Validate  HandlerList
+	Set       HandlerList
+	Send      HandlerList
+	Sign      HandlerList
+	Marshal   HandlerList
+	Unmarshal HandlerList
 }
 
 func NewHandlers() Handlers {
@@ -25,22 +25,25 @@ func NewHandlers() Handlers {
 
 	handlers.Validate.PushBackHandlerItem(ValidateEndpointHandler)
 	handlers.Validate.PushBackHandlerItem(ValidateParametersHandler)
-	handlers.Validate.AfterFn = StopHandlerListOnErr
-	handlers.Set.PushBackHandlerItem(RequestIDForTrackingHandler)
+	handlers.Validate.ForStopHandlers = StopHandlerListOnErr
 	handlers.Set.PushBackHandlerItem(AgentInfoAndSDKVersionHandler)
-	handlers.Set.AfterFn = StopHandlerListOnErr
+	handlers.Set.PushBackHandlerItem(ContentLengthHandler)
+	handlers.Set.ForStopHandlers = StopHandlerListOnErr
+	handlers.Send.PushBackHandlerItem(ValidateReqSigHandler)
+	handlers.Send.PushBackHandlerItem(SendHandler)
+	handlers.Send.ForStopHandlers = StopHandlerListOnErr
 
+	return handlers
 }
 
 func (h *Handlers) Copy() Handlers {
 	return Handlers{
-		Build:            h.Build.copy(),
-		Validate:         h.Validate.copy(),
-		ValidateResponse: h.ValidateResponse.copy(),
-		Set:              h.Set.copy(),
-		Send:             h.Send.copy(),
-		Sign:             h.Sign.copy(),
-		Unmarshal:        h.Unmarshal.copy(),
+		Validate:  h.Validate.copy(),
+		Set:       h.Set.copy(),
+		Send:      h.Send.copy(),
+		Sign:      h.Sign.copy(),
+		Marshal:   h.Marshal.copy(),
+		Unmarshal: h.Unmarshal.copy(),
 	}
 }
 
@@ -48,7 +51,7 @@ type HandlerList struct {
 	list []HandlerItem
 
 	// If Handler func return err, stop iterating
-	AfterFn func(item HandlerRunItem) bool
+	ForStopHandlers func(item HandlerRunItem) bool
 }
 
 // A running HandlerList entry
@@ -58,7 +61,7 @@ type HandlerRunItem struct {
 	Request *Request
 }
 
-// An entry used to load handler func
+// An entry used to load request func
 type HandlerItem struct {
 	Name string
 	Fn   func(*Request)
@@ -66,7 +69,7 @@ type HandlerItem struct {
 
 func (l *HandlerList) copy() HandlerList {
 	n := HandlerList{
-		AfterFn: l.AfterFn,
+		ForStopHandlers: l.ForStopHandlers,
 	}
 	if len(l.list) == 0 {
 		return n
@@ -99,7 +102,7 @@ func (l *HandlerList) Run(r *Request) {
 		item := HandlerRunItem{
 			Index: i, Handler: h, Request: r,
 		}
-		if l.AfterFn != nil && !l.AfterFn(item) {
+		if l.ForStopHandlers != nil && !l.ForStopHandlers(item) {
 			return
 		}
 	}
@@ -107,7 +110,7 @@ func (l *HandlerList) Run(r *Request) {
 
 // Validate the request had endpoint or not
 var ValidateEndpointHandler = HandlerItem{
-	Name: "core.validate.endpoint.handler",
+	Name: "core.validate.endpoint.request",
 	Fn: func(request *Request) {
 		if request.Metadata.SigningRegion == "" && request.Config.Region == "" {
 			request.Config.Logger.Debug("Validate Endpoint err: ", ErrMissingRegion)
@@ -121,7 +124,7 @@ var ValidateEndpointHandler = HandlerItem{
 
 // Validate the input parameters
 var ValidateParametersHandler = HandlerItem{
-	Name: "core.validate.parameters.handler",
+	Name: "core.validate.parameters.request",
 	Fn: func(request *Request) {
 		if !request.IsParamsValid() {
 			return
@@ -138,24 +141,16 @@ var ValidateParametersHandler = HandlerItem{
 
 // Add agent info to request
 var AgentInfoAndSDKVersionHandler = HandlerItem{
-	Name: "core.set.agentInfo.handler",
+	Name: "core.set.agentInfo.request",
 	Fn: func(request *Request) {
-		agent := fmt.Sprintf("%s-%s; %s; %s; %s", auxiliary.SDKName, auxiliary.SDKVersion,
+		agent := fmt.Sprintf("%s-%s; %s; %s; %s", helper.SDKName, helper.SDKVersion,
 			runtime.Version(), runtime.GOOS, runtime.GOARCH)
 		request.AddAgentInfo(agent)
 	},
 }
 
-// Add ID for tracking
-var RequestIDForTrackingHandler = HandlerItem{
-	Name: "core.set.requestID.handler",
-	Fn: func(request *Request) {
-		request.HTTPRequest.Header.Set(auxiliary.UOSRequestID, request.ID)
-	},
-}
-
 var ContentLengthHandler = HandlerItem{
-	Name: "core.set.contentLength.handler",
+	Name: "core.set.contentLength.request",
 	Fn: func(request *Request) {
 		var length int64
 		switch body := request.Body.(type) {
@@ -166,17 +161,17 @@ var ContentLengthHandler = HandlerItem{
 			request.BodyStart, err = body.Seek(0, io.SeekCurrent)
 			if err != nil {
 				request.Config.Logger.Debug("failed to determine start of the request body:", err)
-				request.Error = err
+				request.Error = NewBaseError("GetLengthERR", "failed to determine start of the request body:", err)
 			}
 			end, err := body.Seek(0, io.SeekEnd)
 			if err != nil {
 				request.Config.Logger.Debug("failed to determine end of the request body:", err)
-				request.Error = err
+				request.Error = NewBaseError("GetLengthERR", "failed to determine end of the request body:", err)
 			}
 			_, err = body.Seek(request.BodyStart, io.SeekStart) // make sure to seek back to original location
 			if err != nil {
 				request.Config.Logger.Debug("failed to seek back to the original location", err)
-				request.Error = err
+				request.Error = NewBaseError("GetLengthERR", "failed to seek back to the original location:", err)
 			}
 			length = end - request.BodyStart
 		default:
@@ -189,6 +184,35 @@ var ContentLengthHandler = HandlerItem{
 			request.HTTPRequest.ContentLength = 0
 			request.HTTPRequest.Header.Del("Content-Length")
 		}
+	},
+}
+
+var ValidateReqSigHandler = HandlerItem{
+	Name: "core.send.sign.validate.request",
+	Fn: func(request *Request) {
+		if *request.Config.Credentials == credential.DefaultCredentials {
+			return
+		}
+
+		signedTime := request.Time
+		if request.LastSignedTime.IsZero() {
+			signedTime = request.LastSignedTime
+		}
+
+		if signedTime.Add(10 * time.Minute).After(time.Now()) {
+			return
+		}
+		err := request.Sign()
+		if err != nil {
+			request.Config.Logger.Error("core.send.validateSign.request err: ", err)
+		}
+	},
+}
+
+var SendHandler = HandlerItem{
+	Name: "core.send.request",
+	Fn: func(request *Request) {
+		request.HTTPResponse, request.Error = request.HTTPClient.Do(request.HTTPRequest)
 	},
 }
 
