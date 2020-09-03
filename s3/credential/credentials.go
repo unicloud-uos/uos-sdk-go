@@ -4,7 +4,7 @@ const (
 	StaticCredentialsProviderName = "StaticCredentialsProvider"
 )
 
-var DefaultCredentials = Credentials{
+var DefaultCredentials = &Credentials{
 	AccessKeyID:     "DefaultAccessKeyID",
 	SecretAccessKey: "DefaultSecretAccessKey",
 	ProviderName:    "DefaultCredentialsProvider",
@@ -26,8 +26,8 @@ func (*StaticCredentialsEmptyError) Error() string {
 }
 
 // NewStaticCredentialsProvider return a StaticCredentialsProvider initialized with the credentials passed in.
-func NewStaticCredentials(key, secret, session string) Credentials {
-	return Credentials{
+func NewStaticCredentials(key, secret, session string) *Credentials {
+	return &Credentials{
 		AccessKeyID:     key,
 		SecretAccessKey: secret,
 		SessionToken:    session,

@@ -2,6 +2,7 @@ package s3
 
 import (
 	"encoding/xml"
+
 	"github.com/uos-sdk-go/s3/helper"
 	"github.com/uos-sdk-go/s3/request"
 )
@@ -16,6 +17,23 @@ type CreateBucketInput struct {
 	//
 	// Bucket is a required field
 	Bucket string `location:"uri" locationName:"Bucket" type:"string" required:"true"`
+}
+
+func (c CreateBucketInput) MarshalForPut(e *request.EncoderForPut) error {
+
+	if c.Bucket != "" {
+		v := c.Bucket
+		e.SetValue(helper.PathTarget, "Bucket", request.StringValue(v))
+	}
+
+	return nil
+}
+
+func (c CreateBucketInput) GetBucketName() (v string) {
+	if c.Bucket == "" {
+		return v
+	}
+	return c.Bucket
 }
 
 func (c *CreateBucketInput) Validate() error {
@@ -63,10 +81,15 @@ func (c *Client) CreateBucketRequest(input *CreateBucketInput) (req *request.Req
 	output = &CreateBucketOutput{}
 	req = c.newRequest(op, input, output)
 
+	c.Logger.Error("#@@@@@@req: ", req)
+
 	return
 }
 
 func (c *Client) CreateBucket(input *CreateBucketInput) (*CreateBucketOutput, error) {
+	c.Logger.Debug("Create bucket input: ", input)
 	req, out := c.CreateBucketRequest(input)
+	c.Logger.Debug("Create bucket request: ", req)
+
 	return out, req.Do()
 }

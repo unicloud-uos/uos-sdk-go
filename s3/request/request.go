@@ -1,7 +1,9 @@
 package request
 
 import (
+	"bytes"
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -63,7 +65,9 @@ func NewRequest(cfg Config, metadata Metadata, handlers Handlers, client *http.C
 	request, _ := http.NewRequest(method, "", nil)
 
 	var err error
-	request.URL, err = url.Parse(cfg.Endpoint + operation.HTTPPath)
+	endpoint := parseEndpoint(cfg.Endpoint, cfg.DisableSSL)
+
+	request.URL, err = url.Parse(endpoint + operation.HTTPPath)
 	if err != nil {
 		request.URL = &url.URL{}
 		err = NewBaseError("InvalidEndpointURL", "invalid endpoint uri", err)
@@ -86,6 +90,7 @@ func NewRequest(cfg Config, metadata Metadata, handlers Handlers, client *http.C
 		Data:        data,
 		Error:       err,
 	}
+	r.SetBufferBody([]byte{})
 
 	return r
 }
@@ -96,6 +101,11 @@ func (r *Request) SetContext(ctx context.Context) {
 	}
 	r.HTTPRequest = r.HTTPRequest.WithContext(ctx)
 }
+
+func (r *Request) SetBufferBody(buf []byte) {
+	r.SetReaderBody(bytes.NewReader(buf))
+}
+
 
 func (r *Request) SetReaderBody(reader io.ReadSeeker) {
 	r.Body = reader
@@ -213,31 +223,35 @@ func (r *Request) Do() error {
 		return r.Error
 	}
 
-	for {
-		r.Error = nil
-		r.AttemptTime = time.Now()
+	r.Error = nil
+	r.AttemptTime = time.Now()
 
-		if err := r.Sign(); err != nil {
-			reqDebugLog(r, "Sign Request", err)
-			return err
-		}
-
-		if err := r.doRequest(); err == nil {
-			return nil
-		}
+	if err := r.Sign(); err != nil {
+		reqDebugLog(r, "Sign Request", err)
+		return err
 	}
+
+	if err := r.doRequest(); err == nil {
+		return nil
+	}
+	return nil
 }
 
 func (r *Request) Sign() error {
 	r.Build()
 	if r.Error != nil {
-		r.Config.Logger.Debug()
 		reqDebugLog(r, "Build Request", r.Error)
 		return r.Error
 	}
 
 	r.Handlers.Sign.Run(r)
 	return r.Error
+}
+
+// GetBody will return an io.ReadSeeker of the Request's underlying
+// input body with a concurrency safe wrapper.
+func (r *Request) GetBody() io.ReadSeeker {
+	return r.safeBody
 }
 
 // Build validate parameters and build request's object
@@ -248,9 +262,14 @@ func (r *Request) Build() error {
 			reqDebugLog(r, "Validate Request", r.Error)
 			return r.Error
 		}
+		r.Handlers.Marshal.Run(r)
+		if r.Error != nil {
+			reqDebugLog(r, "Marshal Request", r.Error)
+			return r.Error
+		}
 		r.Handlers.Set.Run(r)
 		if r.Error != nil {
-			reqDebugLog(r, "Build Request", r.Error)
+			reqDebugLog(r, "Set Request", r.Error)
 			return r.Error
 		}
 		r.build = true
@@ -274,8 +293,8 @@ func (r *Request) doRequest() (sendErr error) {
 }
 
 func reqDebugLog(r *Request, stage string, err error) {
-	r.Config.Logger.Debug("%s %s/%s failed, error %v",
-		stage, r.Metadata.ServiceName, r.Operation.Name, err)
+	r.Config.Logger.Debug(fmt.Sprintf("%s %s/%s failed, error %v",
+		stage, r.Metadata.ServiceName, r.Operation.Name, err))
 }
 
 // check parameters are valid or not
@@ -285,7 +304,7 @@ func (r *Request) IsParamsValid() bool {
 }
 
 func (r *Request) AddAgentInfo(s string) {
-	r.HTTPRequest.Header.Set("AgentInfo", s)
+	r.HTTPRequest.Header.Set("User-Agent", s)
 }
 
 // offsetReader is a thread-safe io.ReadCloser to prevent racing
@@ -361,4 +380,16 @@ func seekerLen(s io.Seeker) (int64, error) {
 	}
 
 	return endOffset - curOffset, nil
+}
+
+func parseEndpoint(endpoint string, disableSSL bool) string {
+	strs := strings.Split(endpoint, "://")
+
+	if disableSSL {
+		return "http://" + strs[len(strs)-1]
+	} else if strs[0] == "http" || strs[0] == "https" {
+		return endpoint
+	} else {
+		return "https://" + endpoint
+	}
 }

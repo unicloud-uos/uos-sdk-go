@@ -25,12 +25,24 @@ type Logger struct {
 
 var logFlags = log.Ldate | log.Ltime | log.Lmicroseconds
 
-func NewLogger(logLevel LogLevel) *Logger {
-	l := Logger{
-		level:  logLevel,
+func NewLogger(logLevel string) *Logger {
+	var l LogLevel
+	switch strings.ToLower(logLevel) {
+	case "info":
+		l = LogInfoLevel
+	case "warn":
+		l = LogWarnLevel
+	case "error":
+		l = LogErrorLevel
+	case "debug":
+		l = LogDebugLevel
+	default:
+		l = LogOffLevel
+	}
+	return &Logger{
+		level:  l,
 		logger: log.New(os.Stdout, "", logFlags),
 	}
-	return &l
 }
 
 func getCaller(skipCallDepth int) string {
@@ -42,7 +54,6 @@ func getCaller(skipCallDepth int) string {
 	file := fileParts[len(fileParts)-1]
 	return fmt.Sprintf("%s:%d", file, line)
 }
-
 
 func (l Logger) prefixArray() []interface{} {
 	array := make([]interface{}, 0, 3)

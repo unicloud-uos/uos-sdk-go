@@ -24,12 +24,12 @@ func GetDefaultConfig() *Config {
 	config := &Config{}
 
 	config.Endpoint = "DefaultEndPoint"
-	config.Credentials = &credential.DefaultCredentials
+	config.Credentials = credential.DefaultCredentials
 	config.Region = "DefaultRegion"
 	config.DisableSSL = true
 	config.RedirectEnabled = false
 
-	config.Logger = log.NewLogger(log.LogOffLevel)
+	config.Logger = log.NewLogger("off")
 
 	return config
 }

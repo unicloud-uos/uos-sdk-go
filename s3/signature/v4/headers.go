@@ -5,7 +5,6 @@ var IgnoredHeaders = Rules{
 	MapRule{
 		"Authorization":   struct{}{},
 		"User-Agent":      struct{}{},
-		"X-Uosn-Trace-Id": struct{}{},
 	},
 }
 

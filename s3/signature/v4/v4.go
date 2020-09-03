@@ -1,7 +1,10 @@
 package v4
 
 import (
+	"crypto/sha256"
 	"encoding/hex"
+	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"sort"
@@ -30,6 +33,9 @@ type Signer struct {
 var SignV4Handler = request.HandlerItem{
 	Name: "v4.sign.Handler",
 	Fn: func(r *request.Request) {
+
+		r.Config.Logger.Debug("############################", r.HTTPRequest)
+
 		SignForRequest(r)
 	},
 }
@@ -37,7 +43,7 @@ var SignV4Handler = request.HandlerItem{
 func SignForRequest(req *request.Request, opts ...func(*Signer)) {
 	// If the request does not need to be signed ignore the signing of the
 	// request if the AnonymousCredentials object is used.
-	if req.Config.Credentials == &credential.DefaultCredentials {
+	if req.Config.Credentials == credential.DefaultCredentials {
 		return
 	}
 
@@ -50,18 +56,29 @@ func SignForRequest(req *request.Request, opts ...func(*Signer)) {
 	if name == "" {
 		name = req.Metadata.SigningName
 	}
-
+	req.Config.Logger.Debug("##########AAAAAAAAAAAAAAAAAAAAA:", req.HTTPRequest.Header)
 	isPreSign := req.ExpireTime > 0
+
+	req.Config.Logger.Debug("##########AAAAAAAAAAAAAAAAAAAAA:", req.GetBody())
+
+	bodyDigest, err := buildBodyDigest(req.HTTPRequest, req.GetBody(), name, isPreSign)
+	if err != nil {
+		req.SignedHeaderValues = http.Header{}
+	}
+
 	v4 := &Signer{
 		Request:     req.HTTPRequest,
 		Credential:  req.Config.Credentials,
 		ServiceName: name,
 		Region:      region,
-		Time:        req.Time,
+		Time:        req.Time.UTC(),
 		ExpireTime:  req.ExpireTime,
 		IsPreSign:   isPreSign,
+		PayloadHash: bodyDigest,
 		Logger:      req.Config.Logger,
 	}
+
+	req.Config.Logger.Debug("##########AAAAAAAAAAAAAAAAAAAAA:", v4.Request.Header)
 
 	r, signedHeaders := v4.sign()
 
@@ -74,6 +91,7 @@ func (v4 Signer) sign() (*http.Request, http.Header) {
 	query := req.URL.Query()
 	headers := req.Header
 
+	v4.Logger.Info("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:header ", headers)
 	v4.setHeadersForSignV4(headers, query)
 	for key := range query {
 		sort.Strings(query[key])
@@ -87,6 +105,7 @@ func (v4 Signer) sign() (*http.Request, http.Header) {
 		query.Set(UOSCredentialKey, credentialStr)
 	}
 
+	v4.Logger.Debug("unsignedHeaders: ", headers)
 	unsignedHeaders := headers
 	if v4.IsPreSign {
 		urlValues := url.Values{}
@@ -100,10 +119,13 @@ func (v4 Signer) sign() (*http.Request, http.Header) {
 	if len(req.Host) > 0 {
 		host = req.Host
 	}
+	v4.Logger.Debug("unsignedHeaders: ", unsignedHeaders)
+	v4.Logger.Info("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:header ", headers)
+	v4.Logger.Info("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:query ", query)
 
 	signedHeaders, signedHeadersStr, canonicalHeaderStr := v4.buildCanonicalHeaders(host, IgnoredHeaders, unsignedHeaders)
-	v4.Logger.Debug("signedHeaders: %s, signedHeadersStr: %s, canonicalHeaderStr: %s",
-		signedHeaders, signedHeadersStr, canonicalHeaderStr)
+	v4.Logger.Debug("signedHeaders: ", signedHeaders, " signedHeadersStr: ", signedHeadersStr,
+		" canonicalHeaderStr: ", canonicalHeaderStr)
 	if v4.IsPreSign {
 		query.Set(UOSSignedHeadersKey, signedHeadersStr)
 
@@ -122,7 +144,12 @@ func (v4 Signer) sign() (*http.Request, http.Header) {
 		v4.PayloadHash,
 	)
 
+	v4.Logger.Debug("canonicalString: ", canonicalString)
+
 	strToSign := buildStringToSign(v4.Time, credentialScope, canonicalString)
+
+	v4.Logger.Debug("strToSign: ", strToSign)
+
 	// signingKey = credentials
 	signingKey := buildSigningKey(v4.Credential.SecretAccessKey, v4.Time, v4.Region, v4.ServiceName)
 	signingSignature := buildSignature(signingKey, strToSign)
@@ -188,15 +215,45 @@ func forQuery(r Rule, header http.Header) (url.Values, http.Header) {
 	return query, unsignedHeaders
 }
 
-func (v4 *Signer) buildCanonicalHeaders(host string, rule Rule, header http.Header) (signed http.Header, signedHeaders, canonicalHeaders string) {
+func buildBodyDigest(r *http.Request, body io.ReadSeeker, service string, presigned bool) (string, error) {
+	hash := r.Header.Get(UOSContentSha256)
+	if hash == "" {
+		includeSHA256Header := service == ServiceNameForSign
+
+		s3Presign := presigned && service == ServiceNameForSign
+
+		if s3Presign {
+			hash = UnsignedPayload
+			includeSHA256Header = !s3Presign
+		} else if body == nil {
+			hash = EmptyStringSHA256
+		} else {
+			if !isReaderSeekable(body) {
+				return "", fmt.Errorf("cannot use unseekable request body %T, for signed request with body", body)
+			}
+			hashBytes, err := makeSha256Reader(body)
+			if err != nil {
+				return "", err
+			}
+			hash = hex.EncodeToString(hashBytes)
+		}
+
+		if includeSHA256Header {
+			r.Header.Set(UOSContentSha256, hash)
+		}
+	}
+	return hash, nil
+}
+
+func (v4 *Signer) buildCanonicalHeaders(host string, ignoredRule Rule, header http.Header) (signed http.Header, signedHeaders, canonicalHeaders string) {
 	signed = make(http.Header)
 
 	var headers []string
 	headers = append(headers, "host")
-	v4.Logger.Debug("header: ", header)
+	v4.Logger.Debug("header: ", header, " signed: ", signed)
 	for k, v := range header {
 		canonicalKey := http.CanonicalHeaderKey(k)
-		if !rule.IsValid(canonicalKey) {
+		if ignoredRule.IsValid(canonicalKey) {
 			// ignored header
 			continue
 		}
@@ -211,12 +268,13 @@ func (v4 *Signer) buildCanonicalHeaders(host string, rule Rule, header http.Head
 		headers = append(headers, lowerKey)
 		signed[lowerKey] = v
 	}
-	v4.Logger.Debug("headers: ", headers)
+	v4.Logger.Debug("headers: ", headers, " signed: ", signed)
 	sort.Strings(headers)
 
-	signedHeaders = strings.Join(headers, ":")
+	signedHeaders = strings.Join(headers, ";")
 	headerValues := make([]string, len(headers))
 	for k, v := range headers {
+		v4.Logger.Debug("k, v: ", k, v)
 		if v == "host" {
 			headerValues[k] = "host:" + host
 		} else {
@@ -225,7 +283,6 @@ func (v4 *Signer) buildCanonicalHeaders(host string, rule Rule, header http.Head
 	}
 	v4.Logger.Debug("headerValues: ", headerValues)
 	StripExcessSpaces(headerValues)
-	v4.Logger.Debug("headerValues: ", headerValues)
 	canonicalHeaders = strings.Join(headerValues, "\n")
 	v4.Logger.Debug("canonicalHeaders: ", canonicalHeaders)
 
@@ -233,7 +290,7 @@ func (v4 *Signer) buildCanonicalHeaders(host string, rule Rule, header http.Head
 }
 
 // buildCanonicalString generate a canonical request of style
-func buildCanonicalString(method, uri, query, canonicalHeaders, signedHeaders, payloadHash string) string {
+func buildCanonicalString(method, uri, query, signedHeaders, canonicalHeaders, payloadHash string) string {
 	return strings.Join([]string{
 		method,
 		uri,
@@ -266,4 +323,32 @@ func buildSigningKey(secretKey string, t time.Time, region, serviceName string) 
 // buildSignature final signature in hexadecimal form.
 func buildSignature(signingKey []byte, stringToSign string) string {
 	return hex.EncodeToString(sumHMAC(signingKey, []byte(stringToSign)))
+}
+
+func isReaderSeekable(r io.Reader) bool {
+	switch r.(type) {
+	//case ReaderSeekerCloser:
+	//	return v.IsSeeker()
+	//case *ReaderSeekerCloser:
+	//	return v.IsSeeker()
+	case io.ReadSeeker:
+		return true
+	default:
+		return false
+	}
+}
+
+func makeSha256Reader(reader io.ReadSeeker) (hashBytes []byte, err error) {
+	hash := sha256.New()
+	start, err := reader.Seek(0, io.SeekCurrent)
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		// ensure error is return if unable to seek back to start if payload
+		_, err = reader.Seek(start, io.SeekStart)
+	}()
+
+	io.Copy(hash, reader)
+	return hash.Sum(nil), nil
 }

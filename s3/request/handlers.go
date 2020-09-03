@@ -190,7 +190,7 @@ var ContentLengthHandler = HandlerItem{
 var ValidateReqSigHandler = HandlerItem{
 	Name: "core.send.sign.validate.request",
 	Fn: func(request *Request) {
-		if *request.Config.Credentials == credential.DefaultCredentials {
+		if request.Config.Credentials == credential.DefaultCredentials {
 			return
 		}
 
@@ -212,7 +212,14 @@ var ValidateReqSigHandler = HandlerItem{
 var SendHandler = HandlerItem{
 	Name: "core.send.request",
 	Fn: func(request *Request) {
+
+		request.Config.Logger.Error("SSSSSSSSSSSSSSSSSSSSSSSSSSSS: ",request.HTTPRequest)
+
 		request.HTTPResponse, request.Error = request.HTTPClient.Do(request.HTTPRequest)
+
+		request.Config.Logger.Error("$$$$$$$$$$$$$$$$$$$$$$$$: ",request.Error)
+		request.Config.Logger.Error("$$$$$$$$$$$$$$$$$$$$$$$$: ",request.HTTPResponse)
+
 	},
 }
 
