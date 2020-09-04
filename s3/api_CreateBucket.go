@@ -2,7 +2,6 @@ package s3
 
 import (
 	"encoding/xml"
-
 	"github.com/uos-sdk-go/s3/helper"
 	"github.com/uos-sdk-go/s3/request"
 )
@@ -20,7 +19,6 @@ type CreateBucketInput struct {
 }
 
 func (c CreateBucketInput) MarshalForPut(e *request.EncoderForPut) error {
-
 	if c.Bucket != "" {
 		v := c.Bucket
 		e.SetValue(helper.PathTarget, "Bucket", request.StringValue(v))
@@ -50,13 +48,11 @@ func (c *CreateBucketInput) Validate() error {
 }
 
 type CreateBucketOutput struct {
-	_ struct{} `type:"structure"`
-
-	Location *string `location:"header" locationName:"Location" type:"string"`
+	Location string
 }
 
 func (c CreateBucketOutput) UnmarshalHeader(r *request.Request) error {
-	*c.Location = r.HTTPResponse.Header.Get("Location")
+	c.Location = r.HTTPResponse.Header.Get("Location")
 	r.Data = c
 	return nil
 }
@@ -67,7 +63,7 @@ func (c CreateBucketOutput) UnmarshalBody(coder *xml.Decoder) error {
 
 const CreateBucket = "CreateBucket"
 
-func (c *Client) CreateBucketRequest(input *CreateBucketInput) (req *request.Request, output *CreateBucketOutput) {
+func (c *Client) CreateBucketRequest(input *CreateBucketInput) (req *request.Request) {
 	op := &request.Operation{
 		Name:       CreateBucket,
 		HTTPMethod: "PUT",
@@ -78,18 +74,20 @@ func (c *Client) CreateBucketRequest(input *CreateBucketInput) (req *request.Req
 		input = &CreateBucketInput{}
 	}
 
-	output = &CreateBucketOutput{}
-	req = c.newRequest(op, input, output)
-
-	c.Logger.Error("#@@@@@@req: ", req)
-
+	req = c.newRequest(op, input, &CreateBucketOutput{})
 	return
 }
 
-func (c *Client) CreateBucket(input *CreateBucketInput) (*CreateBucketOutput, error) {
+func (c *Client) CreateBucket(input *CreateBucketInput) (CreateBucketOutput, error) {
 	c.Logger.Debug("Create bucket input: ", input)
-	req, out := c.CreateBucketRequest(input)
-	c.Logger.Debug("Create bucket request: ", req)
+	req := c.CreateBucketRequest(input)
 
-	return out, req.Do()
+	err := req.Do()
+	if err != nil {
+		return CreateBucketOutput{}, err
+	}
+	out := req.Data.(CreateBucketOutput)
+	c.Logger.Debug("Create bucket output: ", out)
+
+	return out, err
 }

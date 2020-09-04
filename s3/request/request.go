@@ -231,8 +231,8 @@ func (r *Request) Do() error {
 		return err
 	}
 
-	if err := r.doRequest(); err == nil {
-		return nil
+	if err := r.doRequest(); err != nil {
+		return err
 	}
 	return nil
 }

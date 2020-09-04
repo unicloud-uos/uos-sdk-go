@@ -12,11 +12,11 @@ func MakeBucketSample() {
 
 	sc := lib.NewClient(endpoint, accessKey, secretKey)
 	// Create a bucket
-	err := sc.MakeBucket(bucketName)
+	err, out := sc.MakeBucket(bucketName)
 	if err != nil {
+		fmt.Println(out)
 		HandleError(err)
 	}
 
-
-	fmt.Printf("CreateBucketSample Run Success!\n\n")
+	fmt.Printf("CreateBucketSample Run Success!\n\n", out)
 }

@@ -96,16 +96,18 @@ func (e *ResponseError) Error() string {
 type apiError struct {
 	Err        Error
 	StatusCode int
+	RequestID  string
 }
 
-func NewApiError(err Error, statusCode int) *apiError {
+func NewApiError(err Error, statusCode int, id string) *apiError {
 	return &apiError{
 		Err:        err,
 		StatusCode: statusCode,
+		RequestID:  id,
 	}
 }
 
 func (a apiError) Error() string {
-	extra := fmt.Sprintf("status code: %d", a.StatusCode)
+	extra := fmt.Sprintf("status code: %d, requestID: %s", a.StatusCode, a.RequestID)
 	return SprintError(a.Err.ErrorCode(), a.Err.Description(), extra, nil)
 }

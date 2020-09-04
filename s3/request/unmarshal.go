@@ -21,13 +21,15 @@ var UnmarshalRequestHandler = HandlerItem{
 			}
 			if request.HTTPResponse.StatusCode >= 300 {
 				request.Error = &ResponseError{Response: request.HTTPResponse}
-				return
 			}
-			// Unmarshal errorResponse
-			err = UnmarshalError(request)
-			if err != nil {
-				request.Error = NewBaseError("UnmarshalErrorErr", "failed to decode query XML error response", err)
-				return
+
+			if request.Error != nil {
+				// Unmarshal errorResponse
+				err = UnmarshalError(request)
+				if err != nil {
+					request.Error = NewBaseError("UnmarshalErrorErr", "failed to decode query XML error response", err)
+					return
+				}
 			}
 
 			decoder := xml.NewDecoder(io.LimitReader(request.HTTPResponse.Body, request.HTTPResponse.ContentLength))
@@ -51,9 +53,10 @@ type UnmarshalerForOut interface {
 }
 
 type responseError struct {
-	XMLName xml.Name `xml:"ErrorResponse"`
-	Code    string   `xml:"Error>Code"`
-	Message string   `xml:"Error>Message"`
+	XMLName   xml.Name `xml:"Error"`
+	Code      string   `xml:"Code"`
+	Message   string   `xml:"Message"`
+	RequestId string   `xml:"RequestId"`
 }
 
 func UnmarshalError(r *Request) error {
@@ -70,6 +73,7 @@ func UnmarshalError(r *Request) error {
 		r.Error = NewApiError(
 			NewBaseError(resp.Code, resp.Message, nil),
 			r.HTTPResponse.StatusCode,
+			r.RequestID,
 		)
 		return nil
 	}
