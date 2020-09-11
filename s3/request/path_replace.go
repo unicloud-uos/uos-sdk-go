@@ -105,7 +105,7 @@ func bufCap(b []byte, n int) []byte {
 }
 
 // copied from rest.EscapePath
-// escapes part of a URL path in Amazon style
+// escapes part of a URL path
 func escapePath(path string, encodeSep bool) string {
 	var buf bytes.Buffer
 	for i := 0; i < len(path); i++ {
@@ -120,3 +120,15 @@ func escapePath(path string, encodeSep bool) string {
 }
 
 var noEscape [256]bool
+
+func init() {
+	for i := 0; i < len(noEscape); i++ {
+		noEscape[i] = (i >= 'A' && i <= 'Z') ||
+			(i >= 'a' && i <= 'z') ||
+			(i >= '0' && i <= '9') ||
+			i == '-' ||
+			i == '.' ||
+			i == '_' ||
+			i == '~'
+	}
+}

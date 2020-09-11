@@ -25,13 +25,13 @@ func NewHandlers() Handlers {
 
 	handlers.Validate.PushBackHandlerItem(ValidateEndpointHandler)
 	handlers.Validate.PushBackHandlerItem(ValidateParametersHandler)
-	handlers.Validate.ForStopHandlers = StopHandlerListOnErr
+	handlers.Validate.AfterEachFn = StopHandlerListOnErr
 	handlers.Set.PushBackHandlerItem(AgentInfoAndSDKVersionHandler)
 	handlers.Set.PushBackHandlerItem(ContentLengthHandler)
-	handlers.Set.ForStopHandlers = StopHandlerListOnErr
+	handlers.Set.AfterEachFn = StopHandlerListOnErr
 	handlers.Send.PushBackHandlerItem(ValidateReqSigHandler)
 	handlers.Send.PushBackHandlerItem(SendHandler)
-	handlers.Send.ForStopHandlers = StopHandlerListOnErr
+	handlers.Send.AfterEachFn = StopHandlerListOnErr
 
 	return handlers
 }
@@ -50,8 +50,8 @@ func (h *Handlers) Copy() Handlers {
 type HandlerList struct {
 	list []HandlerItem
 
-	// If Handler func return err, stop iterating
-	ForStopHandlers func(item HandlerRunItem) bool
+	// If Handler func return false, stop iterating
+	AfterEachFn func(item HandlerRunItem) bool
 }
 
 // A running HandlerList entry
@@ -69,7 +69,7 @@ type HandlerItem struct {
 
 func (l *HandlerList) copy() HandlerList {
 	n := HandlerList{
-		ForStopHandlers: l.ForStopHandlers,
+		AfterEachFn: l.AfterEachFn,
 	}
 	if len(l.list) == 0 {
 		return n
@@ -96,13 +96,28 @@ func (l *HandlerList) PushFrontHandlerItem(n HandlerItem) {
 	}
 }
 
+func (l *HandlerList) RemoveHandlerItem(name string) {
+	for i := 0; i < len(l.list); i++ {
+		m := l.list[i]
+		if m.Name == name {
+			// Shift array preventing creating new arrays
+			copy(l.list[i:], l.list[i+1:])
+			l.list[len(l.list)-1] = HandlerItem{}
+			l.list = l.list[:len(l.list)-1]
+
+			// decrement list so next check to length is correct
+			i--
+		}
+	}
+}
+
 func (l *HandlerList) Run(r *Request) {
 	for i, h := range l.list {
 		h.Fn(r)
 		item := HandlerRunItem{
 			Index: i, Handler: h, Request: r,
 		}
-		if l.ForStopHandlers != nil && !l.ForStopHandlers(item) {
+		if l.AfterEachFn != nil && !l.AfterEachFn(item) {
 			return
 		}
 	}
@@ -187,6 +202,11 @@ var ContentLengthHandler = HandlerItem{
 	},
 }
 
+var ContentMd5Handler = HandlerItem{
+	Name: "core.set.contentMd5.request",
+	Fn:   AddBodyContentMD5Handler,
+}
+
 var ValidateReqSigHandler = HandlerItem{
 	Name: "core.send.sign.validate.request",
 	Fn: func(request *Request) {
@@ -213,12 +233,10 @@ var SendHandler = HandlerItem{
 	Name: "core.send.request",
 	Fn: func(request *Request) {
 
-		request.Config.Logger.Error("SSSSSSSSSSSSSSSSSSSSSSSSSSSS: ",request.HTTPRequest)
+		request.Config.Logger.Error("SSSSSSSSSSSSSSSSSSSSSSSSSSSS: ", request.HTTPRequest)
 
 		request.HTTPResponse, request.Error = request.HTTPClient.Do(request.HTTPRequest)
-
-		request.Config.Logger.Error("$$$$$$$$$$$$$$$$$$$$$$$$: ",request.Error)
-		request.Config.Logger.Error("$$$$$$$$$$$$$$$$$$$$$$$$: ",request.HTTPResponse)
+		request.Config.Logger.Debug("Http response: ", request.HTTPResponse)
 
 	},
 }

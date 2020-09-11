@@ -13,15 +13,6 @@ const (
 	SDKSigningRegion   = "TJ"          // SDK default signing region
 )
 
-type BucketACL string
-
-const (
-	BucketACLPrivate           BucketACL = "private"
-	BucketACLPublicRead        BucketACL = "public-read"
-	BucketACLPublicReadWrite   BucketACL = "public-read-write"
-	BucketACLAuthenticatedRead BucketACL = "authenticated-read"
-)
-
 // signer
 const (
 	UOSSigningV4Algorithm  = "UOS4-HMAC-SHA256"                                                 // Value for X-Uos-Algorithm
@@ -41,7 +32,8 @@ const (
 
 // header
 const (
-	UOSRequestID = "X-Uos-Request-Id"
+	ContentMD5Header = "Content-Md5"
+	UOSRequestID     = "X-Uos-Request-Id"
 )
 
 // marshal target
@@ -49,8 +41,23 @@ const (
 	PathTarget       = "Path"
 	QueryTarget      = "Query"
 	HeaderTarget     = "Header"
-	HeadersTarget    = "Headers"
 	StatusCodeTarget = "StatusCode"
 	BodyTarget       = "Body"
 	PayloadTarget    = "Payload"
+)
+
+// Names of time formats supported by the SDK
+const (
+	RFC822TimeFormatName  = "rfc822"
+	ISO8601TimeFormatName = "iso8601"
+	UnixTimeFormatName    = "unixTimestamp"
+)
+
+// Time formats supported by the SDK
+const (
+	RFC822TimeFormat        = "Mon, 2 Jan 2006 15:04:05 GMT"   // RFC 7231#section-7.1.1.1 timetamp format. e.g Tue, 29 Apr 2014 18:30:38 GMT
+	ISO8601TimeFormat       = "2006-01-02T15:04:05.999999999Z" // RFC3339 a subset of the ISO8601 timestamp format. e.g 2014-04-29T18:30:38.999999999Z
+	RFC822OutputTimeFormat  = "Mon, 02 Jan 2006 15:04:05 GMT"  // RFC Output TimeStamp format is used for output time without seconds precision
+	ISO8601OutputTimeFormat = "2006-01-02T15:04:05Z"           // ISO output TimeStamp format is used for output time without seconds precision
+
 )

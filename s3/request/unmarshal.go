@@ -1,9 +1,15 @@
 package request
 
 import (
+	"encoding/base64"
 	"encoding/xml"
-	"io"
+	"fmt"
 	"io/ioutil"
+	"net/http"
+	"reflect"
+	"strconv"
+	"strings"
+	"time"
 
 	. "github.com/uos-sdk-go/s3/error"
 	"github.com/uos-sdk-go/s3/helper"
@@ -14,7 +20,7 @@ var UnmarshalRequestHandler = HandlerItem{
 	Fn: func(request *Request) {
 		if u, ok := request.Data.(UnmarshalerForOut); ok {
 			request.RequestID = request.HTTPResponse.Header.Get(helper.UOSRequestID)
-			err := u.UnmarshalHeader(request)
+			err := UnmarshalHeader(request)
 			if err != nil {
 				request.Error = NewBaseError("UnmarshalHeaderErr", "Unmarshal response header failed!", nil)
 				return
@@ -32,8 +38,7 @@ var UnmarshalRequestHandler = HandlerItem{
 				}
 			}
 
-			decoder := xml.NewDecoder(io.LimitReader(request.HTTPResponse.Body, request.HTTPResponse.ContentLength))
-			err = u.UnmarshalBody(decoder)
+			err = u.UnmarshalBody(request)
 			if err != nil {
 				request.Error = NewBaseError("UnmarshalBodyErr", "Unmarshal response body failed!", err)
 				return
@@ -48,8 +53,40 @@ var UnmarshalRequestHandler = HandlerItem{
 }
 
 type UnmarshalerForOut interface {
-	UnmarshalBody(*xml.Decoder) error
-	UnmarshalHeader(*Request) error
+	UnmarshalBody(r *Request) error
+}
+
+func UnmarshalHeader(r *Request) error {
+	r.RequestID = r.HTTPResponse.Header.Get(helper.UOSRequestID)
+	v := reflect.Indirect(reflect.ValueOf(r.Data))
+	for i := 0; i < v.NumField(); i++ {
+		m, field := v.Field(i), v.Type().Field(i)
+		if n := field.Name; n[0:1] == strings.ToLower(n[0:1]) {
+			continue
+		}
+
+		if m.IsValid() {
+			name := field.Tag.Get("locationName")
+			if name == "" {
+				name = field.Name
+			}
+
+			switch field.Tag.Get("location") {
+			case "statusCode":
+				unmarshalStatusCode(m, r.HTTPResponse.StatusCode)
+			case "header":
+				err := unmarshalHeader(m, r.HTTPResponse.Header, name, field.Tag)
+				if err != nil {
+					r.Error = NewBaseError("SerializationError", "failed to decode REST response", err)
+					break
+				}
+			}
+		}
+		if r.Error != nil {
+			return r.Error
+		}
+	}
+	return nil
 }
 
 type responseError struct {
@@ -79,4 +116,119 @@ func UnmarshalError(r *Request) error {
 	}
 
 	return decodeErr
+}
+
+func unmarshalStatusCode(v reflect.Value, statusCode int) {
+	if !v.IsValid() {
+		return
+	}
+
+	switch v.Interface().(type) {
+	case *int64:
+		s := int64(statusCode)
+		v.Set(reflect.ValueOf(&s))
+	case int64:
+		s := int64(statusCode)
+		v.Set(reflect.ValueOf(s))
+	}
+}
+
+func unmarshalHeader(v reflect.Value, headers http.Header, name string, tag reflect.StructTag) error {
+	if v.Kind() == reflect.String {
+		if len(headers.Get(name)) > 0 {
+			v.SetString(headers.Get(name))
+		}
+		return nil
+	} else if !v.IsValid() || headers.Get(name) == "" {
+		return nil
+	}
+
+	switch v.Interface().(type) {
+	case *string:
+		header := headers.Get(name)
+		v.Set(reflect.ValueOf(&header))
+	case string:
+		v.Set(reflect.ValueOf(headers.Get(name)))
+	case []byte:
+		b, err := base64.StdEncoding.DecodeString(headers.Get(name))
+		if err != nil {
+			return err
+		}
+		v.Set(reflect.ValueOf(&b))
+	case *bool:
+		b, err := strconv.ParseBool(headers.Get(name))
+		if err != nil {
+			return err
+		}
+		v.Set(reflect.ValueOf(&b))
+	case bool:
+		b, err := strconv.ParseBool(headers.Get(name))
+		if err != nil {
+			return err
+		}
+		v.Set(reflect.ValueOf(b))
+	case *int64:
+		i, err := strconv.ParseInt(headers.Get(name), 10, 64)
+		if err != nil {
+			return err
+		}
+		v.Set(reflect.ValueOf(&i))
+	case int64:
+		i, err := strconv.ParseInt(headers.Get(name), 10, 64)
+		if err != nil {
+			return err
+		}
+		v.Set(reflect.ValueOf(i))
+	case *float64:
+		f, err := strconv.ParseFloat(headers.Get(name), 64)
+		if err != nil {
+			return err
+		}
+		v.Set(reflect.ValueOf(&f))
+	case float64:
+		f, err := strconv.ParseFloat(headers.Get(name), 64)
+		if err != nil {
+			return err
+		}
+		v.Set(reflect.ValueOf(f))
+	case *time.Time:
+		format := tag.Get("timestampFormat")
+		if len(format) == 0 {
+			format = helper.RFC822TimeFormatName
+			if tag.Get("location") == "querystring" {
+				format = helper.ISO8601TimeFormatName
+			}
+		}
+		t, err := helper.ParseTime(format, headers.Get(name))
+		if err != nil {
+			return err
+		}
+		v.Set(reflect.ValueOf(&t))
+	case time.Time:
+		format := tag.Get("timestampFormat")
+		if len(format) == 0 {
+			format = helper.RFC822TimeFormatName
+			if tag.Get("location") == "querystring" {
+				format = helper.ISO8601TimeFormatName
+			}
+		}
+		t, err := helper.ParseTime(format, headers.Get(name))
+		if err != nil {
+			return err
+		}
+		v.Set(reflect.ValueOf(t))
+	case map[string]string: // we only support string map value types
+		out := map[string]string{}
+		for k, v := range headers {
+			k = http.CanonicalHeaderKey(k)
+			if strings.HasPrefix(strings.ToLower(k), strings.ToLower(name)) {
+				out[k[len(name):]] = v[0]
+			}
+		}
+		v.Set(reflect.ValueOf(out))
+	default:
+		err := fmt.Errorf("unsupported value for param %v (%s)", v.Interface(), v.Type())
+		return err
+	}
+	return nil
 }

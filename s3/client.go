@@ -38,12 +38,12 @@ func NewClient(config helper.Config) *Client {
 	}
 
 	client.Handlers.Sign.PushBackHandlerItem(v4.SignV4Handler)
-	client.Handlers.Sign.ForStopHandlers = request.StopHandlerListOnErr
+	client.Handlers.Sign.AfterEachFn = request.StopHandlerListOnErr
 	client.Handlers.Marshal.PushBackHandlerItem(request.SetBucketEndpointHandler)
 	client.Handlers.Marshal.PushBackHandlerItem(request.MarshalRequestHandler)
-	client.Handlers.Marshal.ForStopHandlers = request.StopHandlerListOnErr
+	client.Handlers.Marshal.AfterEachFn = request.StopHandlerListOnErr
 	client.Handlers.Unmarshal.PushBackHandlerItem(request.UnmarshalRequestHandler)
-	client.Handlers.Unmarshal.ForStopHandlers = request.StopHandlerListOnErr
+	client.Handlers.Unmarshal.AfterEachFn = request.StopHandlerListOnErr
 
 	return client
 }

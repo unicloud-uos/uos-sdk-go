@@ -33,9 +33,6 @@ type Signer struct {
 var SignV4Handler = request.HandlerItem{
 	Name: "v4.sign.Handler",
 	Fn: func(r *request.Request) {
-
-		r.Config.Logger.Debug("############################", r.HTTPRequest)
-
 		SignForRequest(r)
 	},
 }
@@ -56,10 +53,8 @@ func SignForRequest(req *request.Request, opts ...func(*Signer)) {
 	if name == "" {
 		name = req.Metadata.SigningName
 	}
-	req.Config.Logger.Debug("##########AAAAAAAAAAAAAAAAAAAAA:", req.HTTPRequest.Header)
+	req.Config.Logger.Debug("Header in signer: ", req.HTTPRequest.Header)
 	isPreSign := req.ExpireTime > 0
-
-	req.Config.Logger.Debug("##########AAAAAAAAAAAAAAAAAAAAA:", req.GetBody())
 
 	bodyDigest, err := buildBodyDigest(req.HTTPRequest, req.GetBody(), name, isPreSign)
 	if err != nil {
@@ -77,9 +72,6 @@ func SignForRequest(req *request.Request, opts ...func(*Signer)) {
 		PayloadHash: bodyDigest,
 		Logger:      req.Config.Logger,
 	}
-
-	req.Config.Logger.Debug("##########AAAAAAAAAAAAAAAAAAAAA:", v4.Request.Header)
-
 	r, signedHeaders := v4.sign()
 
 	*req.HTTPRequest = *r
@@ -91,7 +83,6 @@ func (v4 Signer) sign() (*http.Request, http.Header) {
 	query := req.URL.Query()
 	headers := req.Header
 
-	v4.Logger.Info("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:header ", headers)
 	v4.setHeadersForSignV4(headers, query)
 	for key := range query {
 		sort.Strings(query[key])
@@ -105,7 +96,6 @@ func (v4 Signer) sign() (*http.Request, http.Header) {
 		query.Set(UOSCredentialKey, credentialStr)
 	}
 
-	v4.Logger.Debug("unsignedHeaders: ", headers)
 	unsignedHeaders := headers
 	if v4.IsPreSign {
 		urlValues := url.Values{}
@@ -119,18 +109,11 @@ func (v4 Signer) sign() (*http.Request, http.Header) {
 	if len(req.Host) > 0 {
 		host = req.Host
 	}
-	v4.Logger.Debug("unsignedHeaders: ", unsignedHeaders)
-	v4.Logger.Info("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:header ", headers)
-	v4.Logger.Info("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$:query ", query)
-
 	signedHeaders, signedHeadersStr, canonicalHeaderStr := v4.buildCanonicalHeaders(host, IgnoredHeaders, unsignedHeaders)
-	v4.Logger.Debug("signedHeaders: ", signedHeaders, " signedHeadersStr: ", signedHeadersStr,
-		" canonicalHeaderStr: ", canonicalHeaderStr)
 	if v4.IsPreSign {
 		query.Set(UOSSignedHeadersKey, signedHeadersStr)
 
 	}
-	v4.Logger.Debug("http header query:", query)
 
 	rawQuery := strings.Replace(query.Encode(), "+", "%20", -1)
 
@@ -144,16 +127,11 @@ func (v4 Signer) sign() (*http.Request, http.Header) {
 		v4.PayloadHash,
 	)
 
-	v4.Logger.Debug("canonicalString: ", canonicalString)
-
 	strToSign := buildStringToSign(v4.Time, credentialScope, canonicalString)
-
-	v4.Logger.Debug("strToSign: ", strToSign)
 
 	// signingKey = credentials
 	signingKey := buildSigningKey(v4.Credential.SecretAccessKey, v4.Time, v4.Region, v4.ServiceName)
 	signingSignature := buildSignature(signingKey, strToSign)
-	v4.Logger.Debug("Signature: ", signingSignature)
 
 	if v4.IsPreSign {
 		rawQuery += "&X-Uos-Signature=" + signingSignature
@@ -250,7 +228,6 @@ func (v4 *Signer) buildCanonicalHeaders(host string, ignoredRule Rule, header ht
 
 	var headers []string
 	headers = append(headers, "host")
-	v4.Logger.Debug("header: ", header, " signed: ", signed)
 	for k, v := range header {
 		canonicalKey := http.CanonicalHeaderKey(k)
 		if ignoredRule.IsValid(canonicalKey) {
@@ -268,23 +245,19 @@ func (v4 *Signer) buildCanonicalHeaders(host string, ignoredRule Rule, header ht
 		headers = append(headers, lowerKey)
 		signed[lowerKey] = v
 	}
-	v4.Logger.Debug("headers: ", headers, " signed: ", signed)
 	sort.Strings(headers)
 
 	signedHeaders = strings.Join(headers, ";")
 	headerValues := make([]string, len(headers))
 	for k, v := range headers {
-		v4.Logger.Debug("k, v: ", k, v)
 		if v == "host" {
 			headerValues[k] = "host:" + host
 		} else {
 			headerValues[k] = v + ":" + strings.Join(signed[v], ",")
 		}
 	}
-	v4.Logger.Debug("headerValues: ", headerValues)
 	StripExcessSpaces(headerValues)
 	canonicalHeaders = strings.Join(headerValues, "\n")
-	v4.Logger.Debug("canonicalHeaders: ", canonicalHeaders)
 
 	return signed, signedHeaders, canonicalHeaders
 }

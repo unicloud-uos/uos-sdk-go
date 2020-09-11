@@ -7,16 +7,15 @@ import (
 )
 
 func MakeBucketSample() {
-	//DeleteTestBucketAndObject()
-	//defer DeleteTestBucketAndObject()
+	DeleteTestBucketAndObject()
+	defer DeleteTestBucketAndObject()
 
 	sc := lib.NewClient(endpoint, accessKey, secretKey)
 	// Create a bucket
-	err, out := sc.MakeBucket(bucketName)
+	err := sc.MakeBucket(bucketName)
 	if err != nil {
-		fmt.Println(out)
 		HandleError(err)
 	}
 
-	fmt.Printf("CreateBucketSample Run Success!\n\n", out)
+	fmt.Printf("CreateBucketSample Run Success!\n\n")
 }

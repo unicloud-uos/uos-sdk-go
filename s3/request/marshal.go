@@ -1,6 +1,8 @@
 package request
 
 import (
+	"bytes"
+	"encoding/xml"
 	"fmt"
 	"io"
 	"net/http"
@@ -94,6 +96,43 @@ func (e *EncoderForPut) SetValue(t, k string, v ValueMarshaler) {
 
 }
 
+func (e *EncoderForPut) SetStream(t, k string, v StreamMarshaler) {
+	if e.err != nil {
+		return
+	}
+
+	switch t {
+	case helper.PayloadTarget:
+		e.payload, e.err = v.MarshalStream()
+	default:
+		e.err = fmt.Errorf("unknown SetStream rest encode target, %s, %s", t, k)
+	}
+
+}
+
+func (e *EncoderForPut) SetStruct(t, k string, v interface{}) {
+	if e.err != nil {
+		return
+	}
+
+	switch t {
+	case helper.PayloadTarget:
+		fallthrough
+	case helper.BodyTarget:
+		data, err := xml.Marshal(v)
+		if err != nil {
+			e.err = err
+			return
+		}
+
+		fmt.Println(string(data))
+
+		e.payload = bytes.NewReader(data)
+	default:
+		e.err = fmt.Errorf("unknown SetStruct rest encode target, %s, %s", t, k)
+	}
+}
+
 func (e *EncoderForPut) Encode() (*http.Request, io.ReadSeeker, error) {
 	if e.err != nil {
 		return nil, nil, e.err
@@ -108,4 +147,8 @@ func (e *EncoderForPut) Encode() (*http.Request, io.ReadSeeker, error) {
 
 type ValueMarshaler interface {
 	MarshalValue() (string, error)
+}
+
+type StreamMarshaler interface {
+	MarshalStream() (io.ReadSeeker, error)
 }

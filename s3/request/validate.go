@@ -62,6 +62,15 @@ func (e *ErrInvalidParams) Add(err ErrInvalidParam) {
 	e.errs = append(e.errs, err)
 }
 
+// AddNested adds the invalid parameter errors from another ErrInvalidParams value into this collection.
+func (e *ErrInvalidParams) AddNested(nestedCtx string, nested ErrInvalidParams) {
+	for _, err := range nested.errs {
+		err.SetContext(e.Context)
+		err.AddNestedContext(nestedCtx)
+		e.errs = append(e.errs, err)
+	}
+}
+
 // An ErrInvalidParam represents an invalid parameter error type.
 type ErrInvalidParam interface {
 	Error() string
@@ -74,6 +83,9 @@ type ErrInvalidParam interface {
 
 	// SetContext updates the context of the error.
 	SetContext(string)
+
+	// AddNestedContext updates the error's context to include a nested level.
+	AddNestedContext(string)
 }
 
 type errInvalidParam struct {
@@ -118,6 +130,16 @@ func (e *errInvalidParam) SetContext(ctx string) {
 	e.context = ctx
 }
 
+// AddNestedContext prepends a context to the field's path.
+func (e *errInvalidParam) AddNestedContext(ctx string) {
+	if len(e.nestedContext) == 0 {
+		e.nestedContext = ctx
+	} else {
+		e.nestedContext = fmt.Sprintf("%s.%s", ctx, e.nestedContext)
+	}
+
+}
+
 // An ErrParamRequired represents an required parameter error.
 type ErrParamRequired struct {
 	errInvalidParam
@@ -131,5 +153,23 @@ func NewErrParamRequired(field string) *ErrParamRequired {
 			field: field,
 			msg:   fmt.Sprintf("missing required field"),
 		},
+	}
+}
+
+// An ErrParamMinLen represents a minimum length parameter error.
+type ErrParamMinLen struct {
+	errInvalidParam
+	min int
+}
+
+// NewErrParamMinLen creates a new minimum length parameter error.
+func NewErrParamMinLen(field string, min int) *ErrParamMinLen {
+	return &ErrParamMinLen{
+		errInvalidParam: errInvalidParam{
+			code:  ParamMinLenErrCode,
+			field: field,
+			msg:   fmt.Sprintf("minimum field size of %v", min),
+		},
+		min: min,
 	}
 }

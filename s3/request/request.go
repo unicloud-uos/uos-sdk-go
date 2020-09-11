@@ -67,12 +67,14 @@ func NewRequest(cfg Config, metadata Metadata, handlers Handlers, client *http.C
 	var err error
 	endpoint := parseEndpoint(cfg.Endpoint, cfg.DisableSSL)
 
+	cfg.Logger.Debug("Endpoint in NewRequest: ", endpoint)
 	request.URL, err = url.Parse(endpoint + operation.HTTPPath)
 	if err != nil {
 		request.URL = &url.URL{}
 		err = NewBaseError("InvalidEndpointURL", "invalid endpoint uri", err)
 	}
 
+	cfg.Logger.Debug("URL in NewRequest: ", request.URL)
 	ResetHostForHeader(request)
 	if !cfg.RedirectEnabled {
 		DisableHTTPRedirect(client)
@@ -106,7 +108,7 @@ func (r *Request) SetBufferBody(buf []byte) {
 	r.SetReaderBody(bytes.NewReader(buf))
 }
 
-
+// SetReaderBody will set the request's body reader.
 func (r *Request) SetReaderBody(reader io.ReadSeeker) {
 	r.Body = reader
 	var err error
@@ -120,6 +122,15 @@ func (r *Request) SetReaderBody(reader io.ReadSeeker) {
 	r.ResetBody()
 }
 
+// ResetBody rewinds the request body back to its starting position, and
+// set's the HTTP Request body reference. When the body is read prior
+// to being sent in the HTTP request it will need to be rewound.
+//
+// ResetBody will automatically be called by the SDK's build handler, but if
+// the request is being used directly ResetBody must be called before the request
+// is Sent.  SetStringBody, SetBufferBody, and SetReaderBody will automatically
+// call ResetBody.
+//
 func (r *Request) ResetBody() {
 	body, err := r.getNextRequestBody()
 	if err != nil {
@@ -151,6 +162,15 @@ func (r *Request) getNextRequestBody() (body io.ReadCloser, err error) {
 	} else if l > 0 {
 		body = r.safeBody
 	} else {
+		// Hack to prevent sending bodies for methods where the body
+		// should be ignored by the server. Sending bodies on these
+		// methods without an associated ContentLength will cause the
+		// request to socket timeout because the server does not handle
+		// Transfer-Encoding: chunked bodies for these methods.
+		//
+		// This would only happen if a ReaderSeekerCloser was used with
+		// a io.Reader that was not also an io.Seeker, or did not
+		// implement Len() method.
 		switch r.Operation.HTTPMethod {
 		case "GET", "HEAD", "DELETE":
 			body = http.NoBody
@@ -305,6 +325,10 @@ func (r *Request) IsParamsValid() bool {
 
 func (r *Request) AddAgentInfo(s string) {
 	r.HTTPRequest.Header.Set("User-Agent", s)
+}
+
+func (r *Request) GetResponseHeader(s string) string {
+	return r.HTTPResponse.Header.Get(s)
 }
 
 // offsetReader is a thread-safe io.ReadCloser to prevent racing
