@@ -57,7 +57,7 @@ func (a And) String() string {
 	return helper.Prettify(a)
 }
 
-func (a *And) Validate() error {
+func (a And) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "And"}
 	if a.Tags != nil {
 		for i, v := range a.Tags {
@@ -94,8 +94,7 @@ func (b BucketLoggingStatus) String() string {
 	return helper.Prettify(b)
 }
 
-// Validate inspects the fields of the type to determine if they are valid.
-func (b *BucketLoggingStatus) Validate() error {
+func (b BucketLoggingStatus) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "BucketLoggingStatus"}
 	if b.LoggingEnabled != nil {
 		if err := b.LoggingEnabled.Validate(); err != nil {
@@ -107,6 +106,28 @@ func (b *BucketLoggingStatus) Validate() error {
 		return invalidParams
 	}
 	return nil
+}
+
+// Container for all response elements.
+type CopyPartResult struct {
+	ETag         *string
+	LastModified *time.Time
+}
+
+// String returns the string representation
+func (c CopyPartResult) String() string {
+	return helper.Prettify(c)
+}
+
+// Container for all response elements.
+type CopyObjectResult struct {
+	ETag         *string
+	LastModified *time.Time
+}
+
+// String returns the string representation
+func (s CopyObjectResult) String() string {
+	return helper.Prettify(s)
 }
 
 // Container for all (if there are any) keys between Prefix and the next occurrence
@@ -137,6 +158,27 @@ func (c Condition) String() string {
 	return helper.Prettify(c)
 }
 
+// The container for the completed multipart upload details.
+type CompletedMultipartUpload struct {
+	Parts []CompletedPart
+}
+
+// String returns the string representation
+func (c CompletedMultipartUpload) String() string {
+	return helper.Prettify(c)
+}
+
+// Details of the parts that were uploaded.
+type CompletedPart struct {
+	ETag       *string
+	PartNumber *int64
+}
+
+// String returns the string representation
+func (c CompletedPart) String() string {
+	return helper.Prettify(c)
+}
+
 type CORSConfiguration struct {
 	CORSRules []CORSRule
 }
@@ -146,7 +188,7 @@ func (c CORSConfiguration) String() string {
 	return helper.Prettify(c)
 }
 
-func (c *CORSConfiguration) Validate() error {
+func (c CORSConfiguration) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "CORSConfiguration"}
 
 	if c.CORSRules == nil {
@@ -180,7 +222,7 @@ func (c CORSRule) String() string {
 	return helper.Prettify(c)
 }
 
-func (c *CORSRule) Validate() error {
+func (c CORSRule) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "CORSRule"}
 
 	if c.AllowedMethods == nil {
@@ -195,6 +237,36 @@ func (c *CORSRule) Validate() error {
 		return invalidParams
 	}
 	return nil
+}
+
+// Describes how a CSV-formatted input object is formatted.
+type CSVInput struct {
+	AllowQuotedRecordDelimiter *bool
+	Comments                   *string
+	FieldDelimiter             *string
+	FileHeaderInfo             *string
+	QuoteCharacter             *string
+	QuoteEscapeCharacter       *string
+	RecordDelimiter            *string
+}
+
+// String returns the string representation
+func (c CSVInput) String() string {
+	return helper.Prettify(c)
+}
+
+// Describes how CSV-formatted results are formatted.
+type CSVOutput struct {
+	FieldDelimiter       *string
+	QuoteCharacter       *string
+	QuoteEscapeCharacter *string
+	QuoteFields          *string
+	RecordDelimiter      *string
+}
+
+// String returns the string representation
+func (s CSVOutput) String() string {
+	return helper.Prettify(s)
 }
 
 // Container for the objects to delete.
@@ -278,7 +350,7 @@ func (s ErrorDocument) String() string {
 	return helper.Prettify(s)
 }
 
-func (s *ErrorDocument) Validate() error {
+func (s ErrorDocument) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "ErrorDocument"}
 
 	if s.Key == nil {
@@ -286,6 +358,30 @@ func (s *ErrorDocument) Validate() error {
 	}
 	if s.Key != nil && len(*s.Key) < 1 {
 		invalidParams.Add(request.NewErrParamMinLen("Key", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// Contains the type of server-side encryption used.
+type Encryption struct {
+	EncryptionType ServerSideEncryption
+	KMSContext     *string
+	KMSKeyId       *string
+}
+
+// String returns the string representation
+func (e Encryption) String() string {
+	return helper.Prettify(e)
+}
+
+func (e Encryption) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "Encryption"}
+	if len(e.EncryptionType) == 0 {
+		invalidParams.Add(request.NewErrParamRequired("EncryptionType"))
 	}
 
 	if invalidParams.Len() > 0 {
@@ -319,8 +415,7 @@ func (f Filter) String() string {
 	return helper.Prettify(f)
 }
 
-// Validate inspects the fields of the type to determine if they are valid.
-func (f *Filter) Validate() error {
+func (f Filter) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "Filter"}
 	if f.And != nil {
 		if err := f.And.Validate(); err != nil {
@@ -349,7 +444,7 @@ func (i IndexDocument) String() string {
 	return helper.Prettify(i)
 }
 
-func (i *IndexDocument) Validate() error {
+func (i IndexDocument) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "IndexDocument"}
 
 	if i.Suffix == nil {
@@ -373,6 +468,37 @@ func (i Initiator) String() string {
 	return helper.Prettify(i)
 }
 
+// Describes the serialization format of the object.
+type InputSerialization struct {
+	CSV             *CSVInput
+	CompressionType *string
+	JSON            *JSONInput
+	Parquet         *ParquetInput
+}
+
+// String returns the string representation
+func (i InputSerialization) String() string {
+	return helper.Prettify(i)
+}
+
+type JSONInput struct {
+	Type *string
+}
+
+// String returns the string representation
+func (j JSONInput) String() string {
+	return helper.Prettify(j)
+}
+
+type JSONOutput struct {
+	RecordDelimiter *string
+}
+
+// String returns the string representation
+func (j JSONOutput) String() string {
+	return helper.Prettify(j)
+}
+
 // A container of a key value name pair.
 type Tag struct {
 	Key   *string
@@ -384,8 +510,7 @@ func (t Tag) String() string {
 	return helper.Prettify(t)
 }
 
-// Validate inspects the fields of the type to determine if they are valid.
-func (t *Tag) Validate() error {
+func (t Tag) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "Tag"}
 
 	if t.Key == nil {
@@ -397,6 +522,28 @@ func (t *Tag) Validate() error {
 
 	if t.Value == nil {
 		invalidParams.Add(request.NewErrParamRequired("Value"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// Container for S3 Glacier job parameters.
+type GlacierJobParameters struct {
+	Tier *string
+}
+
+// String returns the string representation
+func (g GlacierJobParameters) String() string {
+	return helper.Prettify(g)
+}
+
+func (g GlacierJobParameters) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "GlacierJobParameters"}
+	if g.Tier == nil {
+		invalidParams.Add(request.NewErrParamRequired("Tier"))
 	}
 
 	if invalidParams.Len() > 0 {
@@ -456,8 +603,7 @@ func (l LifecycleConfiguration) String() string {
 	return helper.Prettify(l)
 }
 
-// Validate inspects the fields of the type to determine if they are valid.
-func (l *LifecycleConfiguration) Validate() error {
+func (l LifecycleConfiguration) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "LifecycleConfiguration"}
 
 	if l.Rules == nil {
@@ -495,7 +641,7 @@ func (l LifecycleRule) String() string {
 	return helper.Prettify(l)
 }
 
-func (l *LifecycleRule) Validate() error {
+func (l LifecycleRule) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "LifecycleRule"}
 	if l.Status != nil {
 		invalidParams.Add(request.NewErrParamRequired("Status"))
@@ -524,7 +670,7 @@ func (l LoggingEnabled) String() string {
 	return helper.Prettify(l)
 }
 
-func (l *LoggingEnabled) Validate() error {
+func (l LoggingEnabled) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "LoggingEnabled"}
 
 	if l.TargetBucket == nil {
@@ -538,6 +684,67 @@ func (l *LoggingEnabled) Validate() error {
 		if err := l.Grantee.Validate(); err != nil {
 			invalidParams.AddNested("Grantee", err.(request.ErrInvalidParams))
 		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+type MetaConfiguration struct {
+	Headers   []MetadataEntry
+	VersionID *string
+}
+
+// String returns the string representation
+func (m MetaConfiguration) String() string {
+	return helper.Prettify(m)
+}
+
+func (m MetaConfiguration) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "MetaConfiguration"}
+
+	if m.Headers == nil {
+		invalidParams.Add(request.NewErrParamRequired("Headers"))
+	}
+	if m.Headers != nil {
+		for i, v := range m.Headers {
+			if err := v.Validate(); err != nil {
+				invalidParams.AddNested(fmt.Sprintf("%s[%v]", "Headers", i), err.(request.ErrInvalidParams))
+			}
+		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// A metadata key-value pair to store with an object.
+type MetadataEntry struct {
+	Name  *string
+	Value *string
+}
+
+// String returns the string representation
+func (m MetadataEntry) String() string {
+	return helper.Prettify(m)
+}
+
+func (m MetadataEntry) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "MetadataEntry"}
+
+	if m.Name == nil {
+		invalidParams.Add(request.NewErrParamRequired("Name"))
+	}
+	if m.Name != nil && len(*m.Name) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("Name", 1))
+	}
+
+	if m.Value == nil {
+		invalidParams.Add(request.NewErrParamRequired("Value"))
 	}
 
 	if invalidParams.Len() > 0 {
@@ -639,6 +846,30 @@ func (o ObjectVersion) String() string {
 	return helper.Prettify(o)
 }
 
+// Describes the location where the restore job's output is stored.
+type OutputLocation struct {
+	S3 *S3Location
+}
+
+// String returns the string representation
+func (o OutputLocation) String() string {
+	return helper.Prettify(o)
+}
+
+func (o OutputLocation) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "OutputLocation"}
+	if o.S3 != nil {
+		if err := o.S3.Validate(); err != nil {
+			invalidParams.AddNested("S3", err.(request.ErrInvalidParams))
+		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
 // Container for the owner's display name and ID.
 type Owner struct {
 	DisplayName *string // Container for the display name of the owner.
@@ -648,6 +879,24 @@ type Owner struct {
 // String returns the string representation
 func (o Owner) String() string {
 	return helper.Prettify(o)
+}
+
+// Describes how results of the Select job are serialized.
+type OutputSerialization struct {
+	CSV  *CSVOutput
+	JSON *JSONOutput
+}
+
+// String returns the string representation
+func (o OutputSerialization) String() string {
+	return helper.Prettify(o)
+}
+
+type ParquetInput struct{}
+
+// String returns the string representation
+func (p ParquetInput) String() string {
+	return helper.Prettify(p)
 }
 
 // Container for elements related to a part.
@@ -689,11 +938,59 @@ func (r RedirectAllRequestsTo) String() string {
 	return helper.Prettify(r)
 }
 
-func (r *RedirectAllRequestsTo) Validate() error {
+func (r RedirectAllRequestsTo) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "RedirectAllRequestsTo"}
 
 	if r.HostName == nil {
 		invalidParams.Add(request.NewErrParamRequired("HostName"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+type RenameObjectResult struct {
+	LastModified *time.Time
+}
+
+// String returns the string representation
+func (r RenameObjectResult) String() string {
+	return helper.Prettify(r)
+}
+
+// Container for restore job parameters.
+type RestoreRequest struct {
+	Days                 *int64
+	Description          *string
+	GlacierJobParameters *GlacierJobParameters
+	OutputLocation       *OutputLocation
+	SelectParameters     *SelectParameters
+	Tier                 *string
+	Type                 *string
+}
+
+func (r RestoreRequest) String() string {
+	return helper.Prettify(r)
+}
+
+func (r RestoreRequest) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "RestoreRequest"}
+	if r.GlacierJobParameters != nil {
+		if err := r.GlacierJobParameters.Validate(); err != nil {
+			invalidParams.AddNested("GlacierJobParameters", err.(request.ErrInvalidParams))
+		}
+	}
+	if r.OutputLocation != nil {
+		if err := r.OutputLocation.Validate(); err != nil {
+			invalidParams.AddNested("OutputLocation", err.(request.ErrInvalidParams))
+		}
+	}
+	if r.SelectParameters != nil {
+		if err := r.SelectParameters.Validate(); err != nil {
+			invalidParams.AddNested("SelectParameters", err.(request.ErrInvalidParams))
+		}
 	}
 
 	if invalidParams.Len() > 0 {
@@ -713,11 +1010,48 @@ func (s RoutingRule) String() string {
 	return helper.Prettify(s)
 }
 
-func (s *RoutingRule) Validate() error {
+func (s RoutingRule) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "RoutingRule"}
 
 	if s.Redirect == nil {
 		invalidParams.Add(request.NewErrParamRequired("Redirect"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// Describes the parameters for Select job types.
+type SelectParameters struct {
+	Expression          *string
+	ExpressionType      *string
+	InputSerialization  *InputSerialization
+	OutputSerialization *OutputSerialization
+}
+
+// String returns the string representation
+func (s SelectParameters) String() string {
+	return helper.Prettify(s)
+}
+
+func (s SelectParameters) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "SelectParameters"}
+
+	if s.Expression == nil {
+		invalidParams.Add(request.NewErrParamRequired("Expression"))
+	}
+	if s.ExpressionType == nil {
+		invalidParams.Add(request.NewErrParamRequired("ExpressionType"))
+	}
+
+	if s.InputSerialization == nil {
+		invalidParams.Add(request.NewErrParamRequired("InputSerialization"))
+	}
+
+	if s.OutputSerialization == nil {
+		invalidParams.Add(request.NewErrParamRequired("OutputSerialization"))
 	}
 
 	if invalidParams.Len() > 0 {
@@ -758,7 +1092,7 @@ func (s ServerSideEncryptionConfiguration) Validate() error {
 
 // Specifies the default server-side encryption configuration.
 type ServerSideEncryptionRule struct {
-	ApplyServerSideEncryptionByDefault *ServerSideEncryptionByDefault `type:"structure"`
+	ApplyServerSideEncryptionByDefault *ServerSideEncryptionByDefault
 }
 
 // String returns the string representation
@@ -766,7 +1100,7 @@ func (s ServerSideEncryptionRule) String() string {
 	return helper.Prettify(s)
 }
 
-func (s *ServerSideEncryptionRule) Validate() error {
+func (s ServerSideEncryptionRule) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "ServerSideEncryptionRule"}
 	if s.ApplyServerSideEncryptionByDefault != nil {
 		if err := s.ApplyServerSideEncryptionByDefault.Validate(); err != nil {
@@ -802,6 +1136,88 @@ func (s ServerSideEncryptionByDefault) Validate() error {
 	return nil
 }
 
+// Describes an Amazon S3 location that will receive the results of the restore
+// request.
+type S3Location struct {
+	AccessControlList []Grant
+	BucketName        *string
+	CannedACL         *string
+	Encryption        *Encryption
+	Prefix            *string
+	StorageClass      StorageClass
+	Tagging           *Tagging
+	UserMetadata      []MetadataEntry
+}
+
+// String returns the string representation
+func (s S3Location) String() string {
+	return helper.Prettify(s)
+}
+
+func (s S3Location) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "S3Location"}
+
+	if s.BucketName == nil {
+		invalidParams.Add(request.NewErrParamRequired("BucketName"))
+	}
+
+	if s.Prefix == nil {
+		invalidParams.Add(request.NewErrParamRequired("Prefix"))
+	}
+	if s.AccessControlList != nil {
+		for i, v := range s.AccessControlList {
+			if err := v.Validate(); err != nil {
+				invalidParams.AddNested(fmt.Sprintf("%s[%v]", "AccessControlList", i), err.(request.ErrInvalidParams))
+			}
+		}
+	}
+	if s.Encryption != nil {
+		if err := s.Encryption.Validate(); err != nil {
+			invalidParams.AddNested("Encryption", err.(request.ErrInvalidParams))
+		}
+	}
+	if s.Tagging != nil {
+		if err := s.Tagging.Validate(); err != nil {
+			invalidParams.AddNested("Tagging", err.(request.ErrInvalidParams))
+		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// Container for TagSet elements.
+type Tagging struct {
+	TagSet []Tag `xml:"TagSet>Tag"`
+}
+
+// String returns the string representation
+func (t Tagging) String() string {
+	return helper.Prettify(t)
+}
+
+func (t Tagging) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "Tagging"}
+
+	if t.TagSet == nil {
+		invalidParams.Add(request.NewErrParamRequired("TagSet"))
+	}
+	if t.TagSet != nil {
+		for i, v := range t.TagSet {
+			if err := v.Validate(); err != nil {
+				invalidParams.AddNested(fmt.Sprintf("%s[%v]", "TagSet", i), err.(request.ErrInvalidParams))
+			}
+		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
 type Transition struct {
 	Date         *time.Time
 	Days         *int64
@@ -811,4 +1227,47 @@ type Transition struct {
 // String returns the string representation
 func (t Transition) String() string {
 	return helper.Prettify(t)
+}
+
+type WebsiteConfiguration struct {
+	ErrorDocument         *ErrorDocument
+	IndexDocument         *IndexDocument
+	RedirectAllRequestsTo *RedirectAllRequestsTo
+	RoutingRules          []RoutingRule
+}
+
+// String returns the string representation
+func (w WebsiteConfiguration) String() string {
+	return helper.Prettify(w)
+}
+
+func (w WebsiteConfiguration) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "WebsiteConfiguration"}
+	if w.ErrorDocument != nil {
+		if err := w.ErrorDocument.Validate(); err != nil {
+			invalidParams.AddNested("ErrorDocument", err.(request.ErrInvalidParams))
+		}
+	}
+	if w.IndexDocument != nil {
+		if err := w.IndexDocument.Validate(); err != nil {
+			invalidParams.AddNested("IndexDocument", err.(request.ErrInvalidParams))
+		}
+	}
+	if w.RedirectAllRequestsTo != nil {
+		if err := w.RedirectAllRequestsTo.Validate(); err != nil {
+			invalidParams.AddNested("RedirectAllRequestsTo", err.(request.ErrInvalidParams))
+		}
+	}
+	if w.RoutingRules != nil {
+		for i, v := range w.RoutingRules {
+			if err := v.Validate(); err != nil {
+				invalidParams.AddNested(fmt.Sprintf("%s[%v]", "RoutingRules", i), err.(request.ErrInvalidParams))
+			}
+		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
 }

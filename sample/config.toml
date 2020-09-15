@@ -1,7 +1,7 @@
 [s3]
-endpoint   = "s3.zwytest.com"
-accessKey  = "znO4FsoZop7L4GII"
-secretKey  = "LHuyeubvQvHu2aiDwXJQXfwxzjnm2P"
+endpoint   = "s3.test.com"
+accessKey  = "hehehehe"
+secretKey  = "hehehehe"
 bucketName = "gosdktest"
 objectKey = "gosdkkey"
 localFilePath = "sample/example.jpg"

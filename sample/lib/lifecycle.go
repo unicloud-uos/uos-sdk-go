@@ -2,12 +2,12 @@ package lib
 
 import "github.com/uos-sdk-go/s3"
 
-func (s3client *S3Client) PutBucketLifecycle(bucketName string, config *s3.BucketLifecycle) (err error) {
+func (s3client *S3Client) PutBucketLifecycle(bucketName string, config *s3.LifecycleConfiguration) (err error) {
 	params := &s3.PutBucketLifecycleInput{
 		Bucket:                 s3.String(bucketName),
-		Lifecycle: config,
+		LifecycleConfiguration: config,
 	}
-	_, err = s3client.Client.PutBucketLifecycleConfiguration(params)
+	_, err = s3client.Client.PutBucketLifecycle(params)
 	return err
 }
 

@@ -51,3 +51,51 @@ func PutObjectSample() {
 
 	fmt.Printf("NewObjectSample Run Success !\n\n")
 }
+
+func PutObjectWithForbidOverwrite() {
+	DeleteTestBucketAndObject()
+	defer DeleteTestBucketAndObject()
+	sc := lib.NewClient(endpoint, accessKey, secretKey)
+	// Create a bucket
+	err := sc.MakeBucket(bucketName)
+	if err != nil {
+		HandleError(err)
+	}
+
+	err = sc.PutObject(bucketName, objectKey, strings.NewReader("NewBucketAndObjectSample"))
+	if err != nil {
+		HandleError(err)
+	}
+	out, err := sc.GetObject(bucketName, objectKey)
+	if err != nil {
+		HandleError(err)
+	}
+	b, _ := ioutil.ReadAll(out.Body)
+	fmt.Println(string(b))
+
+	//set forbid overwrite
+	_, err = sc.PutObjectWithForbidOverwrite(bucketName, objectKey, strings.NewReader("OverwriteValue"), true)
+	if err == nil {
+		HandleError(err)
+	}
+	out, err = sc.GetObject(bucketName, objectKey)
+	if err != nil {
+		HandleError(err)
+	}
+	b, _ = ioutil.ReadAll(out.Body)
+	fmt.Println(string(b))
+
+	_, err = sc.PutObjectWithForbidOverwrite(bucketName, objectKey, strings.NewReader("OverwriteValue"), false)
+	if err != nil {
+		HandleError(err)
+	}
+	out, err = sc.GetObject(bucketName, objectKey)
+	if err != nil {
+		HandleError(err)
+	}
+	b, _ = ioutil.ReadAll(out.Body)
+	fmt.Println(string(b))
+	out.Body.Close()
+
+	fmt.Printf("NewObjectSample Run Success !\n\n")
+}

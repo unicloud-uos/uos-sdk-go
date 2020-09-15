@@ -331,6 +331,29 @@ func (r *Request) GetResponseHeader(s string) string {
 	return r.HTTPResponse.Header.Get(s)
 }
 
+// Presign returns the request's signed URL. Error will be returned
+// if the signing fails.
+//
+// It is invalid to create a presigned URL with a expire duration 0 or less. An
+// error is returned if expire duration is 0 or less.
+func (r *Request) Presign(expire time.Duration) (string, error) {
+	if expire <= 0 {
+		return "", NewBaseError(
+			"InvalidPresignExpireError",
+			"presigned URL requires an expire duration greater than 0",
+			nil,
+		)
+	}
+
+	r.ExpireTime = expire
+
+	if err := r.Sign(); err != nil {
+		return "", err
+	}
+
+	return r.HTTPRequest.URL.String(), nil
+}
+
 // offsetReader is a thread-safe io.ReadCloser to prevent racing
 // with retrying requests
 type offsetReader struct {

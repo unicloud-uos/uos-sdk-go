@@ -4,6 +4,7 @@ import (
 	"github.com/uos-sdk-go/s3/helper"
 	"io"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -44,4 +45,12 @@ type ReadSeekerStream struct {
 // MarshalStream returns the wrapped io.ReadSeeker for encoding.
 func (v ReadSeekerStream) MarshalStream() (io.ReadSeeker, error) {
 	return v.V, nil
+}
+
+// A StringStream aliases a string to be used as a StreamMarshaler.
+type StringStream string
+
+// MarshalStream marshals a string into an io.ReadSeeker for encoding.
+func (v StringStream) MarshalStream() (io.ReadSeeker, error) {
+	return strings.NewReader(string(v)), nil
 }

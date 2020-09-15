@@ -44,10 +44,48 @@ func (s3client *S3Client) PutBucketAcl(bucketName string, acl string, policy s3.
 	return err
 }
 
+func (s3client *S3Client) PutBucketAclWithXml(bucketName string, acl *s3.AccessControlPolicy) (err error) {
+	params := &s3.PutBucketAclInput{
+		Bucket:              s3.String(bucketName),
+		AccessControlPolicy: acl,
+	}
+	_, err = s3client.Client.PutBucketAcl(params)
+	return err
+}
+
 func (s3client *S3Client) GetBucketAcl(bucketName string) (out *s3.GetBucketAclOutput, err error) {
 	params := &s3.GetBucketAclInput{
 		Bucket: s3.String(bucketName),
 	}
 	out, err = s3client.Client.GetBucketAcl(params)
 	return out, err
+}
+
+func (s3client *S3Client) PutObjectAcl(bucketName, objName string, acl string) (err error) {
+	params := &s3.PutObjectAclInput{
+		Bucket: s3.String(bucketName),
+		Key:    s3.String(objName),
+		ACL:    s3.String(acl),
+	}
+	_, err = s3client.Client.PutObjectAcl(params)
+	return err
+}
+
+func (s3client *S3Client) PutObjectAclWithXml(bucketName, objName string, acl *s3.AccessControlPolicy) (err error) {
+	params := &s3.PutObjectAclInput{
+		Bucket:              s3.String(bucketName),
+		Key:                 s3.String(objName),
+		AccessControlPolicy: acl,
+	}
+	_, err = s3client.Client.PutObjectAcl(params)
+	return err
+}
+
+func (s3client *S3Client) GetObjectAcl(bucketName, objName string) (ret string, err error) {
+	params := &s3.GetObjectAclInput{
+		Bucket: s3.String(bucketName),
+		Key:    s3.String(objName),
+	}
+	out, err := s3client.Client.GetObjectAcl(params)
+	return out.String(), err
 }

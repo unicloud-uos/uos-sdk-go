@@ -88,3 +88,15 @@ const (
 	TypeAmazonCustomerByEmail Type = "AmazonCustomerByEmail"
 	TypeGroup                 Type = "Group"
 )
+
+type MetadataDirective string
+
+// Enum values for MetadataDirective
+const (
+	MetadataDirectiveCopy    MetadataDirective = "COPY"
+	MetadataDirectiveReplace MetadataDirective = "REPLACE"
+)
+
+func (m MetadataDirective) MarshalValue() (string, error) {
+	return string(m), nil
+}

@@ -15,7 +15,7 @@ func NewClient(endpoint, accessKey, secretKey string) *S3Client {
 	config := helper.GetDefaultConfig()
 	config.Endpoint = endpoint
 	config.Credentials = credential.NewStaticCredentials(accessKey, secretKey, "")
-	config.Logger = log.NewLogger("debug")
+	config.Logger = log.NewLogger("error")
 
 	client := s3.NewClient(*config)
 

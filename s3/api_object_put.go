@@ -12,6 +12,9 @@ type PutObjectInput struct {
 	ACL                     *string
 	Body                    io.ReadSeeker
 	Bucket                  *string
+	ContentDisposition      *string
+	ContentEncoding         *string
+	ContentLanguage         *string
 	ContentLength           *int64
 	ContentMD5              *string
 	ContentType             *string
@@ -85,6 +88,18 @@ func (p PutObjectInput) MarshalForPut(e *request.EncoderForPut) error {
 	if p.ACL != nil {
 		v := *p.ACL
 		e.SetValue(helper.HeaderTarget, "x-uos-acl", request.StringValue(v))
+	}
+	if p.ContentDisposition != nil {
+		v := *p.ContentDisposition
+		e.SetValue(helper.HeaderTarget, "Content-Disposition", request.StringValue(v))
+	}
+	if p.ContentEncoding != nil {
+		v := *p.ContentEncoding
+		e.SetValue(helper.HeaderTarget, "Content-Encoding", request.StringValue(v))
+	}
+	if p.ContentLanguage != nil {
+		v := *p.ContentLanguage
+		e.SetValue(helper.HeaderTarget, "Content-Language", request.StringValue(v))
 	}
 	if p.ContentLength != nil {
 		v := *p.ContentLength
@@ -187,7 +202,6 @@ func (c *Client) PutObject(input *PutObjectInput) (PutObjectOutput, error) {
 		return PutObjectOutput{}, err
 	}
 	out := req.Data.(*PutObjectOutput)
-	c.Logger.Debug("Create bucket output: ", out)
 
 	return *out, err
 }
