@@ -59,7 +59,7 @@ func (g GetBucketEncryptionOutput) UnmarshalBody(r *request.Request) error {
 	if err != nil {
 		return err
 	}
-	err = xml.Unmarshal(buf, &g)
+	err = xml.Unmarshal(buf, &g.ServerSideEncryptionConfiguration)
 	if err != nil {
 		return err
 	}

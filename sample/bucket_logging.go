@@ -14,6 +14,10 @@ func BucketLoggingSample() {
 	if err != nil {
 		HandleError(err)
 	}
+	err = sc.MakeBucket("targetbucket")
+	if err != nil {
+		HandleError(err)
+	}
 
 	// SetBucketLogging(bucketName, logBucketName, "prefix")
 	rules := &s3.LoggingEnabled{
@@ -35,6 +39,9 @@ func BucketLoggingSample() {
 	if err != nil {
 		HandleError(err)
 	}
-
+	err = sc.DeleteBucket("targetbucket")
+	if err != nil {
+		HandleError(err)
+	}
 	fmt.Printf("BucketLoggingSample Run Success !\n\n")
 }

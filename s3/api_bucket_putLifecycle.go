@@ -89,14 +89,14 @@ func (c *Client) PutBucketLifecycleRequest(input *PutBucketLifecycleInput) (req 
 	return
 }
 
-func (c *Client) PutBucketLifecycle(input *PutBucketLifecycleInput) (PutBucketCorsOutput, error) {
+func (c *Client) PutBucketLifecycle(input *PutBucketLifecycleInput) (PutBucketLifecycleOutput, error) {
 	req := c.PutBucketLifecycleRequest(input)
 
 	err := req.Do()
 	if err != nil {
-		return PutBucketCorsOutput{}, err
+		return PutBucketLifecycleOutput{}, err
 	}
-	out := req.Data.(*PutBucketCorsOutput)
+	out := req.Data.(*PutBucketLifecycleOutput)
 
 	return *out, err
 }

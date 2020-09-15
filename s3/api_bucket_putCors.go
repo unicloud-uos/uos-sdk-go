@@ -21,6 +21,9 @@ func (p PutBucketCorsInput) Validate() error {
 	if p.Bucket == nil {
 		invalidParams.Add(request.NewErrParamRequired("Bucket"))
 	}
+	if p.CORSConfiguration == nil {
+		invalidParams.Add(request.NewErrParamRequired("CORSConfiguration"))
+	}
 	if p.CORSConfiguration != nil {
 		if err := p.CORSConfiguration.Validate(); err != nil {
 			invalidParams.AddNested("CORSConfiguration", err.(request.ErrInvalidParams))

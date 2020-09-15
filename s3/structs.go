@@ -160,7 +160,7 @@ func (c Condition) String() string {
 
 // The container for the completed multipart upload details.
 type CompletedMultipartUpload struct {
-	Parts []CompletedPart
+	Parts []CompletedPart `xml:"Part"`
 }
 
 // String returns the string representation
@@ -180,7 +180,7 @@ func (c CompletedPart) String() string {
 }
 
 type CORSConfiguration struct {
-	CORSRules []CORSRule
+	CORSRules []CORSRule `xml:"CORSRule"`
 }
 
 // String returns the string representation
@@ -210,10 +210,10 @@ func (c CORSConfiguration) Validate() error {
 
 // Specifies a cross-origin access rule.
 type CORSRule struct {
-	AllowedHeaders []string
-	AllowedMethods []string
-	AllowedOrigins []string
-	ExposeHeaders  []string
+	AllowedHeaders []string `xml:"AllowedHeader"`
+	AllowedMethods []string `xml:"AllowedMethod"`
+	AllowedOrigins []string `xml:"AllowedOrigin"`
+	ExposeHeaders  []string `xml:"ExposeHeader"`
 	MaxAgeSeconds  *int64
 }
 
@@ -271,7 +271,7 @@ func (s CSVOutput) String() string {
 
 // Container for the objects to delete.
 type Delete struct {
-	Objects []ObjectIdentifier // The objects to delete.
+	Objects []ObjectIdentifier `xml:"Object"`
 	Quiet   *bool
 }
 
@@ -595,7 +595,7 @@ func (g Grantee) Validate() error {
 
 // Container for lifecycle rules. You can add as many as 1000 rules.
 type LifecycleConfiguration struct {
-	Rules []LifecycleRule
+	Rules []LifecycleRule `xml:"Rule"`
 }
 
 // String returns the string representation
@@ -630,10 +630,10 @@ type LifecycleRule struct {
 	Filter                         *Filter
 	ID                             *string
 	NoncurrentVersionExpiration    *NoncurrentVersionExpiration
-	NoncurrentVersionTransitions   []NoncurrentVersionTransition `xml:"NoncurrentVersionTransitions>NoncurrentVersionTransition"`
+	NoncurrentVersionTransitions   []NoncurrentVersionTransition `xml:"NoncurrentVersionTransition"`
 	Prefix                         *string
-	Status                         *string
-	Transitions                    []Transition `xml:"Transitions>Transition"`
+	Status                         *string      `xml:"Status"`
+	Transitions                    []Transition `xml:"Transition"`
 }
 
 // String returns the string representation
@@ -643,7 +643,7 @@ func (l LifecycleRule) String() string {
 
 func (l LifecycleRule) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "LifecycleRule"}
-	if l.Status != nil {
+	if l.Status == nil {
 		invalidParams.Add(request.NewErrParamRequired("Status"))
 	}
 	if l.Filter != nil {
@@ -1062,7 +1062,7 @@ func (s SelectParameters) Validate() error {
 
 // Specifies the default server-side-encryption configuration.
 type ServerSideEncryptionConfiguration struct {
-	Rules []ServerSideEncryptionRule `xml:"Rules>ServerSideEncryptionRule"`
+	Rules []ServerSideEncryptionRule `xml:"Rule"`
 }
 
 // String returns the string representation

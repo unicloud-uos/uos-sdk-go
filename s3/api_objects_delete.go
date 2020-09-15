@@ -1,8 +1,10 @@
 package s3
 
 import (
+	"encoding/xml"
 	"github.com/uos-sdk-go/s3/helper"
 	"github.com/uos-sdk-go/s3/request"
+	"io/ioutil"
 )
 
 type DeleteObjectsInput struct {
@@ -57,8 +59,8 @@ func (d DeleteObjectsInput) MarshalForPut(e *request.EncoderForPut) error {
 }
 
 type DeleteObjectsOutput struct {
-	Deleted []DeletedObject
-	Errors  []Error
+	Deleted []DeletedObject `xml:"Deleted"`
+	Errors  []Error         `xml:"Error"`
 }
 
 // String returns the string representation
@@ -68,6 +70,16 @@ func (d DeleteObjectsOutput) String() string {
 
 func (d DeleteObjectsOutput) UnmarshalBody(r *request.Request) error {
 	defer r.HTTPResponse.Body.Close()
+	buf, err := ioutil.ReadAll(r.HTTPResponse.Body)
+	if err != nil {
+		return err
+	}
+	err = xml.Unmarshal(buf, &d)
+	if err != nil {
+		return err
+	}
+
+	r.Data = &d
 	return nil
 }
 

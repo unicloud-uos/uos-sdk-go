@@ -34,7 +34,7 @@ func AppendObjectSample() {
 	out.Body.Close()
 
 	// Append files to an object
-	strs = []string{"sample/L.jpeg", "sample/L1.jpeg", "sample/L2.jpeg"}
+	strs = []string{"sample/example.jpg", "sample/example.jpg", "sample/example.jpg"}
 	for _, s := range strs {
 		fmt.Println("Append file:", s)
 		f, err := os.Open(s)

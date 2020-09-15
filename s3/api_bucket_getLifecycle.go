@@ -45,7 +45,7 @@ func (g GetBucketLifecycleInput) MarshalForPut(e *request.EncoderForPut) error {
 }
 
 type GetBucketLifecycleOutput struct {
-	Rules []LifecycleRule `xml:"Rules>LifecycleRule"`
+	Rules []LifecycleRule `xml:"Rule"`
 }
 
 // String returns the string representation

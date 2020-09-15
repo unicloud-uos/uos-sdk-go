@@ -22,7 +22,6 @@ func main() {
 	//AppendObjectSample()
 	//ObjectACLSample()
 	//ObjectMetaSample()
-	//PutEncryptObjectWithSSECSample()
 	//PutEncryptObjectWithSSES3Sample()
 	//MultiPartUploadSample()
 	//MultiPartUploadSampleWithForbidOverwrite()

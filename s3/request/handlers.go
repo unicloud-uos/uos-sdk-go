@@ -232,6 +232,7 @@ var ValidateReqSigHandler = HandlerItem{
 var SendHandler = HandlerItem{
 	Name: "core.send.request",
 	Fn: func(request *Request) {
+		request.Config.Logger.Debug("Http request: ", request.HTTPRequest)
 		request.HTTPResponse, request.Error = request.HTTPClient.Do(request.HTTPRequest)
 		request.Config.Logger.Debug("Http response: ", request.HTTPResponse)
 

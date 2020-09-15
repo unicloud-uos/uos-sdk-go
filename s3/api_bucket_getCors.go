@@ -46,7 +46,7 @@ func (g GetBucketCorsInput) MarshalForPut(e *request.EncoderForPut) error {
 }
 
 type GetBucketCorsOutput struct {
-	CORSRules []CORSRule `xml:"CORSRules>CORSRule"`
+	CORSRules []CORSRule `xml:"CORSRule"`
 }
 
 // String returns the string representation
