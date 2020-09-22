@@ -28,7 +28,7 @@ func BucketCORSSample() {
 		AllowedOrigins: []string{"http://www.a.com", "http://www.b.com"},
 		AllowedMethods: []string{"GET"},
 		AllowedHeaders: []string{"Authorization"},
-		ExposeHeaders:  []string{"x-amz-test", "x-amz-test1"},
+		ExposeHeaders:  []string{"x-uos-test", "x-uos-test1"},
 		MaxAgeSeconds:  s3.Int64(100),
 	}
 

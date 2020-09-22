@@ -623,7 +623,6 @@ func (l LifecycleConfiguration) Validate() error {
 	return nil
 }
 
-// A lifecycle rule for individual objects in an Amazon S3 bucket.
 type LifecycleRule struct {
 	AbortIncompleteMultipartUpload *AbortIncompleteMultipartUpload
 	Expiration                     *Expiration
@@ -753,7 +752,6 @@ func (m MetadataEntry) Validate() error {
 	return nil
 }
 
-// Container for the MultipartUpload for the Amazon S3 object.
 type MultipartUpload struct {
 	Initiated    *time.Time
 	Initiator    *Initiator
@@ -1136,8 +1134,6 @@ func (s ServerSideEncryptionByDefault) Validate() error {
 	return nil
 }
 
-// Describes an Amazon S3 location that will receive the results of the restore
-// request.
 type S3Location struct {
 	AccessControlList []Grant
 	BucketName        *string

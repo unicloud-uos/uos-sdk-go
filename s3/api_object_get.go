@@ -16,7 +16,7 @@ type GetObjectInput struct {
 	IfUnmodifiedSince          *time.Time // Return the object only if its entity tag (ETag) is different from the one specified, otherwise return a 304 (not modified).
 	Key                        *string    // Return the object only if it has not been modified since the specified time, otherwise return a 412 (precondition failed).
 	PartNumber                 *int64     // Part number of the object being read. This is a positive integer between 1 and 10,000.
-	Range                      *string    // Downloads the specified range bytes of an object. For more information about the HTTP Range header
+	Range                      *string    // Downloads the specified range bytes of an object. Format like "bytes=0-1000".
 	ResponseCacheControl       *string    // Sets the Cache-Control header of the response.
 	ResponseContentDisposition *string    // Sets the Content-Disposition header of the response
 	ResponseContentEncoding    *string    // Sets the Content-Encoding header of the response.

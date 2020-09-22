@@ -38,7 +38,6 @@ func (r *PathReplace) ReplaceElement(key, val string) (err error) {
 }
 
 // ReplacePathElement replaces a single element in the path []byte.
-// Escape is used to control whether the value will be escaped using Amazon path escape style.
 func ReplacePathElement(path, fieldBuf []byte, key, val string, escape bool) ([]byte, []byte, error) {
 	fieldBuf = bufCap(fieldBuf, len(key)+3) // { <key> [+] }
 	fieldBuf = append(fieldBuf, uriTokenStart)

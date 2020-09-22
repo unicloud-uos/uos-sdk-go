@@ -100,14 +100,14 @@ func (s3client *S3Client) PutObjectPreSignedWithoutSpecifiedBody(bucketName, key
 	return req.Presign(expire)
 }
 
-func (s3client *S3Client) HeadObject(bucketName, key string) (err error) {
+func (s3client *S3Client) HeadObject(bucketName, key string) (out *s3.HeadObjectOutput, err error) {
 	params := &s3.HeadObjectInput{
 		Bucket: s3.String(bucketName),
 		Key:    s3.String(key),
 	}
-	_, err = s3client.Client.HeadObject(params)
+	out, err = s3client.Client.HeadObject(params)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	return
 }
@@ -124,17 +124,17 @@ func (s3client *S3Client) GetObject(bucketName, key string) (out *s3.GetObjectOu
 	return out, err
 }
 
-func (s3client *S3Client) GetObjectWithRange(bucketName, key, Range string) (value string, err error) {
+func (s3client *S3Client) GetObjectWithRange(bucketName, key, Range string) (out *s3.GetObjectOutput, err error) {
 	params := &s3.GetObjectInput{
 		Bucket: s3.String(bucketName),
 		Key:    s3.String(key),
 		Range:  s3.String(Range),
 	}
-	out, err := s3client.Client.GetObject(params)
+	out, err = s3client.Client.GetObject(params)
 	if err != nil {
 		return
 	}
-	return *out.ContentRange, err
+	return out, err
 }
 
 func (s3client *S3Client) GetObjectPreSigned(bucketName, key string, expire time.Duration) (url string, err error) {

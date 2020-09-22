@@ -33,7 +33,7 @@ var UnmarshalRequestHandler = HandlerItem{
 				// Unmarshal errorResponse
 				err = UnmarshalError(request)
 				if err != nil {
-					request.Error = NewBaseError("UnmarshalErrorErr", "failed to decode query XML error response", err)
+					request.Error = NewBaseError("UnmarshalErrorErr", "failed to decode error response", err)
 					return
 				}
 			}
@@ -115,7 +115,7 @@ func UnmarshalError(r *Request) error {
 		return nil
 	}
 
-	return decodeErr
+	return r.Error
 }
 
 func unmarshalStatusCode(v reflect.Value, statusCode int) {

@@ -15,7 +15,7 @@ type HeadObjectInput struct {
 	IfUnmodifiedSince    *time.Time // Return the object only if its entity tag (ETag) is different from the one specified, otherwise return a 304 (not modified).
 	Key                  *string    // Return the object only if it has not been modified since the specified time, otherwise return a 412 (precondition failed).
 	PartNumber           *int64     // Part number of the object being read. This is a positive integer between 1 and 10,000.
-	Range                *string    // Downloads the specified range bytes of an object. For more information about the HTTP Range header
+	Range                *string    // Downloads the specified range bytes of an object.
 	SSECustomerAlgorithm *string
 	SSECustomerKey       *string
 	SSECustomerKeyMD5    *string
@@ -124,6 +124,7 @@ type HeadObjectOutput struct {
 	Expires                 *string              `location:"header" locationName:"Expires"`
 	LastModified            *time.Time           `location:"header" locationName:"Last-Modified"`
 	Metadata                map[string]string    `location:"header" locationName:"x-uos-meta-"`
+	ObjectType              *string              `location:"header" locationName:"x-uos-object-type"`
 	PartsCount              *int64               `location:"header" locationName:"x-uos-mp-parts-count"`
 	Restore                 *string              `location:"header" locationName:"x-uos-restore"`
 	SSECustomerAlgorithm    *string              `location:"header" locationName:"x-uos-server-side-encryption-customer-algorithm"`

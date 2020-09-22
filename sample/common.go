@@ -7,7 +7,7 @@ import (
 )
 
 func HandleError(err error) {
-	fmt.Println("panic err:", err)
+	fmt.Println("sample err:", err)
 	err = DeleteTestBucketAndObject()
 	if err != nil {
 		fmt.Println("DeleteTestBucketAndObject err:", err)

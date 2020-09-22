@@ -17,7 +17,6 @@ func MultiPartUploadSample() {
 		HandleError(err)
 	}
 
-	// 1.Create Multipart Upload
 	uploadId, err := sc.CreateMultiPartUpload(bucketName, objectKey, s3.StorageClassStandard)
 	if err != nil {
 		HandleError(err)
@@ -38,7 +37,7 @@ func MultiPartUploadSample() {
 			PartNumber: s3.Int64(partNumber),
 		}
 	}
-	// 2.Upload Part
+
 	err = sc.CompleteMultiPartUpload(bucketName, objectKey, uploadId, completedUpload)
 	if err != nil {
 		HandleError(err)
@@ -152,7 +151,7 @@ func MultiPartDownloadSample() {
 		if err != nil {
 			HandleError(err)
 		}
-		fmt.Println("Download range is :", out)
+		fmt.Println("Download range is :", *out.ContentRange)
 
 	}
 	fmt.Printf("MultiPartDownloadSample Run Success !\n\n")

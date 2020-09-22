@@ -14,9 +14,11 @@ func main() {
 	//BucketCORSSample()
 	//BucketEncryptionSample()
 	//
+	//HeadObjectSample()
 	//PutObjectSample()
 	//PutObjectWithForbidOverwrite()
 	//GetObjectSample()
+	//GetObjectByRange()
 	//ListObjectsSample()
 	//DeleteObjectSample()
 	//AppendObjectSample()
