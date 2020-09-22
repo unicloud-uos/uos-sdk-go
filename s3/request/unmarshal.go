@@ -31,11 +31,8 @@ var UnmarshalRequestHandler = HandlerItem{
 
 			if request.Error != nil {
 				// Unmarshal errorResponse
-				err = UnmarshalError(request)
-				if err != nil {
-					request.Error = NewBaseError("UnmarshalErrorErr", "failed to decode error response", err)
-					return
-				}
+				UnmarshalError(request)
+				return
 			}
 
 			err = u.UnmarshalBody(request)
@@ -96,13 +93,13 @@ type responseError struct {
 	RequestId string   `xml:"RequestId"`
 }
 
-func UnmarshalError(r *Request) error {
+func UnmarshalError(r *Request) {
 	defer r.HTTPResponse.Body.Close()
 
 	bodyBytes, err := ioutil.ReadAll(r.HTTPResponse.Body)
 	if err != nil {
 		r.Config.Logger.Debug("Failed to read from query HTTP response body", err)
-		return err
+		r.Error = NewBaseError("UnmarshalErrorErr", "failed to read from query HTTP response body", err)
 	}
 	resp := responseError{}
 	decodeErr := xml.Unmarshal(bodyBytes, &resp)
@@ -112,10 +109,15 @@ func UnmarshalError(r *Request) error {
 			r.HTTPResponse.StatusCode,
 			r.RequestID,
 		)
-		return nil
+	} else {
+		r.Config.Logger.Debug("Failed to decode query XML error response", err)
+		r.Error = NewApiError(
+			NewBaseError("UnmarshalError",
+				r.HTTPResponse.Status, decodeErr),
+			r.HTTPResponse.StatusCode,
+			r.RequestID,
+		)
 	}
-
-	return r.Error
 }
 
 func unmarshalStatusCode(v reflect.Value, statusCode int) {
