@@ -28,8 +28,7 @@ func HeadObjectSample() {
 		HandleError(err)
 	}
 
-	out, err := sc.HeadObject("examplebucket", "v2ray-linux-64.zip")
-	//out, err := sc.HeadObject("examplebucket", "exampleobject")
+	out, err := sc.HeadObject(bucketName, objectKey)
 	if err != nil {
 		HandleError(err)
 	}

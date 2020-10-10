@@ -7,7 +7,7 @@ import (
 
 type PutBucketVersioningInput struct {
 	Bucket                  *string
-	VersioningConfiguration *string
+	VersioningConfiguration *VersioningConfiguration
 }
 
 // String returns the string representation
@@ -47,7 +47,7 @@ func (p PutBucketVersioningInput) MarshalForPut(e *request.EncoderForPut) error 
 
 	if p.VersioningConfiguration != nil {
 		v := *p.VersioningConfiguration
-		e.SetValue(helper.PayloadTarget, "BucketLoggingStatus", request.StringValue(v))
+		e.SetStruct(helper.PayloadTarget, "VersioningConfiguration", v)
 	}
 
 	return nil

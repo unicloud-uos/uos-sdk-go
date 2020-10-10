@@ -77,19 +77,19 @@ func (l ListObjectVersionsInput) MarshalForPut(e *request.EncoderForPut) error {
 }
 
 type ListObjectVersionsOutput struct {
-	CommonPrefixes      []CommonPrefix      `xml:"CommonPrefixes>CommonPrefix"`
-	DeleteMarkers       []DeleteMarkerEntry `xml:"DeleteMarkers>DeleteMarkerEntry"`
+	CommonPrefixes      []CommonPrefix
+	DeleteMarkers       []DeleteMarkerEntry `xml:"DeleteMarker"`
 	Delimiter           *string
 	EncodingType        EncodingType
 	IsTruncated         *bool
 	KeyMarker           *string
 	MaxKeys             *int64
-	Name                *string
+	Bucket              *string
 	NextKeyMarker       *string
 	NextVersionIdMarker *string
 	Prefix              *string
 	VersionIdMarker     *string
-	Versions            []ObjectVersion `xml:"Versions>ObjectVersion"`
+	Versions            []ObjectVersion `xml:"Version"`
 }
 
 // String returns the string representation

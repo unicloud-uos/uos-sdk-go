@@ -100,3 +100,8 @@ const (
 func (m MetadataDirective) MarshalValue() (string, error) {
 	return string(m), nil
 }
+
+const (
+	BucketVersioningStatusEnabled   = "Enabled"
+	BucketVersioningStatusSuspended = "Suspended"
+)

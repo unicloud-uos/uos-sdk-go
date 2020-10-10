@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/alecthomas/units"
 	"github.com/uos-sdk-go/s3"
 	"github.com/uos-sdk-go/sample/lib"
 	"io"
@@ -76,16 +77,18 @@ func GetObjectByRange() {
 	}
 	fmt.Println("Object info: ", out)
 
-	var partRange int64
+	var partOffset int64
 	var num int
 	var failedDownload []string
 	objects := make(map[int]*s3.GetObjectOutput)
 	objectSize := s3.Int64Value(out.ContentLength)
 	// Get object by parts
-	for {
+	partSize := int64(10 * units.KiB)
+	fmt.Println(objectSize / partSize)
+	for i := 0; i <= int(objectSize/partSize); i++ {
 		num++
-		if partRange+10<<10-1 <= objectSize {
-			rangeString := "bytes=" + strconv.FormatInt(partRange, 10) + "-" + strconv.FormatInt(partRange+(10<<10-1), 10)
+		if partOffset+partSize-1 <= objectSize {
+			rangeString := "bytes=" + strconv.FormatInt(partOffset, 10) + "-" + strconv.FormatInt(partOffset+(partSize-1), 10)
 			object, err := sc.GetObjectWithRange(bucketName, objectKey, rangeString)
 			if err != nil {
 				fmt.Println("part ", num, " download err: ", err, "\n rangeString: ", rangeString)
@@ -95,8 +98,9 @@ func GetObjectByRange() {
 
 			fmt.Println("part ", num, " object info: ", object)
 			objects[num] = object
-		} else if partRange < objectSize {
-			rangeString := "bytes=" + strconv.FormatInt(partRange, 10) + "-" + strconv.FormatInt(objectSize-1, 10)
+			partOffset += partSize
+		} else if partOffset < objectSize {
+			rangeString := "bytes=" + strconv.FormatInt(partOffset, 10) + "-" + strconv.FormatInt(objectSize-1, 10)
 			fmt.Println("rangeString: ", rangeString)
 			object, err := sc.GetObjectWithRange(bucketName, objectKey, rangeString)
 			if err != nil {
@@ -107,11 +111,7 @@ func GetObjectByRange() {
 			fmt.Println("part ", num, " object info: ", object)
 			objects[num] = object
 			break
-		} else {
-			// when range > object size, s3 wil return object
-			break
 		}
-		partRange += 10 << 10
 	}
 	// get parts which download failed before
 	for i := 0; i < len(failedDownload); i++ {

@@ -1225,6 +1225,15 @@ func (t Transition) String() string {
 	return helper.Prettify(t)
 }
 
+type VersioningConfiguration struct {
+	Status *string
+}
+
+// String returns the string representation
+func (v VersioningConfiguration) String() string {
+	return helper.Prettify(v)
+}
+
 type WebsiteConfiguration struct {
 	ErrorDocument         *ErrorDocument
 	IndexDocument         *IndexDocument

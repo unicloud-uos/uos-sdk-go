@@ -20,6 +20,7 @@ func main() {
 	//GetObjectSample()
 	//GetObjectByRange()
 	//ListObjectsSample()
+	//ListObjectVersionsSample()
 	//DeleteObjectSample()
 	//AppendObjectSample()
 	//ObjectACLSample()

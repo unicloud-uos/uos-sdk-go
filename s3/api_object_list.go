@@ -72,14 +72,14 @@ func (l ListObjectsInput) MarshalForPut(e *request.EncoderForPut) error {
 }
 
 type ListObjectsOutput struct {
-	CommonPrefixes []CommonPrefix `xml:"CommonPrefixes>CommonPrefix"`
-	Contents       []Object       `xml:"Contents>Object"`
+	CommonPrefixes []CommonPrefix
+	Contents       []Object
 	Delimiter      *string
 	EncodingType   EncodingType
 	IsTruncated    *bool
 	Marker         *string
 	MaxKeys        *int64
-	Name           *string
+	Bucket         *string
 	NextMarker     *string
 	Prefix         *string
 }

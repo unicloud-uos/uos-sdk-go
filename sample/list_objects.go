@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/uos-sdk-go/s3"
 	"github.com/uos-sdk-go/sample/lib"
 	"strings"
 )
@@ -42,6 +43,20 @@ func ListObjectsSample() {
 	}
 
 	for _, k := range keys {
+		fmt.Println(k)
+		err := sc.DeleteObject(bucketName, k)
+		if err != nil {
+			HandleError(err)
+		}
+	}
+
+	keys, _, _, err = sc.ListObjects(bucketName, "", "/", 1000)
+	if err != nil {
+		HandleError(err)
+	}
+
+	for _, k := range keys {
+		fmt.Println(k)
 		err := sc.DeleteObject(bucketName, k)
 		if err != nil {
 			HandleError(err)
@@ -51,8 +66,109 @@ func ListObjectsSample() {
 	fmt.Printf("ListObjectsSample Run Success !\n\n")
 }
 
-func printSlice(ss []string) {
-	for _, s := range ss {
-		fmt.Println(s)
+func ListObjectVersionsSample() {
+	var keys = []string{
+		objectKey + "1",
+		objectKey + "2",
+		objectKey + "3",
+		objectKey + "4",
+		objectKey + "/1-1",
+		objectKey + "/1-2",
+		objectKey + "/2-1",
+		objectKey + "/2-2",
 	}
+	sc := lib.NewClient(endpoint, accessKey, secretKey)
+	defer func() {
+		sc.DeleteObjectVersion(bucketName, objectKey, "null")
+		out, _ := sc.ListObjectVersions(bucketName, "", "", "", 1000)
+		for _, v := range out.CommonPrefixes {
+			fmt.Println("Prefix:", v)
+		}
+		for _, v := range out.DeleteMarkers {
+			fmt.Println("DeleteMarkers:", v)
+		}
+		for _, v := range out.Versions {
+			sc.DeleteObjectVersion(bucketName, objectKey, *v.VersionId)
+		}
+		sc.DeleteBucket(bucketName)
+	}()
+
+	for _, k := range keys {
+		sc.DeleteObjectVersion(bucketName, k, "nill")
+	}
+	DeleteTestBucketAndObject()
+
+	// Create a bucket
+	err := sc.MakeBucket(bucketName)
+	if err != nil {
+		HandleError(err)
+	}
+
+	for _, k := range keys {
+		err := sc.PutObject(bucketName, k, strings.NewReader(k))
+		if err != nil {
+			HandleError(err)
+		}
+	}
+	objects, _, _, err := sc.ListObjects(bucketName, "", "/", 1000)
+	if err != nil {
+		HandleError(err)
+	}
+	fmt.Println("ListObjects:", objects)
+
+	err = sc.PutBucketVersion(bucketName, s3.BucketVersioningStatusEnabled)
+	if err != nil {
+		HandleError(err)
+	}
+
+	for _, k := range keys {
+		err := sc.PutObject(bucketName, k, strings.NewReader(k))
+		if err != nil {
+			HandleError(err)
+		}
+	}
+
+	for _, k := range keys {
+		err := sc.DeleteObject(bucketName, k)
+		if err != nil {
+			HandleError(err)
+		}
+	}
+
+	out, err := sc.ListObjectVersions(bucketName, objectKey+"/", "/", "", 1000)
+	if err != nil {
+		HandleError(err)
+	}
+	fmt.Println("Prefix: ", *out.Prefix, "\nListObjects: ", out.Versions, "\nDeleteMarker: ", out.DeleteMarkers)
+	for _, k := range out.Versions {
+		_, err := sc.DeleteObjectVersion(bucketName, *k.Key, *k.VersionId)
+		if err != nil {
+			HandleError(err)
+		}
+	}
+	for _, k := range out.DeleteMarkers {
+		_, err := sc.DeleteObjectVersion(bucketName, *k.Key, *k.VersionId)
+		if err != nil {
+			HandleError(err)
+		}
+	}
+	out, err = sc.ListObjectVersions(bucketName, "", "/", "", 1000)
+	if err != nil {
+		HandleError(err)
+	}
+	fmt.Println("Prefix: ", *out.Prefix, "\nListObjects: ", out.Versions, "\nDeleteMarker: ", out.DeleteMarkers)
+	for _, k := range out.Versions {
+		_, err := sc.DeleteObjectVersion(bucketName, *k.Key, *k.VersionId)
+		if err != nil {
+			HandleError(err)
+		}
+	}
+	for _, k := range out.DeleteMarkers {
+		_, err := sc.DeleteObjectVersion(bucketName, *k.Key, *k.VersionId)
+		if err != nil {
+			HandleError(err)
+		}
+	}
+	sc.DeleteBucket(bucketName)
+	fmt.Printf("ListObjectsSample Run Success !\n\n")
 }
