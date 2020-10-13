@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/uos-sdk-go/sample/lib"
+	"github.com/unicloud-uos/uos-sdk-go/sample/lib"
 )
 
 func HeadObjectSample() {

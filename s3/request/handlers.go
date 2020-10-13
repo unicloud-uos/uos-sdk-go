@@ -6,9 +6,9 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/uos-sdk-go/s3/credential"
-	. "github.com/uos-sdk-go/s3/error"
-	"github.com/uos-sdk-go/s3/helper"
+	"github.com/unicloud-uos/uos-sdk-go/s3/credential"
+	. "github.com/unicloud-uos/uos-sdk-go/s3/error"
+	"github.com/unicloud-uos/uos-sdk-go/s3/helper"
 )
 
 type Handlers struct {

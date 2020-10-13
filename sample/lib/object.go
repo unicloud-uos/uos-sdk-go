@@ -5,7 +5,7 @@ import (
 	"io"
 	"time"
 
-	"github.com/uos-sdk-go/s3"
+	"github.com/unicloud-uos/uos-sdk-go/s3"
 )
 
 func (s3client *S3Client) DeleteObject(bucketName, key string) (err error) {

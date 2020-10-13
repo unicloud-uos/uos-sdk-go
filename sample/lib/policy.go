@@ -1,7 +1,7 @@
 package lib
 
 import (
-	"github.com/uos-sdk-go/s3"
+	"github.com/unicloud-uos/uos-sdk-go/s3"
 )
 
 func (s3client *S3Client) PutBucketPolicy(bucketName, policy string) (err error) {

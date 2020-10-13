@@ -4,8 +4,8 @@ import (
 	"encoding/xml"
 	"io/ioutil"
 
-	"github.com/uos-sdk-go/s3/helper"
-	"github.com/uos-sdk-go/s3/request"
+	"github.com/unicloud-uos/uos-sdk-go/s3/helper"
+	"github.com/unicloud-uos/uos-sdk-go/s3/request"
 )
 
 type ListPartsInput struct {

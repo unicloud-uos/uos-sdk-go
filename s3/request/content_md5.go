@@ -5,8 +5,8 @@ import (
 	"encoding/base64"
 	"io"
 
-	. "github.com/uos-sdk-go/s3/error"
-	"github.com/uos-sdk-go/s3/helper"
+	. "github.com/unicloud-uos/uos-sdk-go/s3/error"
+	"github.com/unicloud-uos/uos-sdk-go/s3/helper"
 )
 
 // AddBodyContentMD5Handler computes and sets the HTTP Content-MD5 header for requests that

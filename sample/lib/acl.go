@@ -1,6 +1,6 @@
 package lib
 
-import "github.com/uos-sdk-go/s3"
+import "github.com/unicloud-uos/uos-sdk-go/s3"
 
 const (
 	// BucketCannedACLPrivate is a BucketCannedACL enum value

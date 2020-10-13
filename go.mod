@@ -1,4 +1,4 @@
-module github.com/uos-sdk-go
+module github.com/unicloud-uos/uos-sdk-go
 
 go 1.13
 

@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/uos-sdk-go/s3"
-	"github.com/uos-sdk-go/sample/lib"
+	"github.com/unicloud-uos/uos-sdk-go/s3"
+	"github.com/unicloud-uos/uos-sdk-go/sample/lib"
 )
 
 func BucketEncryptionSample() {

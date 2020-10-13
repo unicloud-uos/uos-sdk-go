@@ -1,10 +1,10 @@
 package lib
 
 import (
-	"github.com/uos-sdk-go/s3"
-	"github.com/uos-sdk-go/s3/credential"
-	"github.com/uos-sdk-go/s3/helper"
-	"github.com/uos-sdk-go/s3/log"
+	"github.com/unicloud-uos/uos-sdk-go/s3"
+	"github.com/unicloud-uos/uos-sdk-go/s3/credential"
+	"github.com/unicloud-uos/uos-sdk-go/s3/helper"
+	"github.com/unicloud-uos/uos-sdk-go/s3/log"
 )
 
 type S3Client struct {

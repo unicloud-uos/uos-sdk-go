@@ -1,6 +1,6 @@
 package lib
 
-import "github.com/uos-sdk-go/s3"
+import "github.com/unicloud-uos/uos-sdk-go/s3"
 
 func (s3client *S3Client) SetBucketCORS(bucketName string, rules []s3.CORSRule) error {
 	input := &s3.PutBucketCorsInput{

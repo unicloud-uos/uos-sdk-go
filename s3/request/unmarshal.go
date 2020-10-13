@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	. "github.com/uos-sdk-go/s3/error"
-	"github.com/uos-sdk-go/s3/helper"
+	. "github.com/unicloud-uos/uos-sdk-go/s3/error"
+	"github.com/unicloud-uos/uos-sdk-go/s3/helper"
 )
 
 var UnmarshalRequestHandler = HandlerItem{

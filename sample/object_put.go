@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/uos-sdk-go/sample/lib"
+	"github.com/unicloud-uos/uos-sdk-go/sample/lib"
 )
 
 func PutObjectSample() {

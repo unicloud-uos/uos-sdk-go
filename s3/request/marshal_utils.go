@@ -1,7 +1,7 @@
 package request
 
 import (
-	"github.com/uos-sdk-go/s3/helper"
+	"github.com/unicloud-uos/uos-sdk-go/s3/helper"
 	"io"
 	"strconv"
 	"strings"

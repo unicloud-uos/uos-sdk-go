@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/alecthomas/units"
-	"github.com/uos-sdk-go/s3"
-	"github.com/uos-sdk-go/sample/lib"
+	"github.com/unicloud-uos/uos-sdk-go/s3"
+	"github.com/unicloud-uos/uos-sdk-go/sample/lib"
 	"io"
 	"os"
 	"strconv"

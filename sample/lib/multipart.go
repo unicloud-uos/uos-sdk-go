@@ -2,7 +2,7 @@ package lib
 
 import (
 	"bytes"
-	"github.com/uos-sdk-go/s3"
+	"github.com/unicloud-uos/uos-sdk-go/s3"
 )
 
 func (s3client *S3Client) CreateMultiPartUpload(bucketName, key string, storageClass s3.StorageClass, ) (uploadId string, err error) {

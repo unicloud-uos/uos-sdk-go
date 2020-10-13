@@ -6,7 +6,7 @@ import (
 	"encoding/base64"
 	"io/ioutil"
 
-	"github.com/uos-sdk-go/s3"
+	"github.com/unicloud-uos/uos-sdk-go/s3"
 )
 
 func (s3client *S3Client) PutBucketEncryption(bucketName string, config *s3.ServerSideEncryptionConfiguration) (err error) {

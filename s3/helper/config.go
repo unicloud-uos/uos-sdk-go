@@ -1,8 +1,8 @@
 package helper
 
 import (
-	"github.com/uos-sdk-go/s3/credential"
-	"github.com/uos-sdk-go/s3/log"
+	"github.com/unicloud-uos/uos-sdk-go/s3/credential"
+	"github.com/unicloud-uos/uos-sdk-go/s3/log"
 )
 
 // Config provides service configuration for service clients.

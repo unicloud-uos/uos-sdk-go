@@ -12,9 +12,9 @@ import (
 	"sync"
 	"time"
 
-	. "github.com/uos-sdk-go/s3/client"
-	. "github.com/uos-sdk-go/s3/error"
-	. "github.com/uos-sdk-go/s3/helper"
+	. "github.com/unicloud-uos/uos-sdk-go/s3/client"
+	. "github.com/unicloud-uos/uos-sdk-go/s3/error"
+	. "github.com/unicloud-uos/uos-sdk-go/s3/helper"
 )
 
 // Request is the service request to be made.
