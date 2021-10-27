@@ -1,7 +1,0 @@
-[s3]
-endpoint   = "s3.test.com"
-accessKey  = "hehehehe"
-secretKey  = "hehehehe"
-bucketName = "gosdktest"
-objectKey = "gosdkkey"
-localFilePath = "sample/example.jpg"

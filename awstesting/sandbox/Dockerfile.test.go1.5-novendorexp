@@ -1,0 +1,7 @@
+FROM ubuntu:12.04
+FROM golang:1.5
+
+ADD . /go/src/gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git
+
+WORKDIR /go/src/gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git
+CMD ["make", "get-deps", "unit-old-go-race-cover"]

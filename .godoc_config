@@ -1,0 +1,14 @@
+{
+	"PkgHandler": {
+		"Pattern":          "/sdk-for-go/api/",
+		"StripPrefix":     "/sdk-for-go/api",
+		"Include":         ["/src/gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws", "/src/gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service"],
+		"Exclude":         ["/src/cmd", "/src/gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting", "/src/gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awsmigrate", "/src/gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private"],
+		"IgnoredSuffixes": ["iface"]
+	},
+	"Github": {
+		"Tag": "master",
+		"Repo": "/journeymidnight/aws-sdk-go",
+		"UseGithub": true
+	}
+}

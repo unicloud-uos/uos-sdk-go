@@ -1,8 +1,11 @@
-module github.com/unicloud-uos/uos-sdk-go
-
-go 1.13
+module gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git
 
 require (
-	github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf
-	github.com/spf13/viper v1.7.1
+	github.com/go-sql-driver/mysql v1.4.1
+	github.com/jmespath/go-jmespath v0.4.0
+	github.com/pkg/errors v0.9.1
+	golang.org/x/net v0.0.0-20210805182204-aaa1db679c0d
+	golang.org/x/tools v0.0.0-20200729194436-6467de6f59a7
 )
+
+go 1.13
