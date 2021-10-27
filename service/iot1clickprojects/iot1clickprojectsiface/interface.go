@@ -9,9 +9,9 @@
 package iot1clickprojectsiface
 
 import (
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/iot1clickprojects"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/service/iot1clickprojects"
 )
 
 // IoT1ClickProjectsAPI provides an interface to enable mocking the

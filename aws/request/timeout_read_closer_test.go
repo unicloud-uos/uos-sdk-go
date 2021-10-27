@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
 )
 
 type testReader struct {

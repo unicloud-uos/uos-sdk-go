@@ -5,7 +5,7 @@ package awsutil
 import (
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
 )
 
 type testStruct struct {

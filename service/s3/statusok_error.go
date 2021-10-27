@@ -5,9 +5,9 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/internal/sdkio"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/internal/sdkio"
 )
 
 func copyMultipartStatusOKUnmarhsalError(r *request.Request) {

@@ -2,8 +2,8 @@
 	"PkgHandler": {
 		"Pattern":          "/sdk-for-go/api/",
 		"StripPrefix":     "/sdk-for-go/api",
-		"Include":         ["/src/gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws", "/src/gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service"],
-		"Exclude":         ["/src/cmd", "/src/gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting", "/src/gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awsmigrate", "/src/gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private"],
+		"Include":         ["/src/github.com/unicloud-uos/uos-sdk-go/aws", "/src/github.com/unicloud-uos/uos-sdk-go/service"],
+		"Exclude":         ["/src/cmd", "/src/github.com/unicloud-uos/uos-sdk-go/awstesting", "/src/github.com/unicloud-uos/uos-sdk-go/awsmigrate", "/src/github.com/unicloud-uos/uos-sdk-go/private"],
 		"IgnoredSuffixes": ["iface"]
 	},
 	"Github": {

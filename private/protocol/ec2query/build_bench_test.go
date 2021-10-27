@@ -5,11 +5,11 @@ package ec2query_test
 import (
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/ec2query"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/ec2"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/ec2query"
+	"github.com/unicloud-uos/uos-sdk-go/service/ec2"
 )
 
 func BenchmarkEC2QueryBuild_Complex_ec2AuthorizeSecurityGroupEgress(b *testing.B) {

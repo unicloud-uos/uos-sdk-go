@@ -7,11 +7,11 @@ import (
 	"strings"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/client"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/credentials"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/ec2metadata"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/internal/sdkuri"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/client"
+	"github.com/unicloud-uos/uos-sdk-go/aws/credentials"
+	"github.com/unicloud-uos/uos-sdk-go/aws/ec2metadata"
+	"github.com/unicloud-uos/uos-sdk-go/internal/sdkuri"
 )
 
 // ProviderName provides a name of EC2Role provider

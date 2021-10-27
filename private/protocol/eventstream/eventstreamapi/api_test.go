@@ -7,10 +7,10 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/eventstream"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/restjson"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/eventstream"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/restjson"
 )
 
 var eventMessageTypeHeader = eventstream.Header{

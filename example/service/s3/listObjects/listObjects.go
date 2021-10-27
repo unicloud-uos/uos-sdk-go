@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"os"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/session"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/s3"
+	"github.com/unicloud-uos/uos-sdk-go/aws/session"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
 )
 
 // Lists all objects in a bucket using pagination

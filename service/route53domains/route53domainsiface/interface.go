@@ -9,9 +9,9 @@
 package route53domainsiface
 
 import (
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/route53domains"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/service/route53domains"
 )
 
 // Route53DomainsAPI provides an interface to enable mocking the

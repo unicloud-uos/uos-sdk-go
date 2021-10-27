@@ -4,12 +4,12 @@ import (
 	"encoding/hex"
 	"io"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/client"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/internal/sdkio"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/s3"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/s3/s3iface"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/client"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/internal/sdkio"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3/s3iface"
 )
 
 // DefaultMinFileSize is used to check whether we want to write to a temp file

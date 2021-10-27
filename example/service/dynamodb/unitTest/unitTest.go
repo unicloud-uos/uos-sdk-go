@@ -5,10 +5,10 @@
 package unitTest
 
 import (
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/dynamodb"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/dynamodb/dynamodbattribute"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/dynamodb/dynamodbiface"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/service/dynamodb"
+	"github.com/unicloud-uos/uos-sdk-go/service/dynamodb/dynamodbattribute"
+	"github.com/unicloud-uos/uos-sdk-go/service/dynamodb/dynamodbiface"
 )
 
 // ItemGetter can be assigned a DynamoDB connector like:

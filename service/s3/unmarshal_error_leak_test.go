@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting"
 )
 
 func TestUnmarhsalErrorLeak(t *testing.T) {

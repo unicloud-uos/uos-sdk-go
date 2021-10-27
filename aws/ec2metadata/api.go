@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/internal/sdkuri"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/internal/sdkuri"
 )
 
 // GetMetadata uses the path provided to request information from the EC2

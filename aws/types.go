@@ -4,7 +4,7 @@ import (
 	"io"
 	"sync"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/internal/sdkio"
+	"github.com/unicloud-uos/uos-sdk-go/internal/sdkio"
 )
 
 // ReadSeekCloser wraps a io.Reader returning a ReaderSeekerCloser. Should

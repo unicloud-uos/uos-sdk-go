@@ -8,13 +8,13 @@ import (
 	"testing"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/client"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting/unit"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/s3"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/client"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting/unit"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
 )
 
 type mockClient struct {

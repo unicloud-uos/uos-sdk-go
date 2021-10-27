@@ -9,9 +9,9 @@
 package awsendpointdiscoverytestiface
 
 import (
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/model/api/codegentest/service/awsendpointdiscoverytest"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/private/model/api/codegentest/service/awsendpointdiscoverytest"
 )
 
 // AwsEndpointDiscoveryTestAPI provides an interface to enable mocking the

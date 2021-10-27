@@ -10,10 +10,10 @@ import (
 	"io"
 	"strings"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/jsonrpc"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/rest"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/jsonrpc"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/rest"
 )
 
 // BuildHandler is a named request handler for building restjson protocol requests

@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/internal/sdkio"
+	"github.com/unicloud-uos/uos-sdk-go/internal/sdkio"
 )
 
 func TestBytesReadWriteSeeker_Read(t *testing.T) {

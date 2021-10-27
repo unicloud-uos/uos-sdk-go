@@ -1,10 +1,10 @@
 package awstesting
 
 import (
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/client"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/client/metadata"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/defaults"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/client"
+	"github.com/unicloud-uos/uos-sdk-go/aws/client/metadata"
+	"github.com/unicloud-uos/uos-sdk-go/aws/defaults"
 )
 
 // NewClient creates and initializes a generic service client for testing.

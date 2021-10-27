@@ -7,12 +7,12 @@ import (
 	"net/url"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awsutil"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/crr"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/jsonrpc"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awsutil"
+	"github.com/unicloud-uos/uos-sdk-go/aws/crr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/jsonrpc"
 )
 
 const opBatchGetItem = "BatchGetItem"

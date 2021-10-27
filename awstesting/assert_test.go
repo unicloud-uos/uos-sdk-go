@@ -4,7 +4,7 @@ import (
 	"encoding/xml"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting"
 )
 
 func TestAssertJSON(t *testing.T) {

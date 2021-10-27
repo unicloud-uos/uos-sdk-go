@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/internal/shareddefaults"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting"
+	"github.com/unicloud-uos/uos-sdk-go/internal/shareddefaults"
 )
 
 func TestSharedCredsFilename(t *testing.T) {

@@ -12,16 +12,16 @@ import (
 	"testing"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/corehandlers"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting/unit"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/eventstream"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/eventstream/eventstreamapi"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/eventstream/eventstreamtest"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/restxml"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/corehandlers"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting/unit"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/eventstream"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/eventstream/eventstreamapi"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/eventstream/eventstreamtest"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/restxml"
 )
 
 var _ time.Time

@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
 )
 
 func TestAddHostExecEnvUserAgentHander(t *testing.T) {

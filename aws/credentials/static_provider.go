@@ -1,7 +1,7 @@
 package credentials
 
 import (
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
 )
 
 // StaticProviderName provides a name of Static provider

@@ -3,9 +3,9 @@ package client
 import (
 	"fmt"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/client/metadata"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/client/metadata"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
 )
 
 // A Config provides configuration to a service client instance.

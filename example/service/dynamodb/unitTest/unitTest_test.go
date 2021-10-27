@@ -7,9 +7,9 @@ import (
 	"errors"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/dynamodb"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/dynamodb/dynamodbiface"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/service/dynamodb"
+	"github.com/unicloud-uos/uos-sdk-go/service/dynamodb/dynamodbiface"
 )
 
 // A fakeDynamoDB instance. During testing, instatiate ItemGetter, then simply

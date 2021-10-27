@@ -7,7 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
 )
 
 func getWriterStore(req *request.Request, path string, useTempFile bool) (io.ReadWriteSeeker, error) {

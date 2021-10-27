@@ -4,9 +4,9 @@ import (
 	"os"
 	"strconv"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/credentials"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/defaults"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/credentials"
+	"github.com/unicloud-uos/uos-sdk-go/aws/defaults"
 )
 
 // EnvProviderName provides a name of the provider when config is loaded from environment.

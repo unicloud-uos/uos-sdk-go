@@ -13,17 +13,17 @@ import (
 	"testing"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/client"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/client/metadata"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/signer/v4"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting/unit"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/restjson"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/xml/xmlutil"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/util"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/client"
+	"github.com/unicloud-uos/uos-sdk-go/aws/client/metadata"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/aws/signer/v4"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting/unit"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/restjson"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/xml/xmlutil"
+	"github.com/unicloud-uos/uos-sdk-go/private/util"
 )
 
 var _ bytes.Buffer // always import bytes

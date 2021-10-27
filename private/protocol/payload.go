@@ -5,9 +5,9 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/client/metadata"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/client/metadata"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
 )
 
 // PayloadUnmarshaler provides the interface for unmarshaling a payload's

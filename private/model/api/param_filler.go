@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"strings"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/util"
+	"github.com/unicloud-uos/uos-sdk-go/private/util"
 )
 
 // A paramFiller provides string formatting for a shape and its types.

@@ -8,12 +8,12 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/session"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting/unit"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/eventstream"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/eventstream/eventstreamapi"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/session"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting/unit"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/eventstream"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/eventstream/eventstreamapi"
 )
 
 // ServeEventStream provides serving EventStream messages from a HTTP server to

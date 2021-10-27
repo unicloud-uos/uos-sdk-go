@@ -1,6 +1,6 @@
 package aws
 
-import "gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
+import "github.com/unicloud-uos/uos-sdk-go/aws/awserr"
 
 var (
 	// ErrMissingRegion is an error that is returned if region configuration is

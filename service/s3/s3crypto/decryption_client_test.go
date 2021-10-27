@@ -11,13 +11,13 @@ import (
 	"strings"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting/unit"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/s3"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/s3/s3crypto"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting/unit"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3/s3crypto"
 )
 
 func TestGetObjectGCM(t *testing.T) {

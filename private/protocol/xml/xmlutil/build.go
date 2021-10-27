@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol"
 )
 
 // BuildXML will serialize params into an xml.Encoder. Error will be returned

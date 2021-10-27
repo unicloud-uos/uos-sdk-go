@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol"
 )
 
 // UnmarshalXML deserializes an xml.Decoder into the container v. V

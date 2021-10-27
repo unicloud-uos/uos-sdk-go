@@ -1,6 +1,6 @@
 package sqs
 
-import "gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
+import "github.com/unicloud-uos/uos-sdk-go/aws/request"
 
 func init() {
 	initRequest = func(r *request.Request) {

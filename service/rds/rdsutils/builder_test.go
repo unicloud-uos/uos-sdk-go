@@ -5,8 +5,8 @@ import (
 	"regexp"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/credentials"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/rds/rdsutils"
+	"github.com/unicloud-uos/uos-sdk-go/aws/credentials"
+	"github.com/unicloud-uos/uos-sdk-go/service/rds/rdsutils"
 )
 
 func TestConnectionStringBuilder(t *testing.T) {

@@ -3,10 +3,10 @@ package session
 import (
 	"fmt"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/credentials"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/credentials"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/internal/ini"
+	"github.com/unicloud-uos/uos-sdk-go/internal/ini"
 )
 
 const (

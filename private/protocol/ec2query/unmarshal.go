@@ -6,9 +6,9 @@ import (
 	"encoding/xml"
 	"io"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/xml/xmlutil"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/xml/xmlutil"
 )
 
 // UnmarshalHandler is a named request handler for unmarshaling ec2query protocol requests

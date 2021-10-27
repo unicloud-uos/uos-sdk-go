@@ -16,8 +16,8 @@ import (
 	"strings"
 	"sync"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/model/api"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/util"
+	"github.com/unicloud-uos/uos-sdk-go/private/model/api"
+	"github.com/unicloud-uos/uos-sdk-go/private/util"
 )
 
 func usage() {
@@ -50,7 +50,7 @@ func main() {
 		"The `path` to generate service clients in to.",
 	)
 	flag.StringVar(&svcImportPath, "svc-import-path",
-		"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service",
+		"github.com/unicloud-uos/uos-sdk-go/service",
 		"The Go `import path` to generate client to be under.",
 	)
 	flag.Usage = usage

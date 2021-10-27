@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/dynamodb"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/service/dynamodb"
 )
 
 // keyCondErrorMode will help with error cases and checking error types

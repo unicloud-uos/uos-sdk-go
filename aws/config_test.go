@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/credentials"
+	"github.com/unicloud-uos/uos-sdk-go/aws/credentials"
 )
 
 var testCredentials = credentials.NewStaticCredentials("AKID", "SECRET", "SESSION")

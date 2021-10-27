@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/dynamodb/dynamodbattribute"
+	"github.com/unicloud-uos/uos-sdk-go/service/dynamodb/dynamodbattribute"
 )
 
 func ExampleConvertTo() {

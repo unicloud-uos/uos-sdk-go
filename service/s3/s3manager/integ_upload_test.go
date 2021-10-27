@@ -10,10 +10,10 @@ import (
 	"strings"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/s3"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/s3/s3manager"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3/s3manager"
 )
 
 var integBuf12MB = make([]byte, 1024*1024*12)

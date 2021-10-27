@@ -5,9 +5,9 @@ import (
 	"reflect"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/credentials"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/internal/shareddefaults"
+	"github.com/unicloud-uos/uos-sdk-go/aws/credentials"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting"
+	"github.com/unicloud-uos/uos-sdk-go/internal/shareddefaults"
 )
 
 func TestLoadEnvConfig_Creds(t *testing.T) {

@@ -8,8 +8,8 @@ import (
 	"runtime"
 	"strconv"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/dynamodb"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/service/dynamodb"
 )
 
 // ConvertToMap accepts a map[string]interface{} or struct and converts it to a

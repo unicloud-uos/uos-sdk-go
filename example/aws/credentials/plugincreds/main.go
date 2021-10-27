@@ -8,12 +8,12 @@ import (
 	"os"
 	"plugin"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/credentials/plugincreds"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/endpoints"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/session"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/s3"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/s3/s3manager"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/credentials/plugincreds"
+	"github.com/unicloud-uos/uos-sdk-go/aws/endpoints"
+	"github.com/unicloud-uos/uos-sdk-go/aws/session"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3/s3manager"
 )
 
 // Example application which loads a Go Plugin file, and uses the credential

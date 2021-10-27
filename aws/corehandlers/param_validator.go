@@ -1,6 +1,6 @@
 package corehandlers
 
-import "gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
+import "github.com/unicloud-uos/uos-sdk-go/aws/request"
 
 // ValidateParametersHandler is a request handler to validate the input parameters.
 // Validating parameters only has meaning if done prior to the request being sent.

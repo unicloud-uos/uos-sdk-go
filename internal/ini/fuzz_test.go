@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/internal/ini"
+	"github.com/unicloud-uos/uos-sdk-go/internal/ini"
 )
 
 // TestFuzz is used to test for crashes and not validity of the input

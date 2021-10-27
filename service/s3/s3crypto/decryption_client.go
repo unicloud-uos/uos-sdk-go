@@ -3,12 +3,12 @@ package s3crypto
 import (
 	"strings"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/client"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/kms"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/s3"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/s3/s3iface"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/client"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/service/kms"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3/s3iface"
 )
 
 // WrapEntry is builder that return a proper key decrypter and error

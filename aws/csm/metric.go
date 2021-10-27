@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
 )
 
 type metricTime time.Time

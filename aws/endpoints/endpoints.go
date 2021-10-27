@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"regexp"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
 )
 
 // Options provide the configuration needed to direct how the

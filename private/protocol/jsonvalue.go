@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
 )
 
 // EscapeMode is the mode that should be use for escaping a value

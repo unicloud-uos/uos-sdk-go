@@ -65,14 +65,14 @@ Release v1.17.0 (2019-02-18)
   * This release increases the maximum allowed size of SecretString or SecretBinary from 4KB to 7KB in the CreateSecret, UpdateSecret, PutSecretValue and GetSecretValue APIs.
 
 ### SDK Features
-* `service/s3/s3manager`: Update S3 Upload Multipart location ([#2453](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2453))
+* `service/s3/s3manager`: Update S3 Upload Multipart location ([#2453](https://github.com/unicloud-uos/uos-sdk-go/pull/2453))
   * Updates the Location returned value of S3 Upload's Multipart UploadOutput type to be consistent with single part upload URL. This update also brings the multipart upload Location inline with the S3 object URLs created by the SDK
-  * Fix [#1385](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1385)
+  * Fix [#1385](https://github.com/unicloud-uos/uos-sdk-go/issues/1385)
 
 ### SDK Enhancements
-* `service/s3`: Update BucketRegionError message to include more information ([#2451](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2451))
+* `service/s3`: Update BucketRegionError message to include more information ([#2451](https://github.com/unicloud-uos/uos-sdk-go/pull/2451))
   * Updates the BucketRegionError error message to include information about the endpoint and actual region the bucket is in if known. This error message is created by the SDK, but could produce a confusing error message if the user provided a region that doesn't match the endpoint.
-  * Fix [#2426](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2451)
+  * Fix [#2426](https://github.com/unicloud-uos/uos-sdk-go/pull/2451)
 
 Release v1.16.36 (2019-02-15)
 ===
@@ -216,7 +216,7 @@ Release v1.16.24 (2019-01-23)
 * `service/worklink`: Adds new service
 
 ### SDK Enhancements
-* `aws`: Update Context to be an alias of context.Context for Go 1.9 ([#2412](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2412))
+* `aws`: Update Context to be an alias of context.Context for Go 1.9 ([#2412](https://github.com/unicloud-uos/uos-sdk-go/pull/2412))
   * Updates aws.Context interface to be an alias of the standard libraries context.Context type instead of redefining the interface. This will allow IDEs and utilities to interpret the aws.Context as the exactly same type as the standard libraries context.Context.
 
 Release v1.16.23 (2019-01-21)
@@ -257,7 +257,7 @@ Release v1.16.21 (2019-01-17)
   * GetLabelDetection now returns bounding box information for common objects and a hierarchical taxonomy of detected labels. The version of the model used for video label detection is also returned. DetectModerationLabels now returns the version of the model used for detecting unsafe content.
 
 ### SDK Enhancements
-* `aws/request: Improve error handling in shouldRetryCancel ([#2298](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2298))
+* `aws/request: Improve error handling in shouldRetryCancel ([#2298](https://github.com/unicloud-uos/uos-sdk-go/pull/2298))
   * Simplifies and improves SDK's detection of HTTP request errors that should be retried. Previously the SDK would incorrectly attempt to retry `EHOSTDOWN` connection errors. This change fixes this, by using the `Temporary` interface when available.
 
 Release v1.16.20 (2019-01-16)
@@ -279,9 +279,9 @@ Release v1.16.19 (2019-01-14)
   * JoinDomain API supports two more  parameters: organizational unit(OU) and domain controllers.  Two new APIs are introduced: DetachVolume and AttachVolume.
 
 ### SDK Enhancements
-* `aws/endpoints`: Add customization for AWS GovCloud (US) Application Autoscalling ([#2395](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2395))
+* `aws/endpoints`: Add customization for AWS GovCloud (US) Application Autoscalling ([#2395](https://github.com/unicloud-uos/uos-sdk-go/pull/2395))
   * Adds workaround to correct the endpoint for Application Autoscaling running in AWS GovCloud (US).
-  * Fixes [#2391](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/2391)
+  * Fixes [#2391](https://github.com/unicloud-uos/uos-sdk-go/issues/2391)
 
 Release v1.16.18 (2019-01-11)
 ===
@@ -339,14 +339,14 @@ Release v1.16.13 (2019-01-03)
 * `service/iotanalytics`: Updates service API and documentation
 
 ### SDK Enhancements
-* `aws/credentials`: Add support for getting credential's ExpiresAt. ([#2375](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2375))
+* `aws/credentials`: Add support for getting credential's ExpiresAt. ([#2375](https://github.com/unicloud-uos/uos-sdk-go/pull/2375))
   * Adds an Expirer interface that Providers can implement, and add a suitable implementation to Expiry class used by most Providers. Add a method on Credentials to get the expiration time of the underlying Provider, if Expirer is supported, without exposing Provider to callers.
-  * Fix [#1329](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1329)
+  * Fix [#1329](https://github.com/unicloud-uos/uos-sdk-go/pull/1329)
 
 ### SDK Bugs
-* `aws/ec2metadata`: bounds check region identifier before split ([#2380](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2380))
+* `aws/ec2metadata`: bounds check region identifier before split ([#2380](https://github.com/unicloud-uos/uos-sdk-go/pull/2380))
   * Adds empty response checking to ec2metadata's Region request to prevent a out of bounds panic if empty response received.
-* Fix SDK's generated API reference doc page's constants section links ([#2373](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2373))
+* Fix SDK's generated API reference doc page's constants section links ([#2373](https://github.com/unicloud-uos/uos-sdk-go/pull/2373))
   * Fixes the SDK's generated API reference documentation page's constants section links to to be clickable.
 Release v1.16.12 (2019-01-03)
 ===
@@ -380,7 +380,7 @@ Release v1.16.10 (2018-12-20)
 * `service/transcribe`: Updates service API and documentation
 
 ### SDK Enhancements
-* `service/dynamodb/expression`: Clarify expression examples ([#2367](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2367))
+* `service/dynamodb/expression`: Clarify expression examples ([#2367](https://github.com/unicloud-uos/uos-sdk-go/pull/2367))
   * Clarifies the expression package's examples to distinguish the pkg expression from a expr value.
 
 Release v1.16.9 (2018-12-19)
@@ -429,9 +429,9 @@ Release v1.16.6 (2018-12-14)
   * Documentation updates for Amazon Redshift
 
 ### SDK Bugs
-* `private/mode/api`: Fix idempotency members not to require validation [#2353](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2353)
+* `private/mode/api`: Fix idempotency members not to require validation [#2353](https://github.com/unicloud-uos/uos-sdk-go/pull/2353)
   * Fixes the SDK's usage of API operation request members marked as idempotency tokens to not require validation. These fields will be auto populated by the SDK if the user does not provide a value. The SDK was requiring the user to provide a value or disable validation to use these APIs.
-* deps: Update Go Deps lock file to correct tracking hash [#2354](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2354)
+* deps: Update Go Deps lock file to correct tracking hash [#2354](https://github.com/unicloud-uos/uos-sdk-go/pull/2354)
 Release v1.16.5 (2018-12-13)
 ===
 
@@ -465,9 +465,9 @@ Release v1.16.3 (2018-12-11)
   * This release adds Delete Object Lifecycling to AWS MediaStore Containers.
 
 ### SDK Bugs
-* `private/model/api`: Fix SDK's unmarshaling of unmodeled response payload ([#2340](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2340))
+* `private/model/api`: Fix SDK's unmarshaling of unmodeled response payload ([#2340](https://github.com/unicloud-uos/uos-sdk-go/pull/2340))
   * Fixes the SDK's unmarshaling of API operation response payloads for operations that are unmodeled. Prevents the SDK due to unexpected response payloads causing errors in the API protocol unmarshaler.
-  * Fixes [#2332](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/2332)
+  * Fixes [#2332](https://github.com/unicloud-uos/uos-sdk-go/issues/2332)
 Release v1.16.2 (2018-12-07)
 ===
 
@@ -481,9 +481,9 @@ Release v1.16.2 (2018-12-07)
   * Documentation updates for servicecatalog.
 
 ### SDK Enhancements
-* `aws/signer/v4`: Always sign a request with the current time. ([#2336](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2336))
+* `aws/signer/v4`: Always sign a request with the current time. ([#2336](https://github.com/unicloud-uos/uos-sdk-go/pull/2336))
   * Updates the SDK's v4 request signer to always sign requests with the current time. For the first request attempt, the request's creation time was used in the request's signature. In edge cases this allowed the signature to expire before the request was sent if there was significant delay between creating the request and sending it, (e.g. rate limiting).
-* `aws/endpoints`: Deprecate endpoint service ID generation. ([#2338](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2338))
+* `aws/endpoints`: Deprecate endpoint service ID generation. ([#2338](https://github.com/unicloud-uos/uos-sdk-go/pull/2338))
   * Deprecates the service ID generation. The list of service IDs do not directly 1:1 relate to a AWS service. The set of ServiceIDs is confusing, and inaccurate. Instead users should use the EndpointID value defined in each service client's package
 
 Release v1.16.1 (2018-12-06)
@@ -508,23 +508,23 @@ Release v1.16.0 (2018-12-05)
   * This release adds support for cost allocation tagging. You can now create, delete, and list tags for AmazonMQ resources. For more information about tagging, see AWS Tagging Strategies.
 
 ### SDK Features
-* `aws/credential`: Add credential_process provider ([#2217](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2217))
+* `aws/credential`: Add credential_process provider ([#2217](https://github.com/unicloud-uos/uos-sdk-go/pull/2217))
   * Adds support for the shared configuration file's `credential_process` property. This property allows the application to execute a command in order to retrieve AWS credentials for AWS service API request.  In order to use this feature your application must enable the SDK's support of the shared configuration file. See, https://docs.aws.amazon.com/sdk-for-go/api/aws/session/#hdr-Sessions_from_Shared_Config for more information on enabling shared config support.
 
 ### SDK Enhancements
-* `service/sqs`: Add batch checksum validation test ([#2307](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2307))
+* `service/sqs`: Add batch checksum validation test ([#2307](https://github.com/unicloud-uos/uos-sdk-go/pull/2307))
   * Adds additional test of the SQS batch checksum validation.
-* `aws/awsutils`: Update not to retrun sensitive fields for StringValue ([#2310](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2310))
-* Update SDK client integration tests to be code generated. ([#2308](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2308))
-* private/mode/api: Update SDK to require URI path members not be empty ([#2323](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2323))
+* `aws/awsutils`: Update not to retrun sensitive fields for StringValue ([#2310](https://github.com/unicloud-uos/uos-sdk-go/pull/2310))
+* Update SDK client integration tests to be code generated. ([#2308](https://github.com/unicloud-uos/uos-sdk-go/pull/2308))
+* private/mode/api: Update SDK to require URI path members not be empty ([#2323](https://github.com/unicloud-uos/uos-sdk-go/pull/2323))
   * Updates the SDK's validation to require that members serialized to URI path must not have empty (zero length) values. Generally these fields are modeled as required, but not always. Fixing this will prevent bugs with REST URI paths requests made for unexpected resources.
 
 ### SDK Bugs
-* aws/session: Fix formatting bug in doc. ([#2294](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2294))
+* aws/session: Fix formatting bug in doc. ([#2294](https://github.com/unicloud-uos/uos-sdk-go/pull/2294))
   * Fixes a minor issue in aws/session/doc.go where mistakenly used format specifiers in logger.Println.
-* Fix SDK model cleanup to remove old model folder ([#2324](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2324))
+* Fix SDK model cleanup to remove old model folder ([#2324](https://github.com/unicloud-uos/uos-sdk-go/pull/2324))
   * Fixes the SDK's model cleanup to remove the entire old model folder not just the api-2.json file.
-* Fix SDK's vet usage to use go vet with build tags ([#2300](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2300))
+* Fix SDK's vet usage to use go vet with build tags ([#2300](https://github.com/unicloud-uos/uos-sdk-go/pull/2300))
   * Updates the SDK's usage of vet to use go vet instead of go tool vet. This allows the SDK to pass build tags and packages instead of just folder paths to the tool.
 Release v1.15.90 (2018-12-04)
 ===
@@ -641,13 +641,13 @@ Release v1.15.83 (2018-11-27)
   * In this release, AWS Server Migration Service (SMS) has added multi-server migration support to simplify the application migration process. Customers can migrate all their application-specific servers together as a single unit as opposed to moving individual server one at a time. The new functionality includes - 1. Ability to group on-premises servers into applications and application tiers. 2. Auto-generated CloudFormation Template and Stacks for launching migrated servers into EC2. 3. Ability to run post-launch configuration scripts to configure servers and applications in EC2. In order for SMS to launch servers into your AWS account using CloudFormation Templates, we have also updated the ServerMigrationServiceRole IAM policy to include appropriate permissions. Refer to Server Migration Service documentation for more details.
 
 ### SDK Enhancements
-* `service/s3/s3manager`: Generate Upload Manager's UploadInput structure ([#2296](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2296))
+* `service/s3/s3manager`: Generate Upload Manager's UploadInput structure ([#2296](https://github.com/unicloud-uos/uos-sdk-go/pull/2296))
   * Updates the SDK's code generation to also generate the S3 Upload Manager's UploadInput structure type based on the modeled S3 PutObjectInput. This ensures parity between the two types, and the S3 manager does not fall behind the capabilities of PutObject.
 
 ### SDK Bugs
-* `private/model/api`: Fix model loading to not require docs model. ([#2303](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2303))
+* `private/model/api`: Fix model loading to not require docs model. ([#2303](https://github.com/unicloud-uos/uos-sdk-go/pull/2303))
   * Fixes the SDK's model loading to not require that the docs model be present. This model isn't explicitly required.
-* Fixup endpoint discovery unit test to be stable ([#2305](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2305))
+* Fixup endpoint discovery unit test to be stable ([#2305](https://github.com/unicloud-uos/uos-sdk-go/pull/2305))
   * Fixes the SDK's endpoint discovery async unit test to be stable, and produce consistent unit test results.
 Release v1.15.82 (2018-11-26)
 ===
@@ -1279,9 +1279,9 @@ Release v1.15.31 (2018-09-07)
   * * Adding a log prefix parameter for filter log events API and minor updates to the documentation
 
 ### SDK Enhancements
-* `private/protocol/json/jsonutil`: Use json.Decoder to decrease memory allocation ([#2115](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2115))
+* `private/protocol/json/jsonutil`: Use json.Decoder to decrease memory allocation ([#2115](https://github.com/unicloud-uos/uos-sdk-go/pull/2115))
   * Updates the SDK's JSON protocol marshaler to use `json.Decoder` instead of `ioutil.ReadAll`. This reduces the memory unmarshaling JSON payloads by about 50%.
-  * Fix [#2114](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2114)
+  * Fix [#2114](https://github.com/unicloud-uos/uos-sdk-go/pull/2114)
 
 Release v1.15.29 (2018-09-06)
 ===
@@ -1296,7 +1296,7 @@ Release v1.15.29 (2018-09-06)
   * This release adds support for Cost Allocation through tagging and also enables adding, editing, and removal of tags from the MediaConvert console.
 
 ### SDK Enhancements
-* `private/protocol`: Serialization errors will now be wrapped in `awserr.RequestFailure` types ([#2135](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2135))
+* `private/protocol`: Serialization errors will now be wrapped in `awserr.RequestFailure` types ([#2135](https://github.com/unicloud-uos/uos-sdk-go/pull/2135))
   * Updates the SDK protocol unmarshaling to handle the `SerializationError` as a request failure allowing for inspection of `requestID`s and status codes.
 
 Release v1.15.28 (2018-09-05)
@@ -1314,15 +1314,15 @@ Release v1.15.28 (2018-09-05)
   * Parquet input format support added for the SelectObjectContent API
 
 ### SDK Enhancements
-* `private/model/api`: Add "Deprecated" to deprecated API operation and type doc strings ([#2129](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2129))
+* `private/model/api`: Add "Deprecated" to deprecated API operation and type doc strings ([#2129](https://github.com/unicloud-uos/uos-sdk-go/pull/2129))
   * Updates the SDK's code generation to include `Deprecated` in the documentation string for API operations and types that are depercated by a service.
   * Related to [golang/go#10909](https://github.com/golang/go/issues/10909)
   * https://blog.golang.org/godoc-documenting-go-code
 
 ### SDK Bugs
-* `service/s3/s3manager`: Fix Download Manager with iterator docs ([#2131](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2131))
+* `service/s3/s3manager`: Fix Download Manager with iterator docs ([#2131](https://github.com/unicloud-uos/uos-sdk-go/pull/2131))
   * Fixes the S3 Download manager's DownloadWithIterator documentation example.
-  * Fixes [#1824](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1824)
+  * Fixes [#1824](https://github.com/unicloud-uos/uos-sdk-go/issues/1824)
 Release v1.15.27 (2018-09-04)
 ===
 
@@ -1586,17 +1586,17 @@ Release v1.15.2 (2018-07-31)
   * Fixes an issue with modeled timestamps being labeled with the incorrect format.
 
 ### SDK Enhancements
-* `service/dynamodb/dynamodbattribute`: Add support for custom struct tag keys([#2054](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2054))
+* `service/dynamodb/dynamodbattribute`: Add support for custom struct tag keys([#2054](https://github.com/unicloud-uos/uos-sdk-go/pull/2054))
   * Adds support for (un)marshaling Go types using custom struct tag keys. The new `MarshalOptions.TagKey` allows the user to specify the tag key to use when (un)marshaling struct fields.  Adds support for struct tags such as `yaml`, `toml`, etc. Support for these keys are in name only, and require the tag value format and values to be supported by the package's Marshalers.
 
 ### SDK Bugs
-* `aws/endpoints`: Add workaround for AWS China Application Autoscaling ([#2080](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2080))
+* `aws/endpoints`: Add workaround for AWS China Application Autoscaling ([#2080](https://github.com/unicloud-uos/uos-sdk-go/pull/2080))
   * Adds workaround to correct the endpoint for Application Autoscaling running in AWS China. This will allow your application to make API calls to Application Autoscaling service in AWS China.
-  * Fixes [#2079](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/2079)
-  * Fixes [#1957](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1957)
-* `private/protocol/xml/xmlutil`: Fix SDK marshaling of empty types ([#2081](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2081))
+  * Fixes [#2079](https://github.com/unicloud-uos/uos-sdk-go/issues/2079)
+  * Fixes [#1957](https://github.com/unicloud-uos/uos-sdk-go/issues/1957)
+* `private/protocol/xml/xmlutil`: Fix SDK marshaling of empty types ([#2081](https://github.com/unicloud-uos/uos-sdk-go/pull/2081))
   * Fixes the SDK's marshaling of types without members. This corrects the issue where the SDK would not marshal an XML tag for a type, if that type did not have any exported members.
-  * Fixes [#2015](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/2015)
+  * Fixes [#2015](https://github.com/unicloud-uos/uos-sdk-go/issues/2015)
 Release v1.15.1 (2018-07-30)
 ===
 
@@ -1634,20 +1634,20 @@ Release v1.15.0 (2018-07-26)
   * This release updates AWS Systems Manager APIs to allow customers to attach labels to history parameter records and reference history parameter records via labels.  It also adds Parameter Store integration with AWS Secrets Manager to allow referencing and retrieving AWS Secrets Manager's secrets from Parameter Store.
 
 ### SDK Features
-* `private/model/api`: SDK APIs input/output are not consistently generated ([#2073](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2073))
-  * Updates the SDK's API code generation to generate the API input and output types consistently. This ensures that the SDK will no longer rename input/output types unexpectedly as in [#2070](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/2070). SDK API input and output parameter types will always be the API name with a suffix of Input and Output.
+* `private/model/api`: SDK APIs input/output are not consistently generated ([#2073](https://github.com/unicloud-uos/uos-sdk-go/pull/2073))
+  * Updates the SDK's API code generation to generate the API input and output types consistently. This ensures that the SDK will no longer rename input/output types unexpectedly as in [#2070](https://github.com/unicloud-uos/uos-sdk-go/issues/2070). SDK API input and output parameter types will always be the API name with a suffix of Input and Output.
   * Existing service APIs which were incorrectly modeled have been preserved to ensure they do not break.
-  * Fixes [#2070](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/2070)
+  * Fixes [#2070](https://github.com/unicloud-uos/uos-sdk-go/issues/2070)
 
 ### SDK Enhancements
-* `service/s3/s3manager`: Document default behavior for Upload's MaxNumParts ([#2077](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/2077))
+* `service/s3/s3manager`: Document default behavior for Upload's MaxNumParts ([#2077](https://github.com/unicloud-uos/uos-sdk-go/issues/2077))
   * Updates the S3 Upload Manager's default behavior for MaxNumParts, and ensures that the Uploader.MaxNumPart's member value is initialized properly if the type was created via struct initialization instead of using the NewUploader function.
-  * Fixes [#2015](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/2015)
+  * Fixes [#2015](https://github.com/unicloud-uos/uos-sdk-go/issues/2015)
 
 ### SDK Bugs
-* `private/model/api`: SDK APIs input/output are not consistently generated ([#2073](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2073))
+* `private/model/api`: SDK APIs input/output are not consistently generated ([#2073](https://github.com/unicloud-uos/uos-sdk-go/pull/2073))
   * Fixes EFS service breaking change in v1.14.26 where `FileSystemDescription` was incorrectly renamed to `UpdateFileSystemOutput.
-  * Fixes [#2070](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/2070)
+  * Fixes [#2070](https://github.com/unicloud-uos/uos-sdk-go/issues/2070)
 Release v1.14.33 (2018-07-25)
 ===
 
@@ -1673,7 +1673,7 @@ Release v1.14.31 (2018-07-20)
 * `service/dlm`: Updates service documentation
 
 ### SDK Enhancements
-* `service/s3/s3manager`: Add documentation for sequential download [#2065](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2065)
+* `service/s3/s3manager`: Add documentation for sequential download [#2065](https://github.com/unicloud-uos/uos-sdk-go/pull/2065)
   * Adds documentation for downloading object sequentially with the S3 download manager.
 
 Release v1.14.30 (2018-07-19)
@@ -1684,9 +1684,9 @@ Release v1.14.30 (2018-07-19)
   * Adds support for DASH OriginEnpoints with multiple media presentation description periods triggered by presence of SCTE-35 ad markers in Channel input streams.
 
 ### SDK Enhancements
-* `aws/default`: Add helper to get default provider chain list of credential providers ([#2059](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/2051))
+* `aws/default`: Add helper to get default provider chain list of credential providers ([#2059](https://github.com/unicloud-uos/uos-sdk-go/issues/2051))
   * Exports the default provider chain list of providers so it can be used to compose custom chains of credential providers.
-  * Fixes [#2051](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/2051)
+  * Fixes [#2051](https://github.com/unicloud-uos/uos-sdk-go/issues/2051)
 
 Release v1.14.29 (2018-07-18)
 ===
@@ -1732,7 +1732,7 @@ Release v1.14.26 (2018-07-12)
   * SDK release to support IAM delegated administrator feature. The feature lets customers attach permissions boundary to IAM principals. The IAM principals cannot operate exceeding the permission specified in permissions boundary.
 
 ### SDK Enhancements
-* `aws/credentials/ec2rolecreds`: Avoid unnecessary redirect [#2037](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2037)
+* `aws/credentials/ec2rolecreds`: Avoid unnecessary redirect [#2037](https://github.com/unicloud-uos/uos-sdk-go/pull/2037)
   * This removes the unnecessary redirect for /latest/meta-data/iam/security-credentials/
 
 Release v1.14.25 (2018-07-11)
@@ -1810,7 +1810,7 @@ Release v1.14.19 (2018-07-03)
   * Feature 1 - On-demand cluster release version - When Amazon Redshift releases a new cluster version, you can choose to upgrade to that version immediately instead of waiting until your next maintenance window. You can also choose to roll back to a previous version. The two new APIs added for managing cluster release version are - ModifyClusterDbRevision, DescribeClusterDbRevisions. Feature 2 - Upgradeable reserved instance - You can now exchange one Reserved Instance for a new Reserved Instance with no changes to the terms of your existing Reserved Instance (term, payment type, or number of nodes). The two new APIs added for managing these upgrades are - AcceptReservedNodeExchange, GetReservedNodeExchangeOfferings.
 
 ### SDK Enhancements
-* `private/model/api`: Add EventStream support over RPC protocl ([#1998](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1998))
+* `private/model/api`: Add EventStream support over RPC protocl ([#1998](https://github.com/unicloud-uos/uos-sdk-go/pull/1998))
   * Adds support for EventStream over JSON PRC protocol. This adds support for the EventStream's initial-response event, EventStream headers, and EventStream modeled exceptions. Also replaces the hand written tests with generated tests for EventStream usage.
 
 Release v1.14.18 (2018-07-02)
@@ -1851,7 +1851,7 @@ Release v1.14.15 (2018-06-27)
   * Documentation updates for secretsmanager
 
 ### SDK Bugs
-* `aws/csm`: Final API Call Attempt events were not being called [#2008](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2008)
+* `aws/csm`: Final API Call Attempt events were not being called [#2008](https://github.com/unicloud-uos/uos-sdk-go/pull/2008)
 Release v1.14.14 (2018-06-26)
 ===
 
@@ -1901,10 +1901,10 @@ Release v1.14.10 (2018-06-20)
   * This release adds a new parameter to specify the retention period for Performance Insights data for RDS instances. You can either choose 7 days (default) or 731 days. For more information, see Amazon RDS Documentation.
 
 ### SDK Enhancements
-* `service/s3`: Update SelectObjectContent doc example to be on the API not nested type. ([#1991](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1991))
+* `service/s3`: Update SelectObjectContent doc example to be on the API not nested type. ([#1991](https://github.com/unicloud-uos/uos-sdk-go/pull/1991))
 
 ### SDK Bugs
-* `aws/client`: Fix HTTP debug log EventStream payloads ([#2000](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/2000))
+* `aws/client`: Fix HTTP debug log EventStream payloads ([#2000](https://github.com/unicloud-uos/uos-sdk-go/pull/2000))
   * Fixes the SDK's HTTP client debug logging to not log the HTTP response body for EventStreams. This prevents the SDK from buffering a very large amount of data to be logged at once. The aws.LogDebugWithEventStreamBody should be used to log the event stream events.
   * Fixes a bug in the SDK's response logger which will buffer the response body's content if LogDebug is enabled but LogDebugWithHTTPBody is not.
 Release v1.14.9 (2018-06-19)
@@ -1916,7 +1916,7 @@ Release v1.14.9 (2018-06-19)
   * Documentation updates for rekognition
 
 ### SDK Bugs
-* `private/model/api`: Update client ServiceName to be based on name of service for new services. ([#1997](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1997))
+* `private/model/api`: Update client ServiceName to be based on name of service for new services. ([#1997](https://github.com/unicloud-uos/uos-sdk-go/pull/1997))
     * Fixes the SDK's `ServiceName` AWS service client package value to be unique based on the service name for new AWS services. Does not change exiting client packages.
 Release v1.14.8 (2018-06-15)
 ===
@@ -1954,13 +1954,13 @@ Release v1.14.5 (2018-06-12)
   * Introduces daemon scheduling capability to deploy one task per instance on selected instances in a cluster.  Adds a "force" flag to the DeleteService API to delete a service without requiring to scale down the number of tasks to zero.
 
 ### SDK Enhancements
-* `service/rds/rdsutils`: Clean up the rdsutils package and adds a new builder to construct connection strings ([#1985](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1985))
+* `service/rds/rdsutils`: Clean up the rdsutils package and adds a new builder to construct connection strings ([#1985](https://github.com/unicloud-uos/uos-sdk-go/pull/1985))
     * Rewords documentation to be more useful and provides links to prior setup needed to support authentication tokens. Introduces a builder that allows for building connection strings
 
 ### SDK Bugs
-* `aws/signer/v4`: Fix X-Amz-Content-Sha256 being in to query for presign ([#1976](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1976))
+* `aws/signer/v4`: Fix X-Amz-Content-Sha256 being in to query for presign ([#1976](https://github.com/unicloud-uos/uos-sdk-go/pull/1976))
     * Fixes the bug which would allow the X-Amz-Content-Sha256 header to be promoted to the query string when presigning a S3 request. This bug also was preventing users from setting their own sha256 value for a presigned URL. Presigned requests generated with the custom sha256 would of always failed with invalid signature.
-    * Fixes [#1974](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1974)
+    * Fixes [#1974](https://github.com/unicloud-uos/uos-sdk-go/pull/1974)
 Release v1.14.4 (2018-06-11)
 ===
 
@@ -2015,10 +2015,10 @@ Release v1.14.0 (2018-06-04)
   * Amazon SageMaker has added the ability to run hyperparameter tuning jobs. A hyperparameter tuning job will create and evaluate multiple training jobs while tuning algorithm hyperparameters, to optimize a customer specified objective metric.
 
 ### SDK Features
-* Add support for EventStream based APIs (S3 SelectObjectContent) ([#1941](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1941))
+* Add support for EventStream based APIs (S3 SelectObjectContent) ([#1941](https://github.com/unicloud-uos/uos-sdk-go/pull/1941))
   * Adds support for EventStream asynchronous APIs such as S3 SelectObjectContents API. This API allows your application to receiving multiple events asynchronously from the API response. Your application recieves these events from a channel on the API response.
-  * See PR [#1941](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1941) for example.
-  * Fixes [#1895](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1895)
+  * See PR [#1941](https://github.com/unicloud-uos/uos-sdk-go/pull/1941) for example.
+  * Fixes [#1895](https://github.com/unicloud-uos/uos-sdk-go/issues/1895)
 
 Release v1.13.60 (2018-06-01)
 ===
@@ -2036,9 +2036,9 @@ Release v1.13.60 (2018-06-01)
   * The SNS Subscribe API has been updated with two new optional parameters: Attributes and ReturnSubscriptionArn. Attributes is a map of subscription attributes which can be one or more of: FilterPolicy, DeliveryPolicy, and RawMessageDelivery. ReturnSubscriptionArn is a boolean parameter that overrides the default behavior of returning "pending confirmation" for subscriptions that require confirmation instead of returning the subscription ARN.
 
 ### SDK Bugs
-* `private/mode/api`: Fix error code constants being generated incorrectly.([#1958](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1958))
+* `private/mode/api`: Fix error code constants being generated incorrectly.([#1958](https://github.com/unicloud-uos/uos-sdk-go/issues/1958))
     * Fixes the SDK's code generation to not modify the error code text value when generating error code constants. This prevents generating error code values which are invalid and will never be sent by the service. This change does not change the error code constant variable name generated by the SDK, only the value of the error code.
-    * Fixes [#1856](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1856)
+    * Fixes [#1856](https://github.com/unicloud-uos/uos-sdk-go/issues/1856)
 Release v1.13.59 (2018-05-31)
 ===
 
@@ -2084,9 +2084,9 @@ Release v1.13.55 (2018-05-24)
   * Documentation updates for secretsmanager
   
 ### SDK Bugs
-* `service/cloudwatchlogs`: Fix pagination with cloudwatchlogs ([#1945](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1945))
+* `service/cloudwatchlogs`: Fix pagination with cloudwatchlogs ([#1945](https://github.com/unicloud-uos/uos-sdk-go/pull/1945))
   * Fixes the SDK's behavior with CloudWatchLogs APIs which return duplicate `NextToken` values to signal end of pagination. 
-  * Fixes [#1908](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1908)
+  * Fixes [#1908](https://github.com/unicloud-uos/uos-sdk-go/pull/1908)
 
 Release v1.13.54 (2018-05-22)
 ===
@@ -2284,14 +2284,14 @@ Release v1.13.35 (2018-04-23)
 * `service/iotanalytics`: Adds new service
 
 ### SDK Enhancements
-* `aws/endpoints`: Add Get Region description to endpoints package ([#1909](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1909))
+* `aws/endpoints`: Add Get Region description to endpoints package ([#1909](https://github.com/unicloud-uos/uos-sdk-go/pull/1909))
   * Adds exposing the description field of the endpoints Region struct.
-  * Fixes [#1194](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1194)
+  * Fixes [#1194](https://github.com/unicloud-uos/uos-sdk-go/issues/1194)
 
 ### SDK Bugs
-* Fix XML unmarshaler not correctly unmarshaling list of timestamp values ([#1894](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1894))
+* Fix XML unmarshaler not correctly unmarshaling list of timestamp values ([#1894](https://github.com/unicloud-uos/uos-sdk-go/pull/1894))
   * Fixes a bug in the XML unmarshaler that would incorrectly try to unmarshal "time.Time" parameters that did not have the struct tag type on them. This would occur for nested lists like CloudWatch's GetMetricDataResponse MetricDataResults timestamp parameters.
-  * Fixes [#1892](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1892)
+  * Fixes [#1892](https://github.com/unicloud-uos/uos-sdk-go/issues/1892)
 Release v1.13.34 (2018-04-20)
 ===
 
@@ -2465,9 +2465,9 @@ Release v1.13.19 (2018-03-22)
 * `aws/endpoints`: Updated Regions and Endpoints metadata.
 
 ### SDK Bugs
-* `aws/endpoints`: Use service metadata for fallback signing name ([#1854](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1854))
+* `aws/endpoints`: Use service metadata for fallback signing name ([#1854](https://github.com/unicloud-uos/uos-sdk-go/pull/1854))
   * Updates the SDK's endpoint resolution to fallback deriving the service's signing name from the service's modeled metadata in addition the endpoints modeled data.
-  * Fixes [#1850](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1850)
+  * Fixes [#1850](https://github.com/unicloud-uos/uos-sdk-go/issues/1850)
 Release v1.13.18 (2018-03-21)
 ===
 
@@ -2674,10 +2674,10 @@ Release v1.12.77 (2018-02-14)
 * `service/lex-models`: Updates service API and documentation
 
 ### Bug Fixes
-* `aws/request`: Fix support for streamed payloads for unsigned body request ([#1778](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1778))
+* `aws/request`: Fix support for streamed payloads for unsigned body request ([#1778](https://github.com/unicloud-uos/uos-sdk-go/pull/1778))
   * Fixes the SDK's handling of the SDK's `ReaderSeekerCloser` helper type to not allow erroneous request retries, and request signature generation. This Fix allows you to use the `aws.ReaderSeekerCloser` to wrap an arbitrary `io.Reader` for request `io.ReadSeeker` input parameters. APIs such as lex-runtime's PostContent can now make use of the
 ReaderSeekerCloser type without causing unexpected failures.
-  * Fixes [#1776](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1776)
+  * Fixes [#1776](https://github.com/unicloud-uos/uos-sdk-go/issues/1776)
 
 Release v1.12.76 (2018-02-13)
 ===
@@ -2749,15 +2749,15 @@ Release v1.12.72 (2018-02-07)
   * This Patch Manager release supports configuring Linux repos as part of patch baselines, controlling updates of non-OS security packages and also creating patch baselines for SUSE12
 
 ### SDK Enhancements
-* `private/model/api`: Add validation to ensure there is no duplication of services in models/apis ([#1758](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1758))
+* `private/model/api`: Add validation to ensure there is no duplication of services in models/apis ([#1758](https://github.com/unicloud-uos/uos-sdk-go/pull/1758))
     * Prevents the SDK from mistakenly generating code a single service multiple times with different model versions.
-* `example/service/ec2/instancesbyRegion`: Fix typos in example ([#1762](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1762))
+* `example/service/ec2/instancesbyRegion`: Fix typos in example ([#1762](https://github.com/unicloud-uos/uos-sdk-go/pull/1762))
 * `private/model/api`: removing SDK API reference crosslinks from input/output shapes. (#1765) 
 
 ### SDK Bugs
-* `aws/session`: Fix bug in session.New not supporting AWS_SDK_LOAD_CONFIG ([#1770](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1770))
+* `aws/session`: Fix bug in session.New not supporting AWS_SDK_LOAD_CONFIG ([#1770](https://github.com/unicloud-uos/uos-sdk-go/pull/1770))
     * Fixes a bug in the session.New function that was not correctly sourcing the shared configuration files' path.
-    * Fixes [#1771](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1771)
+    * Fixes [#1771](https://github.com/unicloud-uos/uos-sdk-go/pull/1771)
 Release v1.12.71 (2018-02-05)
 ===
 
@@ -2786,9 +2786,9 @@ Release v1.12.69 (2018-01-26)
 ===
 
 ### SDK Bugs
-* `models/api`: Fix colliding names [#1754](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1754) [#1756](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1756)
+* `models/api`: Fix colliding names [#1754](https://github.com/unicloud-uos/uos-sdk-go/pull/1754) [#1756](https://github.com/unicloud-uos/uos-sdk-go/pull/1756)
     * SDK had duplicate folders that were causing errors in some builds.
-    * Fixes [#1753](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1753)
+    * Fixes [#1753](https://github.com/unicloud-uos/uos-sdk-go/issues/1753)
 Release v1.12.68 (2018-01-25)
 ===
 
@@ -2803,9 +2803,9 @@ Release v1.12.68 (2018-01-25)
   * AWS Lambda now supports Revision ID on your function versions and aliases, to track and apply conditional updates when you are updating your function version or alias resources.
 
 ### SDK Bugs
-* `service/s3/s3manager`: Fix check for nil OrigErr in Error() [#1749](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1749)
+* `service/s3/s3manager`: Fix check for nil OrigErr in Error() [#1749](https://github.com/unicloud-uos/uos-sdk-go/issues/1749)
     * S3 Manager's `Error` type did not check for nil of `OrigErr` when calling `Error()`
-    * Fixes [#1748](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1748)
+    * Fixes [#1748](https://github.com/unicloud-uos/uos-sdk-go/issues/1748)
 Release v1.12.67 (2018-01-22)
 ===
 
@@ -3031,7 +3031,7 @@ Release v1.12.43 (2017-12-07)
   * Added support for encryption of data at rest on Amazon Elasticsearch Service using AWS KMS
 
 ### SDK Bugs
-* `models/apis` Fixes removes colliding sagemaker models folders ([#1686](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1686))
+* `models/apis` Fixes removes colliding sagemaker models folders ([#1686](https://github.com/unicloud-uos/uos-sdk-go/pull/1686))
   * Fixes Release v1.12.42's SageMaker vs sagemaker model folders.
 Release v1.12.42 (2017-12-06)
 ===
@@ -3209,8 +3209,8 @@ Release v1.12.31 (2017-11-20)
   * DescribeGroups API and miscellaneous enhancements
 
 ### SDK Bugs
-* `aws/client`: Retry delays for throttled exception were not limited to 5 minutes [#1654](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1654)
-  * Fixes [#1653](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1653)
+* `aws/client`: Retry delays for throttled exception were not limited to 5 minutes [#1654](https://github.com/unicloud-uos/uos-sdk-go/pull/1654)
+  * Fixes [#1653](https://github.com/unicloud-uos/uos-sdk-go/issues/1653)
 Release v1.12.30 (2017-11-17)
 ===
 
@@ -3226,9 +3226,9 @@ Release v1.12.30 (2017-11-17)
   * Added ORC to the supported S3 Inventory formats.
 
 ### SDK Bugs
-* `private/protocol/restjson`: Define JSONValue marshaling for body and querystring ([#1640](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1640))
+* `private/protocol/restjson`: Define JSONValue marshaling for body and querystring ([#1640](https://github.com/unicloud-uos/uos-sdk-go/pull/1640))
   * Adds support for APIs which use JSONValue for body and querystring targets.
-  * Fixes [#1636](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1636)
+  * Fixes [#1636](https://github.com/unicloud-uos/uos-sdk-go/issues/1636)
 Release v1.12.29 (2017-11-16)
 ===
 
@@ -3273,9 +3273,9 @@ Release v1.12.27 (2017-11-14)
   * EC2 Systems Manager GetInventory API adds support for aggregation.
 
 ### SDK Enhancements
-* `aws/request`: Remove default port from HTTP host header ([#1618](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1618))
+* `aws/request`: Remove default port from HTTP host header ([#1618](https://github.com/unicloud-uos/uos-sdk-go/pull/1618))
   * Updates the SDK to automatically remove default ports based on the URL's scheme when setting the HTTP Host header's value.
-  * Fixes [#1537](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1537)
+  * Fixes [#1537](https://github.com/unicloud-uos/uos-sdk-go/issues/1537)
 
 Release v1.12.26 (2017-11-09)
 ===
@@ -3341,9 +3341,9 @@ Release v1.12.21 (2017-11-02)
 * `aws/endpoints`: Updated Regions and Endpoints metadata.
 
 ### SDK Bugs
-* `aws/request`: Fix bug in request presign creating invalid URL ([#1624](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1624))
+* `aws/request`: Fix bug in request presign creating invalid URL ([#1624](https://github.com/unicloud-uos/uos-sdk-go/pull/1624))
   * Fixes a bug the Request Presign and PresignRequest methods that would allow a invalid expire duration as input. A expire time of 0 would be interpreted by the SDK to generate a normal request signature, not a presigned URL. This caused the returned URL unusable.
-  * Fixes [#1617](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1617)
+  * Fixes [#1617](https://github.com/unicloud-uos/uos-sdk-go/issues/1617)
 Release v1.12.20 (2017-11-01)
 ===
 
@@ -3502,7 +3502,7 @@ Release v1.12.5 (2017-10-04)
   * Added a new API that checks whether a domain name can be transferred to Amazon Route 53.
 
 ### SDK Bugs
-* `service/s3/s3crypto`: Correct PutObjectRequest documentation ([#1568](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1568))
+* `service/s3/s3crypto`: Correct PutObjectRequest documentation ([#1568](https://github.com/unicloud-uos/uos-sdk-go/pull/1568))
   * s3Crypto's PutObjectRequest docstring example was using an incorrect value. Corrected the type used in the example.
 Release v1.12.4 (2017-10-03)
 ===
@@ -3535,11 +3535,11 @@ Release v1.12.2 (2017-09-29)
   * This change allows customers to reset elements of health check.
 
 ### SDK Bugs
-* `private/protocol/query`: Fix query protocol handling of nested byte slices ([#1557](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1557))
+* `private/protocol/query`: Fix query protocol handling of nested byte slices ([#1557](https://github.com/unicloud-uos/uos-sdk-go/issues/1557))
   * Fixes the query protocol to correctly marshal nested []byte values of API operations.
-* `service/s3`: Fix PutObject and UploadPart API to include ContentMD5 field ([#1559](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1559))
+* `service/s3`: Fix PutObject and UploadPart API to include ContentMD5 field ([#1559](https://github.com/unicloud-uos/uos-sdk-go/pull/1559))
   * Fixes the SDK's S3 PutObject and UploadPart API code generation to correctly render the ContentMD5 field into the associated input types for these two API operations.
-  * Fixes [#1553](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1553)
+  * Fixes [#1553](https://github.com/unicloud-uos/uos-sdk-go/pull/1553)
 Release v1.12.1 (2017-09-27)
 ===
 
@@ -3553,7 +3553,7 @@ Release v1.12.0 (2017-09-26)
 
 ### SDK Bugs
 * `API Marshaler`: Revert REST JSON and XML protocol marshaler improvements
-  * Bug [#1550](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1550) identified a missed condition in the Amazon Route 53 RESTXML protocol marshaling causing requests to that service to fail. Reverting the marshaler improvements until the bug can be fixed.
+  * Bug [#1550](https://github.com/unicloud-uos/uos-sdk-go/issues/1550) identified a missed condition in the Amazon Route 53 RESTXML protocol marshaling causing requests to that service to fail. Reverting the marshaler improvements until the bug can be fixed.
 
 Release v1.11.0 (2017-09-26)
 ===
@@ -3565,17 +3565,17 @@ Release v1.11.0 (2017-09-26)
 ### SDK Features
 * Add dep Go dependency management metadata files (#1544)
   * Adds the Go `dep` dependency management metadata files to the SDK.
-  * Fixes [#1451](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1451)
-  * Fixes [#634](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/634)
-* `service/dynamodb/expression`: Add expression building utility for DynamoDB ([#1527](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1527))
+  * Fixes [#1451](https://github.com/unicloud-uos/uos-sdk-go/issues/1451)
+  * Fixes [#634](https://github.com/unicloud-uos/uos-sdk-go/issues/634)
+* `service/dynamodb/expression`: Add expression building utility for DynamoDB ([#1527](https://github.com/unicloud-uos/uos-sdk-go/pull/1527))
   * Adds a new package, expression, to the SDK providing builder utilities to create DynamoDB expressions safely taking advantage of type safety.
-* `API Marshaler`: Add generated marshalers for RESTXML protocol ([#1409](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1409))
+* `API Marshaler`: Add generated marshalers for RESTXML protocol ([#1409](https://github.com/unicloud-uos/uos-sdk-go/pull/1409))
   * Updates the RESTXML protocol marshaler to use generated code instead of reflection for REST XML based services.
-* `API Marshaler`: Add generated marshalers for RESTJSON protocol ([#1547](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1547))
+* `API Marshaler`: Add generated marshalers for RESTJSON protocol ([#1547](https://github.com/unicloud-uos/uos-sdk-go/pull/1547))
   * Updates the RESTJSON protocol marshaler to use generated code instead of reflection for REST JSON based services.
 
 ### SDK Enhancements
-* `private/protocol`: Update format of REST JSON and XMl benchmarks ([#1546](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1546))
+* `private/protocol`: Update format of REST JSON and XMl benchmarks ([#1546](https://github.com/unicloud-uos/uos-sdk-go/pull/1546))
   * Updates the format of the REST JSON and XML benchmarks to be readable. RESTJSON benchmarks were updated to more accurately bench building of the protocol.
 
 Release v1.10.51 (2017-09-22)
@@ -3601,9 +3601,9 @@ Release v1.10.50 (2017-09-21)
   * Adds support for associating LogGroups with KMS Keys.
 
 ### SDK Bugs
-* Fix greengrass service model being duplicated with different casing. ([#1541](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1541))
-  * Fixes [#1540](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1540)
-  * Fixes [#1539](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1539)
+* Fix greengrass service model being duplicated with different casing. ([#1541](https://github.com/unicloud-uos/uos-sdk-go/pull/1541))
+  * Fixes [#1540](https://github.com/unicloud-uos/uos-sdk-go/issues/1540)
+  * Fixes [#1539](https://github.com/unicloud-uos/uos-sdk-go/issues/1539)
 Release v1.10.49 (2017-09-20)
 ===
 
@@ -3626,9 +3626,9 @@ Release v1.10.48 (2017-09-19)
   * Fixed bug in EC2 clients preventing ElasticGpuSet from being set.
 
 ### SDK Enhancements
-* `aws/credentials`: Add EnvProviderName constant. ([#1531](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1531))
+* `aws/credentials`: Add EnvProviderName constant. ([#1531](https://github.com/unicloud-uos/uos-sdk-go/issues/1531))
   * Adds the "EnvConfigCredentials" string literal as EnvProviderName constant.
-  * Fixes [#1444](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1444)
+  * Fixes [#1444](https://github.com/unicloud-uos/uos-sdk-go/issues/1444)
 
 Release v1.10.47 (2017-09-18)
 ===
@@ -3673,11 +3673,11 @@ Release v1.10.44 (2017-09-13)
   * Exposes ConcurrentModificationException as one of the valid exceptions for PutPermission and RemovePermission operation.
 
 ### SDK Enhancements
-* `service/autoscaling`: Fix documentation for PutScalingPolicy.AutoScalingGroupName [#1522](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1522)
-* `service/s3/s3manager`: Clarify S3 Upload manager Concurrency config [#1521](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1521)
-  * Fixes [#1458](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1458)
-* `service/dynamodb/dynamodbattribute`: Add support for time alias. [#1520](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1520)
-  * Related to [#1505](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1505)
+* `service/autoscaling`: Fix documentation for PutScalingPolicy.AutoScalingGroupName [#1522](https://github.com/unicloud-uos/uos-sdk-go/pull/1522)
+* `service/s3/s3manager`: Clarify S3 Upload manager Concurrency config [#1521](https://github.com/unicloud-uos/uos-sdk-go/pull/1521)
+  * Fixes [#1458](https://github.com/unicloud-uos/uos-sdk-go/issues/1458)
+* `service/dynamodb/dynamodbattribute`: Add support for time alias. [#1520](https://github.com/unicloud-uos/uos-sdk-go/pull/1520)
+  * Related to [#1505](https://github.com/unicloud-uos/uos-sdk-go/pull/1505)
 
 Release v1.10.43 (2017-09-12)
 ===
@@ -3752,8 +3752,8 @@ Release v1.10.36 (2017-08-31)
 * `service/lex-models`: Updates service API and documentation
 
 ### SDK Bugs
-* `aws/signer/v4`: Revert [#1491](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1491) as change conflicts with an undocumented AWS v4 signature test case.
-  * Related to: [#1495](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1495).
+* `aws/signer/v4`: Revert [#1491](https://github.com/unicloud-uos/uos-sdk-go/issues/1491) as change conflicts with an undocumented AWS v4 signature test case.
+  * Related to: [#1495](https://github.com/unicloud-uos/uos-sdk-go/issues/1495).
 Release v1.10.35 (2017-08-30)
 ===
 
@@ -3771,7 +3771,7 @@ Release v1.10.34 (2017-08-29)
   * Provides capability to add secondary CIDR blocks to a VPC.
 
 ### SDK Bugs
-* `aws/signer/v4`: Fix Signing Unordered Multi Value Query Parameters ([#1491](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1491))
+* `aws/signer/v4`: Fix Signing Unordered Multi Value Query Parameters ([#1491](https://github.com/unicloud-uos/uos-sdk-go/pull/1491))
   * Removes sorting of query string values when calculating v4 signing as this is not part of the spec. The spec only requires the keys, not values, to be sorted which is achieved by Query.Encode().
 Release v1.10.33 (2017-08-25)
 ===
@@ -3785,7 +3785,7 @@ Release v1.10.33 (2017-08-25)
   * Option group options now contain additional properties that identify requirements for certain options. Check these properties to determine if your DB instance must be in a VPC or have auto minor upgrade turned on before you can use an option. Check to see if you can downgrade the version of an option after you have installed it.
 
 ### SDK Enhancements
-* `example/service/ec2`: Add EC2 list instances example ([#1492](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1492))
+* `example/service/ec2`: Add EC2 list instances example ([#1492](https://github.com/unicloud-uos/uos-sdk-go/pull/1492))
 
 Release v1.10.32 (2017-08-25)
 ===
@@ -3832,13 +3832,13 @@ Release v1.10.27 (2017-08-16)
   * The Matchmaking Grouping Service is a new feature that groups player match requests for a given game together into game sessions based on developer configured rules.
 
 ### SDK Enhancements
-* `aws/arn`: aws/arn: Package for parsing and producing ARNs ([#1463](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1463))
+* `aws/arn`: aws/arn: Package for parsing and producing ARNs ([#1463](https://github.com/unicloud-uos/uos-sdk-go/pull/1463))
   * Adds the `arn` package for AWS ARN parsing and building. Use this package to build AWS ARNs for services such as outlined in the [documentation](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
 
 ### SDK Bugs
-* `aws/signer/v4`: Correct V4 presign signature to include content sha25 in URL ([#1469](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1469))
+* `aws/signer/v4`: Correct V4 presign signature to include content sha25 in URL ([#1469](https://github.com/unicloud-uos/uos-sdk-go/pull/1469))
   * Updates the V4 signer so that when a Presign is generated the `X-Amz-Content-Sha256` header is added to the query string instead of being required to be in the header. This allows you to generate presigned URLs for GET requests, e.g S3.GetObject that do not require additional headers to be set by the downstream users of the presigned URL.
-  * Related To: [#1467](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1467)
+  * Related To: [#1467](https://github.com/unicloud-uos/uos-sdk-go/issues/1467)
 
 Release v1.10.26 (2017-08-15)
 ===
@@ -3901,7 +3901,7 @@ Release v1.10.21 (2017-08-09)
   * Add support for paginating the result of DescribeEnvironments     Include the ARN of described environments in DescribeEnvironments output
 
 ### SDK Enhancements
-* `aws`: Add pointer conversion utilities to transform int64 to time.Time [#1433](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1433)
+* `aws`: Add pointer conversion utilities to transform int64 to time.Time [#1433](https://github.com/unicloud-uos/uos-sdk-go/pull/1433)
   * Adds `SecondsTimeValue` and `MillisecondsTimeValue` utilities.
 
 Release v1.10.20 (2017-08-01)
@@ -3959,7 +3959,7 @@ Release v1.10.16 (2017-07-26)
   * AWS CloudFormation StackSets enables you to manage stacks across multiple accounts and regions.
 
 ### SDK Enhancements
-* `aws/signer/v4`: Optimize V4 signer's header duplicate space stripping. [#1417](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1417)
+* `aws/signer/v4`: Optimize V4 signer's header duplicate space stripping. [#1417](https://github.com/unicloud-uos/uos-sdk-go/pull/1417)
 
 Release v1.10.15 (2017-07-24)
 ===
@@ -3971,9 +3971,9 @@ Release v1.10.15 (2017-07-24)
   * Spot Fleet tagging capability allows customers to automatically tag instances launched by Spot Fleet. You can use this feature to label or distinguish instances created by distinct Spot Fleets. Tagging your EC2 instances also enables you to see instance cost allocation by tag in your AWS bill.
 
 ### SDK Bugs
-* `aws/signer/v4`: Fix out of bounds panic in stripExcessSpaces [#1412](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1412)
+* `aws/signer/v4`: Fix out of bounds panic in stripExcessSpaces [#1412](https://github.com/unicloud-uos/uos-sdk-go/pull/1412)
   * Fixes the out of bands panic in stripExcessSpaces caused by an incorrect calculation of the stripToIdx value. Simplified to code also.
-  * Fixes [#1411](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1411)
+  * Fixes [#1411](https://github.com/unicloud-uos/uos-sdk-go/issues/1411)
 Release v1.10.14 (2017-07-20)
 ===
 
@@ -3989,7 +3989,7 @@ Release v1.10.13 (2017-07-19)
   * Update budget Management API's to list/create/update RI_UTILIZATION type budget. Update budget Management API's to support DAILY timeUnit for RI_UTILIZATION type budget.
 
 ### SDK Enhancements
-* `service/s3`:  Use interfaces assertions instead of ValuesAtPath for S3 field lookups. [#1401](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1401)
+* `service/s3`:  Use interfaces assertions instead of ValuesAtPath for S3 field lookups. [#1401](https://github.com/unicloud-uos/uos-sdk-go/pull/1401)
   * Improves the performance across the board for all S3 API calls by removing the usage of `ValuesAtPath` being used for every S3 API call.
 
 ### SDK Bugs
@@ -4057,7 +4057,7 @@ Release v1.10.7 (2017-07-05)
   * Bug fix for InvalidChangeBatch exception.
 
 ### SDK Enhancements
-* `service/s3/s3manager`: adding cleanup function to batch objects [#1375](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1375)
+* `service/s3/s3manager`: adding cleanup function to batch objects [#1375](https://github.com/unicloud-uos/uos-sdk-go/issues/1375)
   * This enhancement will add an After field that will be called after each iteration of the batch operation.
 
 Release v1.10.6 (2017-06-30)
@@ -4089,9 +4089,9 @@ Release v1.10.4 (2017-06-27)
   * Proper tagging of resources is critical to post-launch operations such as billing, cost allocation, and resource management. By using Service Catalog's TagOption Library, administrators can define a library of re-usable TagOptions that conform to company standards, and associate these with Service Catalog portfolios and products. Learn how to move your current tags to the new library, create new TagOptions, and view and associate your library items with portfolios and products. Understand how to ensure that the right tags are created on products launched through Service Catalog and how to provide users with defined selectable tags.
 
 ### SDK Bugs
-* `aws/signer/v4`: checking length on `stripExcessSpaces` [#1372](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1372)
+* `aws/signer/v4`: checking length on `stripExcessSpaces` [#1372](https://github.com/unicloud-uos/uos-sdk-go/issues/1372)
   * Fixes a bug where `stripExcessSpaces` did not check length against the slice.
-  * Fixes: [#1371](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1371)
+  * Fixes: [#1371](https://github.com/unicloud-uos/uos-sdk-go/issues/1371)
 Release v1.10.3 (2017-06-23)
 ===
 
@@ -4136,7 +4136,7 @@ Release v1.10.0 (2017-06-20)
   * This release provides a new API to retrieve the activities performed by WorkDocs users.
 
 ### SDK Features
-* `aws/credentials/plugincreds`: Add support for Go plugin for credentials [#1320](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1320)
+* `aws/credentials/plugincreds`: Add support for Go plugin for credentials [#1320](https://github.com/unicloud-uos/uos-sdk-go/pull/1320)
   * Adds support for using plugins to retrieve credentials for API requests. This change adds a new package plugincreds under aws/credentials. See the `example/aws/credentials/plugincreds` folder in the SDK for example usage.
 
 Release v1.9.00 (2017-06-19)
@@ -4147,7 +4147,7 @@ Release v1.9.00 (2017-06-19)
   * Improvements to Exception Modeling
 
 ### SDK Features
-* `service/s3/s3manager`: Adds batch operations to s3manager [#1333](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1333)
+* `service/s3/s3manager`: Adds batch operations to s3manager [#1333](https://github.com/unicloud-uos/uos-sdk-go/pull/1333)
   * Allows for batch upload, download, and delete of objects. Also adds the interface pattern to allow for easy traversal of objects. E.G `DownloadWithIterator`, `UploadWithIterator`, and `BatchDelete`. `BatchDelete` also contains a utility iterator using the `ListObjects` API to easily delete a list of objects.
   
 Release v1.8.44 (2017-06-16)
@@ -4171,9 +4171,9 @@ Release v1.8.43 (2017-06-15)
   * Added ProvisioningArtifactSummaries to DescribeProductAsAdmin's output to show the provisioning artifacts belong to the product. Allow filtering by SourceProductId in SearchProductsAsAdmin for AWS Marketplace products. Added a verbose option to DescribeProvisioningArtifact to display the CloudFormation template used to create the provisioning artifact.Added DescribeProvisionedProduct API. Changed the type of ProvisionedProduct's Status to be distinct from Record's Status. New ProvisionedProduct's Status are AVAILABLE, UNDER_CHANGE, TAINTED, ERROR. Changed Record's Status set of values to CREATED, IN_PROGRESS, IN_PROGRESS_IN_ERROR, SUCCEEDED, FAILED.
 
 ### SDK Bugs
-* `private/model/api`: Fix RESTXML support for XML Namespace [#1343](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1343)
+* `private/model/api`: Fix RESTXML support for XML Namespace [#1343](https://github.com/unicloud-uos/uos-sdk-go/pull/1343)
   * Fixes a bug with the SDK's generation of services using the REST XML protocol not annotating shape references with the XML Namespace attribute.
-  * Fixes [#1334](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1334)
+  * Fixes [#1334](https://github.com/unicloud-uos/uos-sdk-go/pull/1334)
 Release v1.8.42 (2017-06-14)
 ===
 
@@ -4196,9 +4196,9 @@ Release v1.8.40 (2017-06-13)
   * API Update for RDS: this update enables copy-on-write, a new Aurora MySQL Compatible Edition feature that allows users to restore their database, and support copy of TDE enabled snapshot cross region.
 
 ### SDK Bugs
-* `aws/request`: Fix NewErrParamMinLen to use correct ParamMinLenErrCode [#1336](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1336)
+* `aws/request`: Fix NewErrParamMinLen to use correct ParamMinLenErrCode [#1336](https://github.com/unicloud-uos/uos-sdk-go/issues/1336)
   * Fixes the `NewErrParamMinLen` function returning the wrong error code. `ParamMinLenErrCode` should be returned not `ParamMinValueErrCode`.
-  * Fixes [#1335](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1335)
+  * Fixes [#1335](https://github.com/unicloud-uos/uos-sdk-go/issues/1335)
 Release v1.8.39 (2017-06-09)
 ===
 
@@ -4269,15 +4269,15 @@ Release v1.8.33 (2017-06-01)
 * `service/lexmodelbuildingservice`: Updates service documentation and examples
 
 ### SDK Enhancements
-* `aws/defaults`: Exports shared credentials and config default filenames used by the SDK. [#1308](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1308)
+* `aws/defaults`: Exports shared credentials and config default filenames used by the SDK. [#1308](https://github.com/unicloud-uos/uos-sdk-go/pull/1308)
   * Adds SharedCredentialsFilename and SharedConfigFilename functions to defaults package.
 
 ### SDK Bugs
-* `aws/credentials`: Fixes shared credential provider's default filename on Windows. [#1308](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1308)
+* `aws/credentials`: Fixes shared credential provider's default filename on Windows. [#1308](https://github.com/unicloud-uos/uos-sdk-go/pull/1308)
   * The shared credentials provider would attempt to use the wrong filename on Windows if the `HOME` environment variable was defined.
-* `service/s3/s3manager`: service/s3/s3manager: Fix Downloader ignoring Range get parameter [#1311](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pull/1311)
+* `service/s3/s3manager`: service/s3/s3manager: Fix Downloader ignoring Range get parameter [#1311](https://github.com/unicloud-uos/uos-sdk-go/pull/1311)
   * Fixes the S3 Download Manager ignoring the GetObjectInput's Range parameter. If this parameter is provided it will force the downloader to fallback to a single GetObject request disabling concurrency and automatic part size gets.
-  * Fixes [#1296](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1296)
+  * Fixes [#1296](https://github.com/unicloud-uos/uos-sdk-go/issues/1296)
 Release v1.8.32 (2017-05-31)
 ===
 
@@ -4330,12 +4330,12 @@ Release v1.8.27 (2017-05-22)
   * You can now specify the number of resources returned per page in GetResources operation, as an optional parameter, to easily manage the list of resources returned by your queries.
 
 ### SDK Bugs
-* `aws/request`: Add support for PUT temporary redirects (307) [#1283](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1283)
+* `aws/request`: Add support for PUT temporary redirects (307) [#1283](https://github.com/unicloud-uos/uos-sdk-go/issues/1283)
   * Adds support for Go 1.8's GetBody function allowing the SDK's http request using PUT and POST methods to be redirected with temporary redirects with 307 status code.
-  * Fixes: [#1267](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1267)
-* `aws/request`: Add handling for retrying temporary errors during unmarshal [#1289](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1289)
+  * Fixes: [#1267](https://github.com/unicloud-uos/uos-sdk-go/issues/1267)
+* `aws/request`: Add handling for retrying temporary errors during unmarshal [#1289](https://github.com/unicloud-uos/uos-sdk-go/issues/1289)
   * Adds support for retrying temporary errors that occur during unmarshaling of a request's response body.
-  * Fixes: [#1275](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1275)
+  * Fixes: [#1275](https://github.com/unicloud-uos/uos-sdk-go/issues/1275)
 Release v1.8.26 (2017-05-18)
 ===
 
@@ -4383,7 +4383,7 @@ Release v1.8.23 (2017-05-15)
   * UpdateAssociation API now supports updating document name and targets of an association. GetAutomationExecution API can return FailureDetails as an optional field to the StepExecution Object, which contains failure type, failure stage as well as other failure related information for a failed step.
 
 ### SDK Enhancements
-* `aws/session`: SDK should be able to load multiple custom shared config files. [#1258](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1258)
+* `aws/session`: SDK should be able to load multiple custom shared config files. [#1258](https://github.com/unicloud-uos/uos-sdk-go/issues/1258)
   * This change adds a `SharedConfigFiles` field to the `session.Options` type that allows you to specify the files, and their order, the SDK will use for loading shared configuration and credentials from when the `Session` is created. Use the `NewSessionWithOptions` Session constructor to specify these options. You'll also most likely want to enable support for the shared configuration file's additional attributes by setting `session.Option`'s `SharedConfigState` to `session.SharedConfigEnabled`. 
 
 Release v1.8.22 (2017-05-11)
@@ -5252,7 +5252,7 @@ SDK Bug Fixes
 ---
 * `private/protocol/xml/xmlutil`: Fixes xml marshaler to unmarshal properly
 into tagged fields 
-[#916](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/916)
+[#916](https://github.com/unicloud-uos/uos-sdk-go/issues/916)
 
 Release v1.5.9 (2016-11-22)
 ===
@@ -5410,7 +5410,7 @@ Service Model Updates
 
 SDK Features
 ---
-* `service/s3`: Add support for accelerate with dualstack [#887](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/887)
+* `service/s3`: Add support for accelerate with dualstack [#887](https://github.com/unicloud-uos/uos-sdk-go/issues/887)
 
 Release v1.4.16 (2016-10-13)
 ===
@@ -5424,15 +5424,15 @@ Service Model Updates
 
 SDK Bug Fixes
 ---
-* `aws/session`: Skip shared config on read errors [#883](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/883)
-* `aws/signer/v4`: Add support for URL.EscapedPath to signer [#885](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/885)
+* `aws/session`: Skip shared config on read errors [#883](https://github.com/unicloud-uos/uos-sdk-go/issues/883)
+* `aws/signer/v4`: Add support for URL.EscapedPath to signer [#885](https://github.com/unicloud-uos/uos-sdk-go/issues/885)
 
 SDK Features
 ---
-* `private/model/api`: Add docs for errors to API operations [#881](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/881)
-* `private/model/api`: Improve field and waiter doc strings [#879](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/879)
-* `service/dynamodb/dynamodbattribute`: Allow multiple struct tag elements [#886](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/886)
-* Add build tags to internal SDK tools [#880](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/880)
+* `private/model/api`: Add docs for errors to API operations [#881](https://github.com/unicloud-uos/uos-sdk-go/issues/881)
+* `private/model/api`: Improve field and waiter doc strings [#879](https://github.com/unicloud-uos/uos-sdk-go/issues/879)
+* `service/dynamodb/dynamodbattribute`: Allow multiple struct tag elements [#886](https://github.com/unicloud-uos/uos-sdk-go/issues/886)
+* Add build tags to internal SDK tools [#880](https://github.com/unicloud-uos/uos-sdk-go/issues/880)
 
 Release v1.4.15 (2016-10-06)
 ===
@@ -5447,12 +5447,12 @@ Service Model Updates
 
 SDK Bug Fixes
 ---
-* `aws/request`: Fix HTTP Request Body race condition [#874](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/874)
+* `aws/request`: Fix HTTP Request Body race condition [#874](https://github.com/unicloud-uos/uos-sdk-go/issues/874)
 
 SDK Feature Updates
 ---
-* `aws/ec2metadata`: Add support for EC2 User Data [#872](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/872)
-* `aws/signer/v4`: Remove logic determining if request needs to be resigned [#876](https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/876)
+* `aws/ec2metadata`: Add support for EC2 User Data [#872](https://github.com/unicloud-uos/uos-sdk-go/issues/872)
+* `aws/signer/v4`: Remove logic determining if request needs to be resigned [#876](https://github.com/unicloud-uos/uos-sdk-go/issues/876)
 
 Release v1.4.14 (2016-09-29)
 ===

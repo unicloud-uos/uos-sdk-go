@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"sort"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/dynamodb"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/service/dynamodb"
 )
 
 // expressionType specifies the type of Expression. Declaring this type is used

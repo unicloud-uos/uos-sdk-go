@@ -1,7 +1,7 @@
 package defaults
 
 import (
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/internal/shareddefaults"
+	"github.com/unicloud-uos/uos-sdk-go/internal/shareddefaults"
 )
 
 // SharedCredentialsFilename returns the SDK's default file path

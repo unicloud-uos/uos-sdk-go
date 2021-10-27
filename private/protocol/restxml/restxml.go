@@ -9,11 +9,11 @@ import (
 	"bytes"
 	"encoding/xml"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/query"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/rest"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/xml/xmlutil"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/query"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/rest"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/xml/xmlutil"
 )
 
 // BuildHandler is a named request handler for building restxml protocol requests

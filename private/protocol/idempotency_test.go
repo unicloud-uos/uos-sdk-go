@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol"
 )
 
 func TestCanSetIdempotencyToken(t *testing.T) {

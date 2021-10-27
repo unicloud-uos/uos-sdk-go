@@ -7,13 +7,13 @@ import (
 	"encoding/json"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/json/jsonutil"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/jsonrpc"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/dynamodb"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/dynamodb/dynamodbattribute"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/json/jsonutil"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/jsonrpc"
+	"github.com/unicloud-uos/uos-sdk-go/service/dynamodb"
+	"github.com/unicloud-uos/uos-sdk-go/service/dynamodb/dynamodbattribute"
 )
 
 func BenchmarkJSONRPCBuild_Simple_dynamodbPutItem(b *testing.B) {

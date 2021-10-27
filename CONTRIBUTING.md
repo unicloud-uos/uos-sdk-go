@@ -119,9 +119,9 @@ You can see all release changes in the `CHANGELOG.md` file at the root of the
 repository. The release notes added to this file will contain service client
 updates, and major SDK changes.
 
-[issues]: https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues
-[pr]: https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/pulls
+[issues]: https://github.com/unicloud-uos/uos-sdk-go/issues
+[pr]: https://github.com/unicloud-uos/uos-sdk-go/pulls
 [license]: http://aws.amazon.com/apache2.0/
 [cla]: http://en.wikipedia.org/wiki/Contributor_License_Agreement
-[releasenotes]: https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/releases
+[releasenotes]: https://github.com/unicloud-uos/uos-sdk-go/releases
 

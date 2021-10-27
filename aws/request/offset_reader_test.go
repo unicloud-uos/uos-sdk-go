@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/internal/sdkio"
+	"github.com/unicloud-uos/uos-sdk-go/internal/sdkio"
 )
 
 func TestOffsetReaderRead(t *testing.T) {

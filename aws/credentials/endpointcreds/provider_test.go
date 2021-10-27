@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/credentials/endpointcreds"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting/unit"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/credentials/endpointcreds"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting/unit"
 )
 
 func TestRetrieveRefreshableCredentials(t *testing.T) {

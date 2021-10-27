@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/json/jsonutil"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/json/jsonutil"
 )
 
 func S(s string) *string {

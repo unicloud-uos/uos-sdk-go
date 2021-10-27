@@ -4,7 +4,7 @@ import (
 	"io"
 	"sync"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/internal/sdkio"
+	"github.com/unicloud-uos/uos-sdk-go/internal/sdkio"
 )
 
 // offsetReader is a thread-safe io.ReadCloser to prevent racing

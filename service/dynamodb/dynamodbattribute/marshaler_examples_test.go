@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"reflect"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/dynamodb"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/dynamodb/dynamodbattribute"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/service/dynamodb"
+	"github.com/unicloud-uos/uos-sdk-go/service/dynamodb/dynamodbattribute"
 )
 
 func ExampleMarshal() {

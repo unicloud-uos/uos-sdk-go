@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"os"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/endpoints"
+	"github.com/unicloud-uos/uos-sdk-go/aws/endpoints"
 )
 
 // Demostrates how the SDK's endpoints can be enumerated over to discover

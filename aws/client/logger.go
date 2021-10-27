@@ -7,8 +7,8 @@ import (
 	"io/ioutil"
 	"net/http/httputil"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
 )
 
 const logReqMsg = `DEBUG: Request %s/%s Details:

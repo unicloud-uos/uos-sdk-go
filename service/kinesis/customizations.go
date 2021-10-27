@@ -3,7 +3,7 @@ package kinesis
 import (
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
 )
 
 var readDuration = 5 * time.Second

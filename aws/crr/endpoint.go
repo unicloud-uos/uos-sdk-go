@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
 )
 
 // Endpoint represents an endpoint used in endpoint discovery.

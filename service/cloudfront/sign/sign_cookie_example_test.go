@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting/mock"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting/mock"
 )
 
 func examplePEMReader() io.Reader {

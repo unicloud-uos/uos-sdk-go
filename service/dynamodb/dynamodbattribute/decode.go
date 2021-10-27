@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/dynamodb"
+	"github.com/unicloud-uos/uos-sdk-go/service/dynamodb"
 )
 
 // An Unmarshaler is an interface to provide custom unmarshaling of

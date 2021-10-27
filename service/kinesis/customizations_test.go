@@ -6,10 +6,10 @@ import (
 	"testing"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting/unit"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting/unit"
 )
 
 type testReader struct {
@@ -26,7 +26,7 @@ func (r *testReader) Close() error {
 }
 
 // GetRecords will hang unexpectedly during reads.
-// See https://gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/issues/1141
+// See https://github.com/unicloud-uos/uos-sdk-go/issues/1141
 func TestKinesisGetRecordsCustomization(t *testing.T) {
 	readDuration = time.Millisecond
 	retryCount := 0

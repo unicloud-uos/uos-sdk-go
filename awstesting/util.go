@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/util"
+	"github.com/unicloud-uos/uos-sdk-go/private/util"
 )
 
 // ZeroReader is a io.Reader which will always write zeros to the byte slice provided.

@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/cloudfront/sign"
+	"github.com/unicloud-uos/uos-sdk-go/service/cloudfront/sign"
 )
 
 // Makes a request for object using CloudFront cookie signing, and outputs

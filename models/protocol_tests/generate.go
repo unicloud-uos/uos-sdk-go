@@ -16,8 +16,8 @@ import (
 	"strings"
 	"text/template"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/model/api"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/util"
+	"github.com/unicloud-uos/uos-sdk-go/private/model/api"
+	"github.com/unicloud-uos/uos-sdk-go/private/util"
 )
 
 // TestSuiteTypeInput input test
@@ -119,11 +119,11 @@ var extraImports = []string{
 	"reflect",
 	"net/url",
 	"",
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting",
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting/unit",
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol",
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/xml/xmlutil",
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/util",
+	"github.com/unicloud-uos/uos-sdk-go/awstesting",
+	"github.com/unicloud-uos/uos-sdk-go/awstesting/unit",
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol",
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/xml/xmlutil",
+	"github.com/unicloud-uos/uos-sdk-go/private/util",
 }
 
 func addImports(code string) string {

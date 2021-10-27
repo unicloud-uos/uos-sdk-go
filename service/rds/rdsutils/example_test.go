@@ -15,9 +15,9 @@ import (
 
 	"github.com/go-sql-driver/mysql"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/credentials/stscreds"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/session"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/rds/rdsutils"
+	"github.com/unicloud-uos/uos-sdk-go/aws/credentials/stscreds"
+	"github.com/unicloud-uos/uos-sdk-go/aws/session"
+	"github.com/unicloud-uos/uos-sdk-go/service/rds/rdsutils"
 )
 
 // ExampleConnectionStringBuilder contains usage of assuming a role and using

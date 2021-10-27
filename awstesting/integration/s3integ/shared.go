@@ -5,8 +5,8 @@ package s3integ
 import (
 	"fmt"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting/integration"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/s3"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting/integration"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
 )
 
 // BucketPrefix is the root prefix of integration test buckets.

@@ -11,7 +11,7 @@ import (
 	"fmt"
 	"os"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/endpoints"
+	"github.com/unicloud-uos/uos-sdk-go/aws/endpoints"
 )
 
 // Generates the endpoints from json description

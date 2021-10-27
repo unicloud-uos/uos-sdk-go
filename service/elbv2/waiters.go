@@ -5,8 +5,8 @@ package elbv2
 import (
 	"time"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
 )
 
 // WaitUntilLoadBalancerAvailable uses the Elastic Load Balancing v2 API operation

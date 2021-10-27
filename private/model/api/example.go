@@ -11,7 +11,7 @@ import (
 	"strings"
 	"text/template"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/util"
+	"github.com/unicloud-uos/uos-sdk-go/private/util"
 )
 
 type Examples map[string][]Example

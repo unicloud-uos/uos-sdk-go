@@ -1,11 +1,11 @@
 FROM ubuntu:12.04
 FROM golang:1.10
 
-ADD . /go/src/gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git
+ADD . /go/src/github.com/unicloud-uos/uos-sdk-go
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		vim \
 	&& rm -rf /var/list/apt/lists/*
 
-WORKDIR /go/src/gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git
+WORKDIR /go/src/github.com/unicloud-uos/uos-sdk-go
 CMD ["make", "unit"]

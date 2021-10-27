@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/glacier"
+	"github.com/unicloud-uos/uos-sdk-go/service/glacier"
 )
 
 func ExampleComputeHashes() {

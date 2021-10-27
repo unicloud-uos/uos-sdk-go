@@ -5,11 +5,11 @@ package iotdataplane_test
 import (
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting/integration"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/iot"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/iotdataplane"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting/integration"
+	"github.com/unicloud-uos/uos-sdk-go/service/iot"
+	"github.com/unicloud-uos/uos-sdk-go/service/iotdataplane"
 )
 
 func TestInteg_DescribeEndpoint(t *testing.T) {

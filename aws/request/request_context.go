@@ -2,7 +2,7 @@
 
 package request
 
-import "gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
+import "github.com/unicloud-uos/uos-sdk-go/aws"
 
 // setContext updates the Request to use the passed in context for cancellation.
 // Context will also be used for request retry delay.

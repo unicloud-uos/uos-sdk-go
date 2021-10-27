@@ -1,5 +1,5 @@
 {
-	"ImportPath": "gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awsmigrate/awsmigrate-renamer",
+	"ImportPath": "github.com/unicloud-uos/uos-sdk-go/awsmigrate/awsmigrate-renamer",
 	"GoVersion": "go1.6",
 	"GodepVersion": "v60",
 	"Deps": [

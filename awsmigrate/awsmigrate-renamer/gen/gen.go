@@ -12,7 +12,7 @@ import (
 	"strings"
 	"text/template"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/model/api"
+	"github.com/unicloud-uos/uos-sdk-go/private/model/api"
 )
 
 type pkg struct {
@@ -85,11 +85,11 @@ var renamedPackages = map[string]*packageRenames{
 `
 
 func (p *pkg) buildRenames() {
-	pkgName := "gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/" + p.oldAPI.PackageName()
+	pkgName := "github.com/unicloud-uos/uos-sdk-go/service/" + p.oldAPI.PackageName()
 	if exportMap[pkgName] == nil {
 		exportMap[pkgName] = &packageRenames{map[string]string{}, map[string]string{}, map[string]string{}}
 	}
-	ifacename := "gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/" + p.oldAPI.PackageName() + "/" +
+	ifacename := "github.com/unicloud-uos/uos-sdk-go/service/" + p.oldAPI.PackageName() + "/" +
 		p.oldAPI.InterfacePackageName()
 	if exportMap[ifacename] == nil {
 		exportMap[ifacename] = &packageRenames{map[string]string{}, map[string]string{}, map[string]string{}}

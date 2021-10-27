@@ -10,10 +10,10 @@ import (
 	"os"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting/integration"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/s3control"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/sts"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting/integration"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3control"
+	"github.com/unicloud-uos/uos-sdk-go/service/sts"
 )
 
 var (

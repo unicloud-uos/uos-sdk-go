@@ -10,7 +10,7 @@ import (
 	"hash/crc32"
 	"io"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
 )
 
 // Decoder provides decoding of an Event Stream messages.

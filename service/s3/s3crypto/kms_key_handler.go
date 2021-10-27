@@ -1,10 +1,10 @@
 package s3crypto
 
 import (
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/kms"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/kms/kmsiface"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/service/kms"
+	"github.com/unicloud-uos/uos-sdk-go/service/kms/kmsiface"
 )
 
 const (

@@ -9,10 +9,10 @@
 package wafregionaliface
 
 import (
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/waf"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/wafregional"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/service/waf"
+	"github.com/unicloud-uos/uos-sdk-go/service/wafregional"
 )
 
 // WAFRegionalAPI provides an interface to enable mocking the

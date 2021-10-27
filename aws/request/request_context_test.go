@@ -5,9 +5,9 @@ import (
 	"strings"
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/corehandlers"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting"
+	"github.com/unicloud-uos/uos-sdk-go/aws/corehandlers"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting"
 )
 
 func TestRequest_SetContext(t *testing.T) {

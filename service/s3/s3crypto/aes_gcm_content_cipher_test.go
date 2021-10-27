@@ -3,7 +3,7 @@ package s3crypto_test
 import (
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/s3/s3crypto"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3/s3crypto"
 )
 
 func TestAESGCMContentCipherBuilder(t *testing.T) {

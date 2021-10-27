@@ -4,7 +4,7 @@ import (
 	"crypto/sha256"
 	"io"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/internal/sdkio"
+	"github.com/unicloud-uos/uos-sdk-go/internal/sdkio"
 )
 
 const bufsize = 1024 * 1024

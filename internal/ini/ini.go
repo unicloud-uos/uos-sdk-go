@@ -4,7 +4,7 @@ import (
 	"io"
 	"os"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awserr"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awserr"
 )
 
 // OpenFile takes a path to a given file, and will open  and parse

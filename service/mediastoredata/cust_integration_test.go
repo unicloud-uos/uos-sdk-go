@@ -5,10 +5,10 @@ package mediastoredata_test
 import (
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/awstesting/integration"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/mediastore"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/service/mediastoredata"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/awstesting/integration"
+	"github.com/unicloud-uos/uos-sdk-go/service/mediastore"
+	"github.com/unicloud-uos/uos-sdk-go/service/mediastoredata"
 )
 
 func TestInteg_DescribeEndpoint(t *testing.T) {

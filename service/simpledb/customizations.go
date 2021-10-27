@@ -1,6 +1,6 @@
 package simpledb
 
-import "gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/client"
+import "github.com/unicloud-uos/uos-sdk-go/aws/client"
 
 func init() {
 	initClient = func(c *client.Client) {

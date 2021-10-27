@@ -15,7 +15,7 @@ import (
 )
 
 // SDKImportRoot is the root import path of the SDK.
-const SDKImportRoot = "gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git"
+const SDKImportRoot = "github.com/unicloud-uos/uos-sdk-go"
 
 // An API defines a service API's definition. and logic to serialize the definition.
 type API struct {

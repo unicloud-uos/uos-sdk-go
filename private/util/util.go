@@ -10,7 +10,7 @@ import (
 	"regexp"
 	"strings"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/protocol/xml/xmlutil"
+	"github.com/unicloud-uos/uos-sdk-go/private/protocol/xml/xmlutil"
 )
 
 // GoFmt returns the Go formated string of the input.

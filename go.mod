@@ -1,4 +1,4 @@
-module gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git
+module github.com/unicloud-uos/uos-sdk-go
 
 require (
 	github.com/go-sql-driver/mysql v1.4.1

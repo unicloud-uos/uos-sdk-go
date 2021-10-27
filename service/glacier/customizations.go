@@ -4,8 +4,8 @@ import (
 	"encoding/hex"
 	"reflect"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/awsutil"
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/aws/request"
+	"github.com/unicloud-uos/uos-sdk-go/aws/awsutil"
+	"github.com/unicloud-uos/uos-sdk-go/aws/request"
 )
 
 var (

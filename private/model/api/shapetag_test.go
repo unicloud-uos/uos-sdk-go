@@ -5,7 +5,7 @@ package api_test
 import (
 	"testing"
 
-	"gitlab.rd.unicloud.com/Storage-oss-service/uos-sdk-go.git/private/model/api"
+	"github.com/unicloud-uos/uos-sdk-go/private/model/api"
 )
 
 func TestShapeTagJoin(t *testing.T) {
